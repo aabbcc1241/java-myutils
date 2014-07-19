@@ -28,12 +28,12 @@ public class CanvasShellTest extends CanvasShell {
 	protected void myRender() {
 		for (int y = 0; y < HEIGHT; y++)
 			for (int x = 0; x < WIDTH; x++) {
-				double r = 1.0 * -x / WIDTH ;
+				double r = -1.0 * x / WIDTH ;
 				double g = 1.0 * y / HEIGHT;
 				double b = 1.0 * (x + y) / (WIDTH + HEIGHT);
-				r*=tickCount;
-				g*=tickCount;
-				b*=tickCount;
+				r+=tickCount;
+				g+=tickCount;
+				b+=tickCount;
 				//System.out.println("r:" + r + ", g:" + g + ", b:" + b);
 				pixels[x + y * WIDTH] = (int) Colors.get(r, g, b);
 				// pixels[x + y * WIDTH] = Colors.get(1,1,1);

@@ -12,7 +12,7 @@ public class Main {
 		int height = 600;
 		int scale = 3;
 		String title = "my title";
-		double nsPerTick = 1e9D / 10D;
+		double nsPerTick = 1e9D / 100D;
 		double nsPerRender = 1e9D / 60D;
 		CanvasShellTest cs = new CanvasShellTest(width, height, scale, title, nsPerTick,
 				nsPerRender);

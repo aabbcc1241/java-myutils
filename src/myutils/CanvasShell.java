@@ -27,8 +27,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected Graphics graphics;
 	protected BufferStrategy bufferStrategy;
 	protected BufferedImage image;
-	protected int[] screen;
-	protected int[][] world;
+	protected int[] screen;	
 	protected int xOffset = 0;
 	protected int yOffset = 0;
 	protected int x, y, xPos, yPos;
@@ -57,8 +56,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		frame.setVisible(true);
 
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		screen = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-		world = new int[WIDTH][HEIGHT];
+		screen = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();		
 
 		createBufferStrategy(3);
 		bufferStrategy = getBufferStrategy();
@@ -124,21 +122,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected void render() {		
 		myRender();
 
-		for (y = 0; y < HEIGHT; y++)
-			for (x = 0; x < WIDTH; x++) {				
-				xPos = x + xOffset;
-				yPos = y + yOffset;		
-				System.out.println();
-				System.out.println(world.length);
-				System.out.println(world[0].length);
-				System.out.println(xPos);
-				System.out.println(yPos);
-				if (((xPos >= 0) && (xPos < WIDTH)) && ((yPos >= 0) && (yOffset < HEIGHT)))
-					screen[x + y * WIDTH] =world[xPos][yPos];
-				else
-					screen[x + y * WIDTH] = background;
-			}
-
+		
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		bufferStrategy.show();		
 	}

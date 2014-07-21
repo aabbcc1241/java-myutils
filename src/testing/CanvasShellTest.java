@@ -17,7 +17,7 @@ public class CanvasShellTest extends CanvasShell {
 	@Override
 	protected void init() {		
 		setBackground(Color.BLACK);
-		world[WIDTH/2][HEIGHT/2]=Colors.get(1,0,0);		
+		screen[WIDTH/2+HEIGHT/2*WIDTH]=Colors.get(1,0,0);		
 	}
 
 	@Override

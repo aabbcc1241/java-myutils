@@ -27,9 +27,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected Graphics graphics;
 	protected BufferStrategy bufferStrategy;
 	protected BufferedImage image;
-	protected int[] pixels;
-	protected int xOffset = 0;
-	protected int yOffset = 0;
+	protected Pixels screen;
 	protected int x, y, xPos, yPos;
 
 	protected KeyHandler keyHandler;
@@ -56,7 +54,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		frame.setVisible(true);
 
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
 
 		createBufferStrategy(3);
 		bufferStrategy = getBufferStrategy();
@@ -106,16 +104,16 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
 	private void defaultKeyHandling() {
 		if (keyHandler.up.pressed) {
-			yOffset--;
+			screen.yOffset++;
 		}
 		if (keyHandler.down.pressed) {
-			yOffset++;
+			screen.yOffset--;
 		}
 		if (keyHandler.left.pressed) {
-			xOffset--;
+			screen.xOffset++;
 		}
 		if (keyHandler.right.pressed) {
-			xOffset++;
+			screen.xOffset--;
 		}
 	}
 
@@ -130,11 +128,6 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		System.out.println(ticks + " TPS, " + renders + "FPS");
 		myDebugInfo();
 		ticks = renders = 0;
-	}
-	
-	protected void clear(int c){
-		for(int i=0;i<pixels.length;i++)
-			pixels[i]=c;
 	}
 
 	protected abstract void init();

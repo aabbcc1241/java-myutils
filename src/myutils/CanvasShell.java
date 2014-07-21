@@ -21,15 +21,21 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected int WIDTH, HEIGHT, SCALE;
 	protected String TITLE;
 	protected double nsPerTick, nsPerRender;
+	protected int background = Colors.get(0, 0, 0);
 
 	protected JFrame frame;
 	protected Graphics graphics;
 	protected BufferStrategy bufferStrategy;
 	protected BufferedImage image;
-	protected int[] pixels;
+	protected int[] screen;
+	protected int[][] world;
+	protected int xOffset = 0;
+	protected int yOffset = 0;
+	protected int x, y, xPos, yPos;
 
-	public CanvasShell(int width, int height, int scale, String title, double nsPerTick,
-			double nsPerRender) {
+	protected KeyHandler keyHandler;
+
+	public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
 		WIDTH = width / scale;
 		HEIGHT = height / scale;
 		SCALE = scale;
@@ -51,11 +57,14 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		frame.setVisible(true);
 
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		screen = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+		world = new int[WIDTH][HEIGHT];
 
 		createBufferStrategy(3);
 		bufferStrategy = getBufferStrategy();
 		graphics = bufferStrategy.getDrawGraphics();
+
+		keyHandler = new KeyHandler(this);
 	}
 
 	@Override
@@ -67,12 +76,12 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		double deltaTick = 0;
 		double deltaRender = 0;
 		boolean shouldRender = false;
-		while (running) {
+		while (running) {			
 			current = System.nanoTime();
 			deltaTick += (current - last) / nsPerTick;
 			deltaRender += (current - last) / nsPerRender;
 			last = current;
-			if (deltaTick > 1) {
+			if (deltaTick > 1) {				
 				tick();
 				ticks++;
 				deltaTick -= 1;
@@ -91,21 +100,53 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		}
 	}
 
-	protected void tick() {
+	protected void tick() {		
 		tickCount++;
-		myTick();
+		defaultKeyHandling();
+		myTick();		
 	}
 
-	protected void render() {
+	private void defaultKeyHandling() {
+		if (keyHandler.up.pressed) {
+			yOffset--;
+		}
+		if (keyHandler.down.pressed) {
+			yOffset++;
+		}
+		if (keyHandler.left.pressed) {
+			xOffset--;
+		}
+		if (keyHandler.right.pressed) {
+			xOffset++;
+		}
+	}
+
+	protected void render() {		
 		myRender();
+
+		for (y = 0; y < HEIGHT; y++)
+			for (x = 0; x < WIDTH; x++) {				
+				xPos = x + xOffset;
+				yPos = y + yOffset;		
+				System.out.println();
+				System.out.println(world.length);
+				System.out.println(world[0].length);
+				System.out.println(xPos);
+				System.out.println(yPos);
+				if (((xPos >= 0) && (xPos < WIDTH)) && ((yPos >= 0) && (yOffset < HEIGHT)))
+					screen[x + y * WIDTH] =world[xPos][yPos];
+				else
+					screen[x + y * WIDTH] = background;
+			}
+
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		bufferStrategy.show();
+		bufferStrategy.show();		
 	}
 
 	protected void debugInfo() {
 		System.out.println(ticks + " TPS, " + renders + "FPS");
-		ticks = renders = 0;
 		myDebugInfo();
+		ticks = renders = 0;
 	}
 
 	protected abstract void init();

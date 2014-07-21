@@ -15,18 +15,19 @@ public class CanvasShellTest extends CanvasShell {
 	}
 
 	@Override
-	protected void init() {
+	protected void init() {		
 		setBackground(Color.BLACK);
+		world[WIDTH/2][HEIGHT/2]=Colors.get(1,0,0);		
 	}
 
 	@Override
 	protected void myTick() {
-
+		
 	}
 
 	@Override
 	protected void myRender() {
-		for (int y = 0; y < HEIGHT; y++)
+		/*for (int y = 0; y < HEIGHT; y++)
 			for (int x = 0; x < WIDTH; x++) {
 				double r = -1.0 * x / WIDTH ;
 				double g = 1.0 * y / HEIGHT;
@@ -37,12 +38,12 @@ public class CanvasShellTest extends CanvasShell {
 				//System.out.println("r:" + r + ", g:" + g + ", b:" + b);
 				pixels[x + y * WIDTH] = (int) Colors.get(r, g, b);
 				// pixels[x + y * WIDTH] = Colors.get(1,1,1);
-			}
+			}*/
 	}
 
 	@Override
 	protected void myDebugInfo() {
-
+				
 	}
 
 }

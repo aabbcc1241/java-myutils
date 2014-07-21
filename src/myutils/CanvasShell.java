@@ -27,7 +27,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected Graphics graphics;
 	protected BufferStrategy bufferStrategy;
 	protected BufferedImage image;
-	protected int[] screen;	
+	protected int[] pixels;
 	protected int xOffset = 0;
 	protected int yOffset = 0;
 	protected int x, y, xPos, yPos;
@@ -56,7 +56,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		frame.setVisible(true);
 
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		screen = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();		
+		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 		createBufferStrategy(3);
 		bufferStrategy = getBufferStrategy();
@@ -74,12 +74,12 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		double deltaTick = 0;
 		double deltaRender = 0;
 		boolean shouldRender = false;
-		while (running) {			
+		while (running) {
 			current = System.nanoTime();
 			deltaTick += (current - last) / nsPerTick;
 			deltaRender += (current - last) / nsPerRender;
 			last = current;
-			if (deltaTick > 1) {				
+			if (deltaTick > 1) {
 				tick();
 				ticks++;
 				deltaTick -= 1;
@@ -98,10 +98,10 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		}
 	}
 
-	protected void tick() {		
+	protected void tick() {
 		tickCount++;
 		defaultKeyHandling();
-		myTick();		
+		myTick();
 	}
 
 	private void defaultKeyHandling() {
@@ -119,12 +119,11 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		}
 	}
 
-	protected void render() {		
+	protected void render() {
 		myRender();
 
-		
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		bufferStrategy.show();		
+		bufferStrategy.show();
 	}
 
 	protected void debugInfo() {

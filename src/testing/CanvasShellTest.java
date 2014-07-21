@@ -17,12 +17,12 @@ public class CanvasShellTest extends CanvasShell {
 	@Override
 	protected void init() {		
 		setBackground(Color.BLACK);
-		screen[WIDTH/2+HEIGHT/2*WIDTH]=Colors.get(1,0,0);		
+		//pixels[WIDTH/2+HEIGHT/2*WIDTH]=Colors.get(1,0,0);		
 	}
 
 	@Override
 	protected void myTick() {
-		
+		pixels[WIDTH/2+xOffset+(HEIGHT/2+yOffset)*WIDTH]=Colors.get(1,0,0);
 	}
 
 	@Override

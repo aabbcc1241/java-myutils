@@ -131,6 +131,11 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		myDebugInfo();
 		ticks = renders = 0;
 	}
+	
+	protected void clear(int c){
+		for(int i=0;i<pixels.length;i++)
+			pixels[i]=c;
+	}
 
 	protected abstract void init();
 

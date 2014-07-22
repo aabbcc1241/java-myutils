@@ -31,6 +31,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected int x, y, xPos, yPos;
 
 	protected KeyHandler keyHandler;
+	protected MouseHandler mouseHandler;
 
 	public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
 		WIDTH = width / scale;
@@ -54,13 +55,14 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		frame.setVisible(true);
 
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData());
+		screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData(), WIDTH, HEIGHT);
 
 		createBufferStrategy(3);
 		bufferStrategy = getBufferStrategy();
 		graphics = bufferStrategy.getDrawGraphics();
 
 		keyHandler = new KeyHandler(this);
+		mouseHandler = new MouseHandler(this);
 	}
 
 	@Override
@@ -99,21 +101,42 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	protected void tick() {
 		tickCount++;
 		defaultKeyHandling();
+		defaultMouseHandling();
 		myTick();
 	}
 
 	private void defaultKeyHandling() {
 		if (keyHandler.up.pressed) {
-			screen.yOffset++;
+			screen.scrollUp();
 		}
 		if (keyHandler.down.pressed) {
-			screen.yOffset--;
+			screen.scrollUpDown();
 		}
 		if (keyHandler.left.pressed) {
-			screen.xOffset++;
+			screen.scrollUpLeft();
 		}
 		if (keyHandler.right.pressed) {
-			screen.xOffset--;
+			screen.scrollUpRight();
+		}
+		if (keyHandler.pageup.pressed) {
+			screen.zoom(1);
+		}
+		if (keyHandler.pagedown.pressed) {
+			screen.zoom(-1);
+		}
+		if (keyHandler.equal.pressed) {
+			screen.reset();
+		}
+	}
+
+	private void defaultMouseHandling() {
+		if(mouseHandler.left.clicked){
+			screen.setOffset(mouseHandler.left.x-getWidth()/2,mouseHandler.left.y-getHeight()/2);
+			mouseHandler.left.clicked=false;
+		}
+		if (mouseHandler.amountScrolled != 0) {
+			screen.zoom(mouseHandler.amountScrolled);
+			mouseHandler.amountScrolled = 0;
 		}
 	}
 

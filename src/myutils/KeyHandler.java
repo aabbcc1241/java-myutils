@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+	public Key esc = new Key();
 	public Key up = new Key();
 	public Key down = new Key();
 	public Key left = new Key();
@@ -59,6 +60,9 @@ public class KeyHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_EQUALS:
 			equal.toggle(isPressed);
+			break;
+		case KeyEvent.VK_ESCAPE:
+			esc.toggle(isPressed);
 			break;
 		default:
 			System.out.println("new keyCode" + keyCode);

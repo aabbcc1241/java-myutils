@@ -32,6 +32,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
 	protected KeyHandler keyHandler;
 	protected MouseHandler mouseHandler;
+	protected Vector2D mouseLocation;
 
 	public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
 		WIDTH = width / scale;
@@ -62,6 +63,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 		graphics = bufferStrategy.getDrawGraphics();
 
 		keyHandler = new KeyHandler(this);
+		mouseLocation=new Vector2D(WIDTH/2,HEIGHT/2);
 		mouseHandler = new MouseHandler(this);
 	}
 
@@ -96,6 +98,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 				debugTimer += 1000;
 			}
 		}
+		System.exit(0);
 	}
 
 	protected void tick() {
@@ -106,6 +109,9 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	}
 
 	private void defaultKeyHandling() {
+		if(keyHandler.esc.pressed){
+			stop();
+		}
 		if (keyHandler.up.pressed) {
 			screen.scrollUp();
 		}
@@ -130,9 +136,9 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 	}
 
 	private void defaultMouseHandling() {
-		if(mouseHandler.left.clicked){
-			screen.setOffset(mouseHandler.left.x-getWidth()/2,mouseHandler.left.y-getHeight()/2);
-			mouseHandler.left.clicked=false;
+		if(mouseHandler.right.clicked){
+			screen.setOffset(mouseHandler.right.x,mouseHandler.right.y);
+			mouseHandler.right.clicked=false;
 		}
 		if (mouseHandler.amountScrolled != 0) {
 			screen.zoom(mouseHandler.amountScrolled);
@@ -169,7 +175,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
 	public void stop() {
 		System.out.println("CanvasShell stop");
-		running = false;
+		running = false;		
 	}
 
 }

@@ -22,7 +22,7 @@ public class CanvasShellTest extends CanvasShell {
 
 	@Override
 	protected void myTick() {
-		pixels[WIDTH/2+xOffset+(HEIGHT/2+yOffset)*WIDTH]=Colors.get(1,0,0);
+		screen.add(WIDTH/2+screen.xOffset,(HEIGHT/2+screen.yOffset)*WIDTH,Colors.get(1,0,0));
 	}
 
 	@Override
@@ -44,6 +44,18 @@ public class CanvasShellTest extends CanvasShell {
 	@Override
 	protected void myDebugInfo() {
 				
+	}
+
+	@Override
+	protected void myKeyHandling() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void myMouseHandling() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

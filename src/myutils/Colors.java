@@ -2,7 +2,7 @@ package myutils;
 
 public class Colors {
 
-	public static int get(double d) {
+	private static int get(double d) {
 		return (int) Math.round(d*255)&255;
 	}
 

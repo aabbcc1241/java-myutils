@@ -36,13 +36,14 @@ public class Vector2D {
 	}
 
 	public void setMagnitude(float d) {
-		if (getMagnitude() == 0) {
+		float m = getMagnitude();
+		if (m == 0) {
 			setRandom();
 			x *= d;
 			y *= d;
 			return;
 		}
-		float r = 1f / getMagnitude() * d;
+		float r = 1f / m * d;
 		x *= r;
 		y *= r;
 	}
@@ -63,12 +64,12 @@ public class Vector2D {
 		return result;
 	}
 
-	public void plus(Vector2D pv) {
+	public void add(Vector2D pv) {
 		x += pv.x;
 		y += pv.y;
 	}
 
-	public void minus(Vector2D pv) {
+	public void subtract(Vector2D pv) {
 		x -= pv.x;
 		y -= pv.y;
 	}
@@ -83,12 +84,38 @@ public class Vector2D {
 		y *= r;
 	}
 
+	public void divide(Vector2D pv) {
+		x /= pv.x;
+		y /= pv.y;
+	}
+
+	public void divide(float r) {
+		x /= r;
+		y /= r;
+	}
+
 	public static Vector2D add(Vector2D p1, Vector2D p2) {
 		return new Vector2D(p1.x + p2.x, p1.y + p2.y);
 	}
 
 	public static Vector2D subtract(Vector2D p1, Vector2D p2) {
 		return new Vector2D(p1.x - p2.x, p1.y - p2.y);
+	}
+
+	public static Vector2D multiply(Vector2D p1, Vector2D p2) {
+		return new Vector2D(p1.x * p2.x, p1.y * p2.y);
+	}
+
+	public static Vector2D multiply(Vector2D p1, float r) {
+		return new Vector2D(p1.x * r, p1.y * r);
+	}
+
+	public static Vector2D divide(Vector2D p1, Vector2D p2) {
+		return new Vector2D(p1.x / p2.x, p1.y / p2.y);
+	}
+
+	public static Vector2D divide(Vector2D p1, float r) {
+		return new Vector2D(p1.x / r, p1.y / r);
 	}
 
 	public static double Distance(Vector2D v1, Vector2D v2) {

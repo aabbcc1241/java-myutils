@@ -12,18 +12,11 @@ public class Pixels {
 		resetOffsetScale();
 	}
 
-	public void add(Vector2D l, int color) {
-		int ix = (int) Math.round((l.x + -xOffset) * scale + canvasShell.cx);
-		int iy = (int) Math.round((l.y - yOffset) * scale + canvasShell.cy);
-		if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
-			pixels[ix + iy * canvasShell.WIDTH] = color;
-	}
-	
-	public void add(float x, float y, int color) {
-		int ix = (int) Math.round((x + -xOffset) * scale + canvasShell.cx);
-		int iy = (int) Math.round((y - yOffset) * scale + canvasShell.cy);
-		if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
-			pixels[ix + iy * canvasShell.WIDTH] = color;
+	public void add(Vector2D l, int i) {
+		int x = (int) Math.round((l.x + -xOffset) * scale + canvasShell.cx);
+		int y = (int) Math.round((l.y - yOffset) * scale + canvasShell.cy);
+		if (inside(x, y, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
+			pixels[x + y * canvasShell.WIDTH] = i;
 	}
 
 	public void clear(int c) {

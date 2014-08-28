@@ -12,11 +12,18 @@ public class Pixels {
 		resetOffsetScale();
 	}
 
-	public void add(Vector2D l, int i) {
-		int x = (int) Math.round((l.x + -xOffset) * scale + canvasShell.cx);
-		int y = (int) Math.round((l.y - yOffset) * scale + canvasShell.cy);
-		if (inside(x, y, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
-			pixels[x + y * canvasShell.WIDTH] = i;
+	public void add(Vector2D l, int color) {
+		int ix = (int) Math.round((l.x + -xOffset) * scale + canvasShell.cx);
+		int iy = (int) Math.round((l.y - yOffset) * scale + canvasShell.cy);
+		if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
+			pixels[ix + iy * canvasShell.WIDTH] = color;
+	}
+
+	public void add(float x, float y, int color) {
+		int ix = (int) Math.round((x + -xOffset) * scale + canvasShell.cx);
+		int iy = (int) Math.round((y - yOffset) * scale + canvasShell.cy);
+		if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
+			pixels[ix + iy * canvasShell.WIDTH] = color;
 	}
 
 	public void clear(int c) {
@@ -51,14 +58,24 @@ public class Pixels {
 		yOffset = locationRelative.y;// * Math.PI;// scale;//Math.PI;
 	}
 
-	public void convertOnScreen(Vector2D v, int x, int y) {
+	public void convertOnScreenScaled(Vector2D v, int x, int y) {
 		v.x = x / scale - canvasShell.cx;
 		v.y = y / scale - canvasShell.cy;
 	}
 
-	public void convertRelative(Vector2D v, int x, int y) {
+	public void convertRelativeScaled(Vector2D v, int x, int y) {
 		v.x = (x - canvasShell.cx) / scale + xOffset;
 		v.y = (y - canvasShell.cy) / scale + yOffset;
+	}
+
+	public void convertOnScreenAbsolute(Vector2D v, int x, int y) {
+		v.x = x - canvasShell.cx;
+		v.y = y - canvasShell.cy;
+	}
+
+	public void convertRelativeAbsolute(Vector2D v, int x, int y) {
+		v.x = x / canvasShell.SCALE - canvasShell.cx + xOffset;
+		v.y = y / canvasShell.SCALE - canvasShell.cy + yOffset;
 	}
 
 }

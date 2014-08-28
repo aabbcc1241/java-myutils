@@ -169,7 +169,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
 	private void defaultMouseHandling() {
 		if (mouseHandler.right.clicked) {
-			screen.setOffset(mouseHandler.right.locationRelative);
+			screen.setOffset(mouseHandler.right.locationRelativeScaled);
 			mouseHandler.right.clicked = false;
 		}
 		if (mouseHandler.amountScrolled != 0) {

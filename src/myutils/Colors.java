@@ -7,6 +7,18 @@ public class Colors {
 		public RGB() {
 			r = g = b = 0;
 		}
+
+		public void add(RGB rgb) {
+			r += rgb.r;
+			g += rgb.g;
+			b += rgb.b;
+		}
+
+		public void subtract(RGB rgb) {
+			r -= rgb.r;
+			g -= rgb.g;
+			b -= rgb.b;
+		}
 	}
 
 	private static int get(double d) {
@@ -24,8 +36,9 @@ public class Colors {
 		rgbCode.g = (rawCode >> 8) & 0xFF;
 		rgbCode.b = rawCode & 0xFF;
 	}
+
 	public static RGB decode(int rawCode) {
-		RGB rgbCode=new RGB();
+		RGB rgbCode = new RGB();
 		rgbCode.r = (rawCode >> 16) & 0xFF;
 		rgbCode.g = (rawCode >> 8) & 0xFF;
 		rgbCode.b = rawCode & 0xFF;

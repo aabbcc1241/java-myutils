@@ -1,5 +1,7 @@
 package testing;
 
+import core.CanvasShellTest;
+
 public class Main {
 
 	/**

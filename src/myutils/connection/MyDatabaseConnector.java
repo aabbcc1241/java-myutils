@@ -169,4 +169,13 @@ public class MyDatabaseConnector {
 			resultSets.add(executeQuery(preparedStatement));
 		return resultSets;
 	}
+
+	/** debug method **/
+	public static void printSQLException(SQLException e) {
+		System.out.println();
+		System.out.println("SQLException ErrorCode: " + e.getErrorCode());
+		System.out.println("SQLException SQLState: " + e.getSQLState());
+		System.out.println("SQLException Message: " + e.getMessage());
+		e.printStackTrace();
+	}
 }

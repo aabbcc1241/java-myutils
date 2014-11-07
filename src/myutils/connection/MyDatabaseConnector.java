@@ -52,6 +52,7 @@ public class MyDatabaseConnector {
 	}
 
 	public void commit() throws SQLException {
+		checkConnection();
 		connection.commit();
 	}
 
@@ -70,6 +71,7 @@ public class MyDatabaseConnector {
 
 	public static PreparedStatement getPreparedStatementFromSQLFile(String filename)
 			throws IOException, SQLException {
+		checkConnection();
 		return connection.prepareStatement(Utils.readFileAsString(filename));
 	}
 
@@ -105,6 +107,7 @@ public class MyDatabaseConnector {
 
 	public static boolean executeSQLFile(String filename) throws IOException,
 			SQLException {
+		checkConnection();
 		String sqlQuery = Utils.readFileAsString(filename);
 		return execute(sqlQuery);
 	}

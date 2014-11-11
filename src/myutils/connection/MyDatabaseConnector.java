@@ -37,12 +37,12 @@ public class MyDatabaseConnector {
 	public static void connect() throws SQLException {
 		if (portForwardingThread == null) {
 			portForwardingThread = new MyPortForwardingThread(
-					MySecureInfo.getMySSHInfoForm(),
-					MySecureInfo.getMyPortforwardInfoForm());
+					MySecureInfo.getMySSHInfo(),
+					MySecureInfo.getMyPortforwardInfo());
 			portForwardingThread.start();
 		}
 		if (connection == null) {
-			MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfoForm();
+			MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
 			connection = DriverManager.getConnection(
 					mySqlServerInfoForm.getUrlWithoutDB(),
 					mySqlServerInfoForm.getMysqlusername(),

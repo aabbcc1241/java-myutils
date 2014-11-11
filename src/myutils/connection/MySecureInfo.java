@@ -14,32 +14,45 @@ public class MySecureInfo {
 	private static final int portforwardRemotePort = 3306;
 	private static final String mysqlProtocol = "jdbc:mariadb";// jdbc:mysql
 	private static final String mysqlHost = "localhost";
-	private static final int mysqlPort = portforwardLocalPort;
-	private static final String mysqlUsername = "beeno";
-	private static final String mysqlPassword = "wpc1415";
-	private static final String mysqlDatabasename = "beeno";
+	private static int mysqlPort = portforwardLocalPort;
+	private static String mysqlUsername = "beeno";
+	private static String mysqlPassword = "wpc1415";
+	private static String mysqlDatabasename = "beeno";
 
 	// local server
-	// private static final int mysqlPort = 3306;
-	// private static final String mysqlUsername = "root";
-	// private static final String mysqlPassword = "mysqlB(10v2TC";
-	// private static final String mysqlDatabasename = "nndb"; // wholesaler
+	// private static int mysqlPort = 3306;
+	// private static String mysqlUsername = "root";
+	// private static String mysqlPassword = "mysqlB(10v2TC";
+	// private static String mysqlDatabasename = "beeno"; // wholesaler
 
 	/**
 	 * @return my secure info @
 	 */
-	public static MySSHInfo getMySSHInfoForm() {
+	public static MySSHInfo getMySSHInfo() {
 		return new MySSHInfo(sshHost, sshUsername, sshPassword);
 	}
 
-	public static MyPortforwardInfo getMyPortforwardInfoForm() {
+	public static MyPortforwardInfo getMyPortforwardInfo() {
 		return new MyPortforwardInfo(portforwardLocalPort, portforwardRemoteHost,
 				portforwardRemotePort);
 	}
 
-	public static MySqlServerInfo getMySqlServerInfoForm() {
+	public static MySqlServerInfo getMySqlServerInfo() {
 		return new MySqlServerInfo(mysqlProtocol, mysqlHost, mysqlPort,
 				mysqlDatabasename, mysqlUsername, mysqlPassword);
 	}
 
+	public static void switchToLocal() {
+		mysqlPort = 3306;
+		mysqlUsername = "root";
+		mysqlPassword = "mysqlB(10v2TC";
+		mysqlDatabasename = "beeno"; // wholesaler
+	}
+
+	public static void switchToSSH() {
+		mysqlPort = portforwardLocalPort;
+		mysqlUsername = "beeno";
+		mysqlPassword = "wpc1415";
+		mysqlDatabasename = "beeno";
+	}
 }

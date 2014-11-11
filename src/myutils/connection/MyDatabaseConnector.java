@@ -1,6 +1,7 @@
 package myutils.connection;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import myutils.FileUtils;
+import myutils.Utils;
 
 /**
  * @author beenotung
@@ -69,7 +71,9 @@ public class MyDatabaseConnector {
 	public static PreparedStatement getPreparedStatementFromSQLFile(String filename)
 			throws IOException, SQLException {
 		checkConnection();
-		return connection.prepareStatement(FileUtils.readFileAsString(filename));
+		String string = Utils.StringListToString(FileUtils.readFile(Paths.get(filename)),
+				" ");
+		return connection.prepareStatement(string);
 	}
 
 	/**
@@ -105,7 +109,8 @@ public class MyDatabaseConnector {
 	public static boolean executeSQLFile(String filename) throws IOException,
 			SQLException {
 		checkConnection();
-		String sqlQuery = FileUtils.readFileAsString(filename);
+		String sqlQuery = Utils.StringListToString(
+				FileUtils.readFile(Paths.get(filename)), " ");
 		return execute(sqlQuery);
 	}
 

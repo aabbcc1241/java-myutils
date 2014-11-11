@@ -1,5 +1,6 @@
 package myutils;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -19,6 +20,13 @@ public class Utils {
 			result.set(i, result.get(t));
 			result.set(t, tmp);
 		}
+		return result;
+	}
+
+	public static String StringListToString(List<String> lines, String symbol) {
+		String result = "";
+		for (String line : lines)
+			result += line + symbol;
 		return result;
 	}
 }

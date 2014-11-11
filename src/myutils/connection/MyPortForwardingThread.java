@@ -3,6 +3,7 @@ package myutils.connection;
 import javax.swing.JOptionPane;
 
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
@@ -43,25 +44,21 @@ public class MyPortForwardingThread implements Runnable {
 		this.rport = myPortforwardInfoForm.getRemotePort();
 	}
 
-	private void connect() {
-		try {
-			JSch jsch = new JSch();
-			Session session = jsch.getSession(user, host, 22);
+	private void connect() throws JSchException {
+		JSch jsch = new JSch();
+		Session session = jsch.getSession(user, host, 22);
 
-			// username and password will be given via UserInfo interface.
-			UserInfo ui = new MyUserInfo(password);
+		// username and password will be given via UserInfo interface.
+		UserInfo ui = new MyUserInfo(password);
 
-			session.setUserInfo(ui);
+		session.setUserInfo(ui);
 
-			session.connect();
+		session.connect();
 
-			// Channel channel=session.openChannel("shell");
-			// channel.connect();
+		// Channel channel=session.openChannel("shell");
+		// channel.connect();
 
-			assinged_port = session.setPortForwardingL(lport, rhost, rport);
-		} catch (Exception e) {
-			// TODO [beenotung] Throw Exception when SSH tunneling failed
-		}
+		assinged_port = session.setPortForwardingL(lport, rhost, rport);
 	}
 
 	private static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
@@ -112,7 +109,13 @@ public class MyPortForwardingThread implements Runnable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
-		connect();
+		try {
+			connect();
+		} catch (JSchException e) {
+			// TODO [beenotung] Throw Exception when SSH tunneling failed
+			System.out.println("failed to tunnel ssh");
+			e.printStackTrace();
+		}
 		while (alive) {
 			try {
 				thread.sleep(1000);

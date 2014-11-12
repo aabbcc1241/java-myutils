@@ -1,4 +1,6 @@
-package myutils;
+package myutils.gui;
+
+import myutils.Vector2D;
 
 public class Pixels {
 	protected int[] pixels;

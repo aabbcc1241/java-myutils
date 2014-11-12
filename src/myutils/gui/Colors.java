@@ -1,4 +1,4 @@
-package myutils;
+package myutils.gui;
 
 public class Colors {
 	public static class RGB {

@@ -1,4 +1,4 @@
-package myutils;
+package myutils.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;

@@ -1,4 +1,4 @@
-package myutils;
+package myutils.gui;
 
 public class Key {
 	public boolean pressed = false;

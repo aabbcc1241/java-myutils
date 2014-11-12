@@ -24,8 +24,8 @@ public class MyPortForwardingThread implements Runnable {
 	private Thread thread;
 	private boolean alive = false;
 
-	public MyPortForwardingThread(String host, String user, String password,
-			int lport, String rhost, int rport) {
+	public MyPortForwardingThread(String host, String user, String password, int lport,
+			String rhost, int rport) {
 		this.host = host;
 		this.user = user;
 		this.password = password;
@@ -112,8 +112,8 @@ public class MyPortForwardingThread implements Runnable {
 		try {
 			connect();
 		} catch (JSchException e) {
-			// TODO [beenotung] Throw Exception when SSH tunneling failed
 			System.out.println("failed to tunnel ssh");
+			System.out.println(e.toString());
 			e.printStackTrace();
 		}
 		while (alive) {

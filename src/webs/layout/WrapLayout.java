@@ -1,4 +1,4 @@
-package webs;
+package webs.layout;
 
 import java.awt.*;
 

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class MySecureInfo {
 
 	// digit ocean server
+	public static boolean needPortForwarding = true;
 	private static String sshHost = "128.199.172.14";
 	private static String sshUsername = "beeno";
 	private static String sshPassword = "wpc1415";
@@ -36,25 +37,28 @@ public class MySecureInfo {
 	}
 
 	public static MyPortforwardInfo getMyPortforwardInfo() {
-		return new MyPortforwardInfo(portforwardLocalPort,
-				portforwardRemoteHost, portforwardRemotePort);
+		return new MyPortforwardInfo(portforwardLocalPort, portforwardRemoteHost, portforwardRemotePort);
 	}
 
 	public static MySqlServerInfo getMySqlServerInfo() {
-		return new MySqlServerInfo(mysqlProtocol, mysqlHost, mysqlPort,
-				mysqlDatabasename, mysqlUsername, mysqlPassword);
+		return new MySqlServerInfo(mysqlProtocol, mysqlHost, mysqlPort, mysqlDatabasename, mysqlUsername,
+				mysqlPassword);
 	}
 
 	public static void switchToLocal() throws SQLException {
+		needPortForwarding = false;
 		MyDatabaseConnector.disconnect();
 		mysqlProtocol = "jdbc:mysql";
 		mysqlPort = 3306;
-		mysqlUsername = "beeno";
-		mysqlPassword = "Asd770cc8";
+		// mysqlUsername = "beeno";
+		// mysqlPassword = "Asd770cc8";
+		mysqlUsername = "root";
+		mysqlPassword = "mysqlB(10v2TC";
 		mysqlDatabasename = "beeno"; // wholesaler
 	}
 
 	public static void switchToSSH() throws SQLException {
+		needPortForwarding = true;
 		MyDatabaseConnector.disconnect();
 		mysqlProtocol = "jdbc:mariadb";
 		mysqlPort = portforwardLocalPort;

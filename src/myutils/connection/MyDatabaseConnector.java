@@ -6,10 +6,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import javax.sql.rowset.CachedRowSet;
+import javax.swing.table.DefaultTableModel;
+
+import com.sun.rowset.CachedRowSetImpl;
 
 import myutils.FileUtils;
 import myutils.Utils;
@@ -35,19 +41,15 @@ public class MyDatabaseConnector {
 	}
 
 	public static void connect() throws SQLException {
-		if (portForwardingThread == null) {
-			portForwardingThread = new MyPortForwardingThread(
-					MySecureInfo.getMySSHInfo(),
+		if ((portForwardingThread == null) && (MySecureInfo.needPortForwarding)) {
+			portForwardingThread = new MyPortForwardingThread(MySecureInfo.getMySSHInfo(),
 					MySecureInfo.getMyPortforwardInfo());
 			portForwardingThread.start();
 		}
 		if (connection == null) {
-			MySqlServerInfo mySqlServerInfoForm = MySecureInfo
-					.getMySqlServerInfo();
-			connection = DriverManager.getConnection(
-					mySqlServerInfoForm.getUrlWithoutDB(),
-					mySqlServerInfoForm.getMysqlusername(),
-					mySqlServerInfoForm.getMysqlpassword());
+			MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
+			connection = DriverManager.getConnection(mySqlServerInfoForm.getUrlWithoutDB(),
+					mySqlServerInfoForm.getMysqlusername(), mySqlServerInfoForm.getMysqlpassword());
 		}
 	}
 
@@ -70,17 +72,15 @@ public class MyDatabaseConnector {
 		return connection;
 	}
 
-	public static PreparedStatement getPreparedStatement(String sql)
-			throws SQLException {
+	public static PreparedStatement getPreparedStatement(String sql) throws SQLException {
 		checkConnection();
 		return connection.prepareStatement(sql);
 	}
 
-	public static PreparedStatement getPreparedStatementFromSQLFile(
-			String filename) throws IOException, SQLException {
+	public static PreparedStatement getPreparedStatementFromSQLFile(String filename) throws IOException,
+			SQLException {
 		checkConnection();
-		String string = Utils.StringListToString(
-				FileUtils.readFile(Paths.get(filename)), " ");
+		String string = Utils.StringListToString(FileUtils.readFile(Paths.get(filename)), " ");
 		return connection.prepareStatement(string);
 	}
 
@@ -102,23 +102,19 @@ public class MyDatabaseConnector {
 		return connection.createStatement().execute(sqlQuery);
 	}
 
-	public static int executeUpdate(PreparedStatement preparedStatement)
-			throws SQLException {
+	public static int executeUpdate(PreparedStatement preparedStatement) throws SQLException {
 		checkConnection();
 		return preparedStatement.executeUpdate();
 	}
 
-	public static ResultSet executeQuery(PreparedStatement preparedStatement)
-			throws SQLException {
+	public static ResultSet executeQuery(PreparedStatement preparedStatement) throws SQLException {
 		checkConnection();
 		return preparedStatement.executeQuery();
 	}
 
-	public static boolean executeSQLFile(String filename) throws IOException,
-			SQLException {
+	public static boolean executeSQLFile(String filename) throws IOException, SQLException {
 		checkConnection();
-		String sqlQuery = Utils.StringListToString(
-				FileUtils.readFile(Paths.get(filename)), " ");
+		String sqlQuery = Utils.StringListToString(FileUtils.readFile(Paths.get(filename)), " ");
 		return execute(sqlQuery);
 	}
 
@@ -127,8 +123,7 @@ public class MyDatabaseConnector {
 	 *
 	 * @throws ProcessingException
 	 **/
-	public static int[] executeBatch(ArrayList<String> sqlQuerys)
-			throws SQLException {
+	public static int[] executeBatch(ArrayList<String> sqlQuerys) throws SQLException {
 		checkConnection();
 		Statement statement = connection.createStatement();
 		for (String sqlQuery : sqlQuerys) {
@@ -137,8 +132,7 @@ public class MyDatabaseConnector {
 		return statement.executeBatch();
 	}
 
-	public static Vector<ResultSet> executeQuery_Strings(
-			Vector<String> sqlQuerys) throws SQLException {
+	public static Vector<ResultSet> executeQuery_Strings(Vector<String> sqlQuerys) throws SQLException {
 		checkConnection();
 		Vector<ResultSet> resultSets = new Vector<ResultSet>();
 		for (String sqlQuery : sqlQuerys)
@@ -146,8 +140,7 @@ public class MyDatabaseConnector {
 		return resultSets;
 	}
 
-	public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys)
-			throws SQLException {
+	public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys) throws SQLException {
 		checkConnection();
 		Vector<Integer> sqlStatuss = new Vector<Integer>();
 		for (String sqlQuery : sqlQuerys)
@@ -155,8 +148,7 @@ public class MyDatabaseConnector {
 		return sqlStatuss;
 	}
 
-	public static Vector<Boolean> execute(Vector<String> sqlQuerys)
-			throws SQLException {
+	public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
 		checkConnection();
 		Vector<Boolean> hasResultSets = new Vector<Boolean>();
 		for (String sqlQuery : sqlQuerys)
@@ -189,5 +181,42 @@ public class MyDatabaseConnector {
 		System.out.println("SQLException SQLState: " + e.getSQLState());
 		System.out.println("SQLException Message: " + e.getMessage());
 		e.printStackTrace();
+	}
+
+	public static DefaultTableModel getTableModel(ResultSet resultSet) throws SQLException {
+		DefaultTableModel model = new DefaultTableModel(0, 0);
+		String[] titles = new String[resultSet.getMetaData().getColumnCount()];
+		for (int i = 0; i < titles.length; i++)
+			titles[i] = resultSet.getMetaData().getColumnLabel(i + 1);
+		model.setColumnIdentifiers(titles);
+		while (resultSet.next()) {
+			Object[] rowData = new Object[titles.length];
+			for (int i = 0; i < rowData.length; i++)
+				rowData[i] = resultSet.getObject(i + 1);
+			model.addRow(rowData);
+		}
+		return model;
+	}
+
+	public static void resetTableModel(DefaultTableModel model, ResultSet resultSet) throws SQLException {
+		String[] titles = new String[resultSet.getMetaData().getColumnCount()];
+		for (int i = 0; i < titles.length; i++)
+			titles[i] = resultSet.getMetaData().getColumnLabel(i + 1);
+		model.setColumnIdentifiers(titles);
+		while (resultSet.next()) {
+			Object[] rowData = new Object[titles.length];
+			for (int i = 0; i < rowData.length; i++)
+				rowData[i] = resultSet.getObject(i + 1);
+			model.addRow(rowData);
+		}
+	}
+
+	public static void addToTableModel(DefaultTableModel model, ResultSet resultSet) throws SQLException {
+		while (resultSet.next()) {
+			Object[] rowData = new Object[resultSet.getMetaData().getColumnCount()];
+			for (int i = 0; i < rowData.length; i++)
+				rowData[i] = resultSet.getObject(i + 1);
+			model.addRow(rowData);
+		}
 	}
 }

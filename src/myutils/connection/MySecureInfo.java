@@ -1,5 +1,7 @@
 package myutils.connection;
 
+import java.sql.SQLException;
+
 /**
  * @author beenotung
  */
@@ -34,8 +36,8 @@ public class MySecureInfo {
 	}
 
 	public static MyPortforwardInfo getMyPortforwardInfo() {
-		return new MyPortforwardInfo(portforwardLocalPort, portforwardRemoteHost,
-				portforwardRemotePort);
+		return new MyPortforwardInfo(portforwardLocalPort,
+				portforwardRemoteHost, portforwardRemotePort);
 	}
 
 	public static MySqlServerInfo getMySqlServerInfo() {
@@ -43,15 +45,17 @@ public class MySecureInfo {
 				mysqlDatabasename, mysqlUsername, mysqlPassword);
 	}
 
-	public static void switchToLocal() {
+	public static void switchToLocal() throws SQLException {
+		MyDatabaseConnector.disconnect();
 		mysqlProtocol = "jdbc:mysql";
 		mysqlPort = 3306;
-		mysqlUsername = "root";
-		mysqlPassword = "mysqlB(10v2TC";
+		mysqlUsername = "beeno";
+		mysqlPassword = "Asd770cc8";
 		mysqlDatabasename = "beeno"; // wholesaler
 	}
 
-	public static void switchToSSH() {
+	public static void switchToSSH() throws SQLException {
+		MyDatabaseConnector.disconnect();
 		mysqlProtocol = "jdbc:mariadb";
 		mysqlPort = portforwardLocalPort;
 		mysqlUsername = "beeno";

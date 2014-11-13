@@ -42,7 +42,8 @@ public class MyDatabaseConnector {
 			portForwardingThread.start();
 		}
 		if (connection == null) {
-			MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
+			MySqlServerInfo mySqlServerInfoForm = MySecureInfo
+					.getMySqlServerInfo();
 			connection = DriverManager.getConnection(
 					mySqlServerInfoForm.getUrlWithoutDB(),
 					mySqlServerInfoForm.getMysqlusername(),
@@ -50,9 +51,15 @@ public class MyDatabaseConnector {
 		}
 	}
 
-	public void commit() throws SQLException {
+	public static void commit() throws SQLException {
 		checkConnection();
 		connection.commit();
+	}
+
+	public static void disconnect() throws SQLException {
+		if (connection != null)
+			connection.close();
+		connection = null;
 	}
 
 	/**
@@ -63,16 +70,17 @@ public class MyDatabaseConnector {
 		return connection;
 	}
 
-	public static PreparedStatement getPreparedStatement(String sql) throws SQLException {
+	public static PreparedStatement getPreparedStatement(String sql)
+			throws SQLException {
 		checkConnection();
 		return connection.prepareStatement(sql);
 	}
 
-	public static PreparedStatement getPreparedStatementFromSQLFile(String filename)
-			throws IOException, SQLException {
+	public static PreparedStatement getPreparedStatementFromSQLFile(
+			String filename) throws IOException, SQLException {
 		checkConnection();
-		String string = Utils.StringListToString(FileUtils.readFile(Paths.get(filename)),
-				" ");
+		String string = Utils.StringListToString(
+				FileUtils.readFile(Paths.get(filename)), " ");
 		return connection.prepareStatement(string);
 	}
 
@@ -119,7 +127,8 @@ public class MyDatabaseConnector {
 	 *
 	 * @throws ProcessingException
 	 **/
-	public static int[] executeBatch(ArrayList<String> sqlQuerys) throws SQLException {
+	public static int[] executeBatch(ArrayList<String> sqlQuerys)
+			throws SQLException {
 		checkConnection();
 		Statement statement = connection.createStatement();
 		for (String sqlQuery : sqlQuerys) {
@@ -128,8 +137,8 @@ public class MyDatabaseConnector {
 		return statement.executeBatch();
 	}
 
-	public static Vector<ResultSet> executeQuery_Strings(Vector<String> sqlQuerys)
-			throws SQLException {
+	public static Vector<ResultSet> executeQuery_Strings(
+			Vector<String> sqlQuerys) throws SQLException {
 		checkConnection();
 		Vector<ResultSet> resultSets = new Vector<ResultSet>();
 		for (String sqlQuery : sqlQuerys)
@@ -146,7 +155,8 @@ public class MyDatabaseConnector {
 		return sqlStatuss;
 	}
 
-	public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
+	public static Vector<Boolean> execute(Vector<String> sqlQuerys)
+			throws SQLException {
 		checkConnection();
 		Vector<Boolean> hasResultSets = new Vector<Boolean>();
 		for (String sqlQuery : sqlQuerys)

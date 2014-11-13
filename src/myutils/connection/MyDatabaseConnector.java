@@ -6,16 +6,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.sql.rowset.CachedRowSet;
 import javax.swing.table.DefaultTableModel;
-
-import com.sun.rowset.CachedRowSetImpl;
 
 import myutils.FileUtils;
 import myutils.Utils;
@@ -203,6 +199,8 @@ public class MyDatabaseConnector {
 		for (int i = 0; i < titles.length; i++)
 			titles[i] = resultSet.getMetaData().getColumnLabel(i + 1);
 		model.setColumnIdentifiers(titles);
+		while (model.getRowCount() > 0)
+			model.removeRow(0);
 		while (resultSet.next()) {
 			Object[] rowData = new Object[titles.length];
 			for (int i = 0; i < rowData.length; i++)

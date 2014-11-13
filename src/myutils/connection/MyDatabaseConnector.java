@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import myutils.FileUtils;
 import myutils.Utils;
+import myutils.gui.NonEditableTableModel;
 
 /**
  * @author beenotung
@@ -192,6 +193,21 @@ public class MyDatabaseConnector {
 			model.addRow(rowData);
 		}
 		return model;
+	}
+
+	public static void resetTableModel(NonEditableTableModel model, ResultSet resultSet) throws SQLException {
+		String[] titles = new String[resultSet.getMetaData().getColumnCount()];
+		for (int i = 0; i < titles.length; i++)
+			titles[i] = resultSet.getMetaData().getColumnLabel(i + 1);
+		model.setColumnIdentifiers(titles);
+		while (model.getRowCount() > 0)
+			model.removeRow(0);
+		while (resultSet.next()) {
+			Object[] rowData = new Object[titles.length];
+			for (int i = 0; i < rowData.length; i++)
+				rowData[i] = resultSet.getObject(i + 1);
+			model.addRow(rowData);
+		}
 	}
 
 	public static void resetTableModel(DefaultTableModel model, ResultSet resultSet) throws SQLException {

@@ -21,12 +21,8 @@ package webs.layout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Insets;
 import java.awt.LayoutManager;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  * @version 1.32 2007-06-12
@@ -36,7 +32,6 @@ import javax.swing.JFrame;
 /**
  * A frame that shows buttons arranged along a circle.
  */
-
 
 /**
  * A layout manager that lays out components along a circle.

@@ -1,5 +1,7 @@
 package myutils;
 
+import myutils.exception.BlankOrNullException;
+
 import com.mysql.jdbc.StringUtils;
 
 public class FormatCheck {

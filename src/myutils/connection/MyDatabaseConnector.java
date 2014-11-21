@@ -49,12 +49,6 @@ public class MyDatabaseConnector {
 					mySqlServerInfoForm.getUrlWithoutDB(),
 					mySqlServerInfoForm.getMysqlusername(),
 					mySqlServerInfoForm.getMysqlpassword());
-			/*
-			 * connection = DriverManager.getConnection(
-			 * mySqlServerInfoForm.getUrlWithDB(),
-			 * mySqlServerInfoForm.getMysqlusername(),
-			 * mySqlServerInfoForm.getMysqlpassword());
-			 */
 		}
 	}
 

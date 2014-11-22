@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 
+@SuppressWarnings({ "serial", "rawtypes", "unchecked" })
 public class JComboBoxPopup extends JComboBox {
 	private boolean showing = false;
 
@@ -32,7 +33,7 @@ public class JComboBoxPopup extends JComboBox {
 			}
 		});
 		setEditable(true);
-		//setKeySelectionManager(aManager);
+		// setKeySelectionManager(aManager);
 	}
 
 	@Override

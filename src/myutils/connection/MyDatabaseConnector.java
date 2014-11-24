@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 
 import myutils.FileUtils;
 import myutils.Utils;
-import myutils.Vector2D;
 import myutils.gui.NonEditableTableModel;
 
 /**

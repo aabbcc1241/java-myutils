@@ -6,6 +6,10 @@ import java.awt.Component;
 import javax.swing.JFrame;
 
 public abstract class AbstractCardJFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1690280875210999260L;
 	public CardLayout cardLayout;
 
 	public AbstractCardJFrame(String title) {

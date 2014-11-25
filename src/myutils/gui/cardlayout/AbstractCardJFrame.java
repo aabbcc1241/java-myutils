@@ -29,6 +29,6 @@ public abstract class AbstractCardJFrame extends JFrame {
 	}
 
 	public void switchToCard(String label) {
-		cardLayout.show(this, label);
+		cardLayout.show(getContentPane(), label);
 	}
 }

@@ -14,6 +14,6 @@ public class MyImageUtils {
 	public static Image scaleImageByHeight(Image image, int height) {
 		BufferedImage bufferedImage = (BufferedImage) image;
 		int width = (int) Math.round(bufferedImage.getWidth() * (height * 1.0 / bufferedImage.getHeight()));
-		return image.getScaledInstance(width, height, image.SCALE_SMOOTH);
+		return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	}
 }

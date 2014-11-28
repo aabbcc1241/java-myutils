@@ -246,4 +246,14 @@ public class MyDatabaseConnector {
 			model.addRow(rowData);
 		}
 	}
+	public static Vector<Object[]> resultSetToVectors(ResultSet resultSet) throws SQLException{
+		Vector<Object[]>vectors=new Vector<Object[]>();
+		while (resultSet.next()) {
+			Object[] rowData = new Object[resultSet.getMetaData().getColumnCount()];
+			for (int i = 0; i < rowData.length; i++)
+				rowData[i] = resultSet.getObject(i + 1);
+			vectors.add(rowData);
+		}
+		return vectors;
+	}
 }

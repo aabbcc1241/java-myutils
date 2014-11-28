@@ -1,5 +1,6 @@
 package myutils;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
@@ -28,5 +29,10 @@ public class Utils {
 		for (String line : lines)
 			result += line + symbol;
 		return result;
+	}
+
+	public static java.sql.Timestamp getCurrentTimestamp() {
+		return new java.sql.Timestamp(Calendar.getInstance().getTime()
+				.getTime());
 	}
 }

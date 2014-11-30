@@ -191,6 +191,7 @@ public class DividerLayout implements LayoutManager2 {
 	/**
 	 * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
 	 */
+	@SuppressWarnings("unused")
 	public void layoutContainer(Container container) {
 		Insets insets = container.getInsets();
 		Dimension westSize = new Dimension(0, 0);

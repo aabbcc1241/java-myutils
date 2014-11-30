@@ -26,6 +26,6 @@ public abstract class AbstractCardJPanel extends JPanel {
 	}
 
 	public void switchToCard(String label) {
-		cardLayout.show(this, label);
+		cardLayout.show(this, label);		
 	}
 }

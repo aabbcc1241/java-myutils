@@ -23,7 +23,7 @@ import java.awt.Rectangle;
  * Components are indicated as {@link #WEST}, {@link #EAST} and {@link #CENTER}.
  * </p>
  * 
- * @version $Name: $ - $Revision: 1.1.1.1 $ - $Date: 2005/04/07 18:36:20 $ TODO
+ * @version $Name: $ - $Revision: 1.1.1.1 $ - $Date: 2005/04/07 18:36:20 $ 
  *          Test
  */
 public class DividerLayout implements LayoutManager2 {

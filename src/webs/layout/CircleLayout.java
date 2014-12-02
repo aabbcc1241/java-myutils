@@ -36,7 +36,7 @@ import java.awt.LayoutManager;
 /**
  * A layout manager that lays out components along a circle.
  */
-class CircleLayout implements LayoutManager {
+public class CircleLayout implements LayoutManager {
 	public void addLayoutComponent(String name, Component comp) {
 	}
 

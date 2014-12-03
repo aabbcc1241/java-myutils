@@ -1,22 +1,22 @@
 package myutils.exception;
 
 public class PasswordNotMatchedException extends Exception {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public String message;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    public String message;
 
-	public PasswordNotMatchedException() {
-		message = "Password not matched please type again";
-	}
+    public PasswordNotMatchedException() {
+        message = "Password not matched please type again";
+    }
 
-	public PasswordNotMatchedException(String msg) {
-		message = msg;
-	}
+    public PasswordNotMatchedException(String msg) {
+        message = msg;
+    }
 
-	@Override
-	public String toString() {
-		return message;
-	}
+    @Override
+    public String toString() {
+        return message;
+    }
 }

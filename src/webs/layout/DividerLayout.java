@@ -214,7 +214,7 @@ public class DividerLayout implements LayoutManager2 {
             eastSize = eastComponent.getPreferredSize();
         }
         /*
-		 * int maxWidth = Math.min(westSize.width, eastSize.width); maxWidth =
+         * int maxWidth = Math.min(westSize.width, eastSize.width); maxWidth =
 		 * Math.min(maxWidth, (containerSize.width - centerBounds.width -
 		 * insets.left - insets.right) / 2);
 		 */

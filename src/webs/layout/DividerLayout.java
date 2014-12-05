@@ -203,7 +203,7 @@ public class DividerLayout implements LayoutManager2 {
             centerSize.height = Math.min(centerSize.height,
                     containerSize.height - insets.top - insets.bottom);
             centerComponent.setBounds(centerX - (centerSize.width / 2), centerY
-                    - (centerSize.height / 2), centerSize.width,
+                            - (centerSize.height / 2), centerSize.width,
                     centerSize.height);
             centerBounds = centerComponent.getBounds();
         }
@@ -221,7 +221,7 @@ public class DividerLayout implements LayoutManager2 {
         int maxWidth = (containerSize.width - centerBounds.width - insets.left - insets.right) / 2;
 
 		/*
-		 * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
+         * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
 		 * = Math.max(maxHeight, containerSize.height - insets.top -
 		 * insets.bottom);
 		 */

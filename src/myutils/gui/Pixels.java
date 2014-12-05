@@ -3,15 +3,19 @@ package myutils.gui;
 import myutils.Vector2D;
 
 public class Pixels {
-    protected int[] pixels;
-    public float scale, xOffset, yOffset;
     private final float DEFAULTZOOMRATE = 1.05f;
+    public float scale, xOffset, yOffset;
     public CanvasShell canvasShell;
+    protected int[] pixels;
 
     Pixels(int[] p, CanvasShell canvasShell) {
         this.pixels = p;
         this.canvasShell = canvasShell;
         resetOffsetScale();
+    }
+
+    public static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
+        return (x >= xMin) && (x <= xMax) && (y >= yMin) && (y <= yMax);
     }
 
     public void add(Vector2D l, int color) {
@@ -31,10 +35,6 @@ public class Pixels {
     public void clear(int c) {
         for (int i = 0; i < pixels.length; i++)
             pixels[i] = c;
-    }
-
-    public static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
-        return (x >= xMin) && (x <= xMax) && (y >= yMin) && (y <= yMax);
     }
 
     public void scrollX(int numTimesPressed) {

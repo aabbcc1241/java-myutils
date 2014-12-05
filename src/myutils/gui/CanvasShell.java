@@ -8,30 +8,26 @@ import java.awt.image.DataBufferInt;
 
 public abstract class CanvasShell extends Canvas implements Runnable {
     protected static final long serialVersionUID = 1L;
-
+    protected final double DEFAULTnsPerTick, DEFAULTnsPerRender;
+    public int WIDTH, HEIGHT, SCALE;
+    public float cx, cy;
+    public Pixels screen;
+    public KeyHandler keyHandler;
+    public MouseHandler mouseHandler;
     protected boolean running = false;
     protected long tickCount = 0;
     protected int ticks = 0;
     protected int renders = 0;
-
-    public int WIDTH, HEIGHT, SCALE;
-    public float cx, cy;
     protected String TITLE;
-    protected final double DEFAULTnsPerTick, DEFAULTnsPerRender;
     protected double nsPerTick, nsPerRender;
     protected double deltaTick = 0;
     protected double deltaRender = 0;
     protected int background = Colors.get(0, 0, 0);
-
     protected JFrame frame;
     protected Graphics graphics;
     protected BufferStrategy bufferStrategy;
     protected BufferedImage image;
-    public Pixels screen;
     protected int x, y, xPos, yPos;
-
-    public KeyHandler keyHandler;
-    public MouseHandler mouseHandler;
 
     public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;

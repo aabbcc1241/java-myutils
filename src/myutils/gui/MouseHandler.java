@@ -5,15 +5,12 @@ import java.awt.event.*;
 public class MouseHandler implements MouseListener, MouseMotionListener,
         MouseWheelListener {
 
-    CanvasShell canvasShell;
-
     public Mouse mouseMoved = new Mouse();
-
     public Mouse left = new Mouse();
     public Mouse middle = new Mouse();
     public Mouse right = new Mouse();
-
     public int amountScrolled = 0;
+    CanvasShell canvasShell;
 
     public MouseHandler(CanvasShell canvasShell) {
         this.canvasShell = canvasShell;

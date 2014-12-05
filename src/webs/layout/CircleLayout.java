@@ -33,6 +33,14 @@ import java.awt.*;
  * A layout manager that lays out components along a circle.
  */
 public class CircleLayout implements LayoutManager {
+    private int minWidth = 0;
+    private int minHeight = 0;
+    private int preferredWidth = 0;
+    private int preferredHeight = 0;
+    private boolean sizesSet = false;
+    private int maxComponentWidth = 0;
+    private int maxComponentHeight = 0;
+
     public void addLayoutComponent(String name, Component comp) {
     }
 
@@ -121,12 +129,4 @@ public class CircleLayout implements LayoutManager {
             }
         }
     }
-
-    private int minWidth = 0;
-    private int minHeight = 0;
-    private int preferredWidth = 0;
-    private int preferredHeight = 0;
-    private boolean sizesSet = false;
-    private int maxComponentWidth = 0;
-    private int maxComponentHeight = 0;
 }

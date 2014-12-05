@@ -14,8 +14,6 @@ public class MyPortForwardingThread implements Runnable {
     private int lport;
     private String rhost;
     private int rport;
-    @SuppressWarnings("unused")
-    private int assinged_port;
 
     private Thread thread;
     private boolean alive = false;
@@ -54,7 +52,39 @@ public class MyPortForwardingThread implements Runnable {
         // Channel channel=session.openChannel("shell");
         // channel.connect();
 
-        assinged_port = session.setPortForwardingL(lport, rhost, rport);
+        int assinged_port = session.setPortForwardingL(lport, rhost, rport);
+    }
+
+    /**
+     * thread staff *
+     */
+    @SuppressWarnings("static-access")
+    @Override
+    public void run() {
+        try {
+            connect();
+        } catch (JSchException e) {
+            System.out.println("failed to tunnel ssh");
+            System.out.println(e.toString());
+            e.printStackTrace();
+        }
+        while (alive) {
+            try {
+                thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+
+    public void start() {
+        if (thread == null)
+            thread = new Thread(this);
+        alive = true;
+        thread.start();
+    }
+
+    public void stop() {
+        alive = false;
     }
 
     private static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
@@ -99,38 +129,6 @@ public class MyPortForwardingThread implements Runnable {
                                                   String instruction, String[] prompt, boolean[] echo) {
             return null;
         }
-    }
-
-    /**
-     * thread staff *
-     */
-    @SuppressWarnings("static-access")
-    @Override
-    public void run() {
-        try {
-            connect();
-        } catch (JSchException e) {
-            System.out.println("failed to tunnel ssh");
-            System.out.println(e.toString());
-            e.printStackTrace();
-        }
-        while (alive) {
-            try {
-                thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-        }
-    }
-
-    public void start() {
-        if (thread == null)
-            thread = new Thread(this);
-        alive = true;
-        thread.start();
-    }
-
-    public void stop() {
-        alive = false;
     }
 
 }

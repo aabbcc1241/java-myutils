@@ -9,18 +9,19 @@ public class MySecureInfo {
 
     // digit ocean server
     public static boolean needPortForwarding = true;
-    private static String sshHost = "128.199.172.14";
-    private static String sshUsername = "beeno";
-    private static String sshPassword = "wpc1415";
-    private static int portforwardLocalPort = 1234;
-    private static String portforwardRemoteHost = "localhost";
-    private static int portforwardRemotePort = 3306;
-    private static String mysqlProtocol = "jdbc:mariadb";// jdbc:mysql
-    private static String mysqlHost = "localhost";
+    private static String sshHost;
+    private static String sshUsername;
+    private static String sshPassword;
+    private static int portforwardLocalPort;
+    private static String portforwardRemoteHost;
+    private static int portforwardRemotePort;
+    private static String mysqlProtocol;
+    private static String mysqlHost;
     private static int mysqlPort = portforwardLocalPort;
-    private static String mysqlUsername = "beeno";
-    private static String mysqlPassword = "wpc1415";
-    private static String mysqlDatabasename = "beeno";
+    private static String mysqlUsername;
+    private static String mysqlPassword;
+    private static String mysqlDatabasename;
+
 
     // local server
     // private static String mysqlProtocol = "jdbc:mysql";// jdbc:mariadb
@@ -50,6 +51,7 @@ public class MySecureInfo {
         MyDatabaseConnector.disconnect();
         mysqlProtocol = "jdbc:mysql";
         mysqlPort = 3306;
+        mysqlHost = "localhost";
         // mysqlUsername = "beeno";
         // mysqlPassword = "Asd770cc8";
         mysqlUsername = "root";
@@ -60,10 +62,18 @@ public class MySecureInfo {
     public static void switchToSSH() throws SQLException {
         needPortForwarding = true;
         MyDatabaseConnector.disconnect();
+        sshHost = "128.199.172.14";
+        sshUsername = "beeno";
+        sshPassword = "wpc1415";
+        portforwardLocalPort = 1234;
+        portforwardRemoteHost = "localhost";
+        portforwardRemotePort = 3306;
         mysqlProtocol = "jdbc:mariadb";
         mysqlPort = portforwardLocalPort;
+        mysqlHost = "localhost";
         mysqlUsername = "beeno";
         mysqlPassword = "wpc1415";
         mysqlDatabasename = "beeno";
     }
+
 }

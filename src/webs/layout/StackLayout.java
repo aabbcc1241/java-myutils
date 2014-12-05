@@ -74,6 +74,14 @@ public class StackLayout implements LayoutManager {
     }
 
     /**
+     * Returns this StackLayout's orientation, either SwingConstants.HORIZONTAL
+     * or SwingConstants.VERTICAL.
+     */
+    public int getOrientation() {
+        return ourOrientation;
+    }
+
+    /**
      * Sets this StackLayout's orientation, either SwingConstants.HORIZONTAL or
      * SwingConstants.VERTICAL.
      */
@@ -84,11 +92,11 @@ public class StackLayout implements LayoutManager {
     }
 
     /**
-     * Returns this StackLayout's orientation, either SwingConstants.HORIZONTAL
-     * or SwingConstants.VERTICAL.
+     * Returns the spacing between components that this StackLayout uses when
+     * laying out the components.
      */
-    public int getOrientation() {
-        return ourOrientation;
+    public int getSpacing() {
+        return ourSpacing;
     }
 
     /**
@@ -97,14 +105,6 @@ public class StackLayout implements LayoutManager {
      */
     public void setSpacing(int spacing) {
         ourSpacing = Math.max(0, spacing);
-    }
-
-    /**
-     * Returns the spacing between components that this StackLayout uses when
-     * laying out the components.
-     */
-    public int getSpacing() {
-        return ourSpacing;
     }
 
     /**
@@ -177,6 +177,14 @@ public class StackLayout implements LayoutManager {
     }
 
     /**
+     * Returns the percentage of a component's preferred size that it may be
+     * squeezed in order to attempt to fit all components into the layout.
+     */
+    public int getSqueezeFactor() {
+        return ourSqueezeFactor;
+    }
+
+    /**
      * Sets the percentage of a component's preferred size that it may be
      * squeezed in order to attempt to fit all components into the layout. The
      * squeeze factor will only be applied when this layout is set to match
@@ -196,14 +204,6 @@ public class StackLayout implements LayoutManager {
             ourSqueezeFactor = 100;
         else
             ourSqueezeFactor = factor;
-    }
-
-    /**
-     * Returns the percentage of a component's preferred size that it may be
-     * squeezed in order to attempt to fit all components into the layout.
-     */
-    public int getSqueezeFactor() {
-        return ourSqueezeFactor;
     }
 
     // //// LayoutManager implementation //////

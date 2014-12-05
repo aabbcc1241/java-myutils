@@ -39,9 +39,17 @@ public class Vector2D {
         y = (float) Math.sin(d);
     }
 
-    public Vector2D clone() {
-        return new Vector2D(x, y);
+    public Vector2D clone(){
+        Vector2D result;
+        try {
+            result = (Vector2D) super
+                    .clone();
+        } catch (CloneNotSupportedException e) {
+            result = new Vector2D(x, y);
+        }
+        return result;
     }
+
 
     public float getMagnitude() {
         return (float) (Math.sqrt(x * x + y * y));

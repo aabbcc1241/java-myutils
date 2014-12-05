@@ -1,5 +1,9 @@
 package myutils.gui;
 
+import myutils.Utils;
+
+import java.awt.*;
+
 public class Colors {
     private static int get(double d) {
         return (int) Math.round(d * 255) & 255;
@@ -23,6 +27,13 @@ public class Colors {
         rgbCode.g = (rawCode >> 8) & 0xFF;
         rgbCode.b = rawCode & 0xFF;
         return rgbCode;
+    }
+
+    public static Color getRandomColor() {
+        float r = Utils.random.nextFloat();
+        float g = Utils.random.nextFloat();
+        float b = Utils.random.nextFloat();
+        return new Color(r, g, b);
     }
 
     public static class RGB {

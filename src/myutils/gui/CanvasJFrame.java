@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public abstract class CanvasShell extends Canvas implements Runnable {
+public abstract class CanvasJFrame extends Canvas implements Runnable {
     protected static final long serialVersionUID = 1L;
     protected final double DEFAULTnsPerTick, DEFAULTnsPerRender;
     public int WIDTH, HEIGHT, SCALE;
@@ -29,7 +29,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
     protected BufferedImage image;
     protected int x, y, xPos, yPos;
 
-    public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
+    public CanvasJFrame(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
         HEIGHT = height / scale;
         cx = WIDTH / 2f;
@@ -176,13 +176,13 @@ public abstract class CanvasShell extends Canvas implements Runnable {
     protected abstract void myMouseHandling();
 
     public synchronized void start() {
-        System.out.println("CanvasShell start");
+        System.out.println("CanvasJFrame start");
         running = true;
         new Thread(this, TITLE + "-Thread").start();
     }
 
     public void stop() {
-        System.out.println("CanvasShell stop");
+        System.out.println("CanvasJFrame stop");
         running = false;
     }
 

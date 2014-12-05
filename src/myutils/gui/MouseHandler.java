@@ -10,13 +10,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
     public Mouse middle = new Mouse();
     public Mouse right = new Mouse();
     public int amountScrolled = 0;
-    CanvasShell canvasShell;
+    CanvasJFrame canvasJFrame;
 
-    public MouseHandler(CanvasShell canvasShell) {
-        this.canvasShell = canvasShell;
-        canvasShell.addMouseListener(this);
-        canvasShell.addMouseMotionListener(this);
-        canvasShell.addMouseWheelListener(this);
+    public MouseHandler(CanvasJFrame canvasJFrame) {
+        this.canvasJFrame = canvasJFrame;
+        canvasJFrame.addMouseListener(this);
+        canvasJFrame.addMouseMotionListener(this);
+        canvasJFrame.addMouseWheelListener(this);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseMoved.toggle(e.getX(), e.getY(), true, canvasShell.screen);
+        mouseMoved.toggle(e.getX(), e.getY(), true, canvasJFrame.screen);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
     private void toggle(int button, int x, int y, boolean isClicked) {
         switch (button) {
             case 1:
-                left.toggle(x, y, isClicked, canvasShell.screen);
+                left.toggle(x, y, isClicked, canvasJFrame.screen);
                 break;
             case 2:
-                middle.toggle(x, y, isClicked, canvasShell.screen);
+                middle.toggle(x, y, isClicked, canvasJFrame.screen);
                 break;
             case 3:
-                right.toggle(x, y, isClicked, canvasShell.screen);
+                right.toggle(x, y, isClicked, canvasJFrame.screen);
                 break;
             default:
 

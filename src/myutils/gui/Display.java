@@ -107,7 +107,7 @@ public class Display extends OutputStream {
         interval = Math.round(1000 / fps);
     }
 
-    ;
+
 
     public void clearBuffer() {
         bufferString = new StringBuilder();

@@ -26,8 +26,8 @@ public class KeyHandler implements KeyListener {
 
     public Key r = new Key();
 
-    public KeyHandler(CanvasShell canvasShell) {
-        canvasShell.addKeyListener(this);
+    public KeyHandler(CanvasJFrame canvasJFrame) {
+        canvasJFrame.addKeyListener(this);
     }
 
     @Override

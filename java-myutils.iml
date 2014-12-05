@@ -43,6 +43,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="java-myutils_lib" level="project" />
   </component>
 </module>
-

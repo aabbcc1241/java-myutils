@@ -2,17 +2,15 @@ package myutils.gui;
 
 import java.awt.event.*;
 
+@SuppressWarnings("WeakerAccess")
 public class MouseHandler implements MouseListener, MouseMotionListener,
         MouseWheelListener {
 
-    CanvasShell canvasShell;
-
-    public Mouse mouseMoved = new Mouse();
-
-    public Mouse left = new Mouse();
-    public Mouse middle = new Mouse();
-    public Mouse right = new Mouse();
-
+    public final Mouse right = new Mouse();
+    private final CanvasShell canvasShell;
+    private final Mouse mouseMoved = new Mouse();
+    private final Mouse left = new Mouse();
+    private final Mouse middle = new Mouse();
     public int amountScrolled = 0;
 
     public MouseHandler(CanvasShell canvasShell) {
@@ -57,6 +55,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
         scroll(e.getUnitsToScroll());
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void toggle(int button, int x, int y, boolean isClicked) {
         switch (button) {
             case 1:

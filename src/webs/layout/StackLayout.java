@@ -16,9 +16,9 @@ import java.awt.*;
  *
  * @author Christopher Bach
  */
-public class StackLayout implements LayoutManager {
-    public static final int HORIZONTAL = SwingConstants.HORIZONTAL;
-    public static final int VERTICAL = SwingConstants.VERTICAL;
+class StackLayout implements LayoutManager {
+    private static final int HORIZONTAL = SwingConstants.HORIZONTAL;
+    private static final int VERTICAL = SwingConstants.VERTICAL;
 
     private int ourOrientation = HORIZONTAL;
     private int ourSpacing = 0;
@@ -74,16 +74,6 @@ public class StackLayout implements LayoutManager {
     }
 
     /**
-     * Sets this StackLayout's orientation, either SwingConstants.HORIZONTAL or
-     * SwingConstants.VERTICAL.
-     */
-    public void setOrientation(int orientation) {
-        if (orientation == HORIZONTAL || orientation == VERTICAL) {
-            ourOrientation = orientation;
-        }
-    }
-
-    /**
      * Returns this StackLayout's orientation, either SwingConstants.HORIZONTAL
      * or SwingConstants.VERTICAL.
      */
@@ -92,11 +82,13 @@ public class StackLayout implements LayoutManager {
     }
 
     /**
-     * Sets the spacing between components that this StackLayout uses when
-     * laying out the components.
+     * Sets this StackLayout's orientation, either SwingConstants.HORIZONTAL or
+     * SwingConstants.VERTICAL.
      */
-    public void setSpacing(int spacing) {
-        ourSpacing = Math.max(0, spacing);
+    void setOrientation(int orientation) {
+        if (orientation == HORIZONTAL || orientation == VERTICAL) {
+            ourOrientation = orientation;
+        }
     }
 
     /**
@@ -105,6 +97,14 @@ public class StackLayout implements LayoutManager {
      */
     public int getSpacing() {
         return ourSpacing;
+    }
+
+    /**
+     * Sets the spacing between components that this StackLayout uses when
+     * laying out the components.
+     */
+    void setSpacing(int spacing) {
+        ourSpacing = Math.max(0, spacing);
     }
 
     /**
@@ -145,7 +145,7 @@ public class StackLayout implements LayoutManager {
      * height (when in a horizontal orientation) or width (when in a vertical
      * orientation). The default value is true.
      */
-    public void setMatchesComponentDepths(boolean match) {
+    void setMatchesComponentDepths(boolean match) {
         ourDepthsMatched = match;
     }
 
@@ -163,7 +163,7 @@ public class StackLayout implements LayoutManager {
      * width (when in a horizontal orientation) or height (when in a vertical
      * orientation). The default value is false.
      */
-    public void setMatchesComponentLengths(boolean match) {
+    void setMatchesComponentLengths(boolean match) {
         ourLengthsMatched = match;
     }
 
@@ -174,6 +174,14 @@ public class StackLayout implements LayoutManager {
      */
     public boolean matchesComponentLengths() {
         return ourLengthsMatched;
+    }
+
+    /**
+     * Returns the percentage of a component's preferred size that it may be
+     * squeezed in order to attempt to fit all components into the layout.
+     */
+    public int getSqueezeFactor() {
+        return ourSqueezeFactor;
     }
 
     /**
@@ -196,14 +204,6 @@ public class StackLayout implements LayoutManager {
             ourSqueezeFactor = 100;
         else
             ourSqueezeFactor = factor;
-    }
-
-    /**
-     * Returns the percentage of a component's preferred size that it may be
-     * squeezed in order to attempt to fit all components into the layout.
-     */
-    public int getSqueezeFactor() {
-        return ourSqueezeFactor;
     }
 
     // //// LayoutManager implementation //////
@@ -239,7 +239,7 @@ public class StackLayout implements LayoutManager {
      * parent's children at the specified orientation.
      */
     // public, because it's useful - not one of the LayoutManager methods
-    public Dimension preferredLayoutSize(Container parent, int orientation) {
+    Dimension preferredLayoutSize(Container parent, int orientation) {
         synchronized (parent.getTreeLock()) {
             Component[] comps = parent.getComponents();
             Dimension total = new Dimension(0, 0);

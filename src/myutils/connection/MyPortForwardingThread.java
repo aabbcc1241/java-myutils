@@ -7,27 +7,27 @@ import javax.swing.*;
 /**
  * @author beenotung
  */
-public class MyPortForwardingThread implements Runnable {
-    private String host;
-    private String user;
-    private String password;
-    private int lport;
-    private String rhost;
-    private int rport;
+class MyPortForwardingThread implements Runnable {
+    private final String host;
+    private final String user;
+    private final String password;
+    private final int localPort;
+    private final String remoteHost;
+    private final int remotePort;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private int assinged_port;
+    private int assingedPort;
 
     private Thread thread;
     private boolean alive = false;
 
     public MyPortForwardingThread(String host, String user, String password, int lport,
-                                  String rhost, int rport) {
+                                  String remoteHost, int remotePort) {
         this.host = host;
         this.user = user;
         this.password = password;
-        this.lport = lport;
-        this.rhost = rhost;
-        this.rport = rport;
+        this.localPort = lport;
+        this.remoteHost = remoteHost;
+        this.remotePort = remotePort;
     }
 
     public MyPortForwardingThread(MySSHInfo mySSHInfoForm,
@@ -35,9 +35,9 @@ public class MyPortForwardingThread implements Runnable {
         this.host = mySSHInfoForm.getHost();
         this.user = mySSHInfoForm.getUsername();
         this.password = mySSHInfoForm.getPassword();
-        this.lport = myPortforwardInfoForm.getLocalPort();
-        this.rhost = myPortforwardInfoForm.getRemoteHost();
-        this.rport = myPortforwardInfoForm.getRemotePort();
+        this.localPort = myPortforwardInfoForm.getLocalPort();
+        this.remoteHost = myPortforwardInfoForm.getRemoteHost();
+        this.remotePort = myPortforwardInfoForm.getRemotePort();
     }
 
     private void connect() throws JSchException {
@@ -54,11 +54,44 @@ public class MyPortForwardingThread implements Runnable {
         // Channel channel=session.openChannel("shell");
         // channel.connect();
 
-        assinged_port = session.setPortForwardingL(lport, rhost, rport);
+        assingedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
+    }
+
+    /**
+     * thread staff *
+     */
+    @SuppressWarnings("static-access")
+    @Override
+    public void run() {
+        try {
+            connect();
+        } catch (JSchException e) {
+            System.out.println("failed to tunnel ssh");
+            System.out.println(e.toString());
+            e.printStackTrace();
+        }
+        while (alive) {
+            //noinspection EmptyCatchBlock
+            try {
+                thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+
+    public void start() {
+        if (thread == null)
+            thread = new Thread(this);
+        alive = true;
+        thread.start();
+    }
+
+    public void stop() {
+        alive = false;
     }
 
     private static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
-        private String password;
+        private final String password;
 
         public MyUserInfo(String password) {
             this.password = password;
@@ -99,38 +132,6 @@ public class MyPortForwardingThread implements Runnable {
                                                   String instruction, String[] prompt, boolean[] echo) {
             return null;
         }
-    }
-
-    /**
-     * thread staff *
-     */
-    @SuppressWarnings("static-access")
-    @Override
-    public void run() {
-        try {
-            connect();
-        } catch (JSchException e) {
-            System.out.println("failed to tunnel ssh");
-            System.out.println(e.toString());
-            e.printStackTrace();
-        }
-        while (alive) {
-            try {
-                thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-        }
-    }
-
-    public void start() {
-        if (thread == null)
-            thread = new Thread(this);
-        alive = true;
-        thread.start();
-    }
-
-    public void stop() {
-        alive = false;
     }
 
 }

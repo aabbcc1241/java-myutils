@@ -3,16 +3,23 @@ package myutils.gui;
 import myutils.Vector2D;
 
 public class Pixels {
-    protected int[] pixels;
-    public float scale, xOffset, yOffset;
+    private final int[] pixels;
     @SuppressWarnings("FieldCanBeLocal")
     private final float DEFAULTZOOMRATE = 1.05f;
-    public CanvasShell canvasShell;
+    private final CanvasShell canvasShell;
+    private float scale;
+    private float xOffset;
+    private float yOffset;
 
     Pixels(int[] p, CanvasShell canvasShell) {
         this.pixels = p;
         this.canvasShell = canvasShell;
         resetOffsetScale();
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
+        return (x >= xMin) && (x <= xMax) && (y >= yMin) && (y <= yMax);
     }
 
     public void add(Vector2D l, int color) {
@@ -34,10 +41,6 @@ public class Pixels {
             pixels[i] = c;
     }
 
-    public static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
-        return (x >= xMin) && (x <= xMax) && (y >= yMin) && (y <= yMax);
-    }
-
     public void scrollX(int numTimesPressed) {
         xOffset += numTimesPressed / scale * Math.PI;
     }
@@ -50,7 +53,7 @@ public class Pixels {
         scale *= Math.pow(DEFAULTZOOMRATE, r);
     }
 
-    protected void resetOffsetScale() {
+    void resetOffsetScale() {
         xOffset = 0;
         yOffset = 0;
         scale = 1;

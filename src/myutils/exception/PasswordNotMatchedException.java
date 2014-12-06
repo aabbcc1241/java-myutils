@@ -1,11 +1,11 @@
 package myutils.exception;
 
-public class PasswordNotMatchedException extends Exception {
+class PasswordNotMatchedException extends Exception {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    public String message;
+    private final String message;
 
     public PasswordNotMatchedException() {
         message = "Password not matched please type again";

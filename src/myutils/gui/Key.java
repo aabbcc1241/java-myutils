@@ -2,7 +2,7 @@ package myutils.gui;
 
 public class Key {
     public boolean pressed = false;
-    public int numTimesPressed = 0;
+    private int numTimesPressed = 0;
 
     public void toggle(boolean isPressed) {
         if (pressed = isPressed)

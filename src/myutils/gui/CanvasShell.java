@@ -6,32 +6,31 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+@SuppressWarnings("CanBeFinal")
 public abstract class CanvasShell extends Canvas implements Runnable {
-    protected static final long serialVersionUID = 1L;
-
-    protected boolean running = false;
-    protected long tickCount = 0;
-    protected int ticks = 0;
-    protected int renders = 0;
-
+    private final double DEFAULTnsPerTick;
+    private final double DEFAULTnsPerRender;
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
-    protected String TITLE;
-    protected final double DEFAULTnsPerTick, DEFAULTnsPerRender;
-    protected double nsPerTick, nsPerRender;
-    protected double deltaTick = 0;
-    protected double deltaRender = 0;
-    protected int background = Colors.get(0, 0, 0);
-
-    protected JFrame frame;
-    protected Graphics graphics;
-    protected BufferStrategy bufferStrategy;
-    protected BufferedImage image;
     public Pixels screen;
+    protected int background = Colors.get(0, 0, 0);
     protected int x, y, xPos, yPos;
-
-    public KeyHandler keyHandler;
-    public MouseHandler mouseHandler;
+    private boolean running = false;
+    private long tickCount = 0;
+    private int ticks = 0;
+    private int renders = 0;
+    private String TITLE;
+    private double nsPerTick;
+    private double nsPerRender;
+    private double deltaTick = 0;
+    private double deltaRender = 0;
+    @SuppressWarnings("FieldCanBeLocal")
+    private JFrame frame;
+    private Graphics graphics;
+    private BufferStrategy bufferStrategy;
+    private BufferedImage image;
+    private KeyHandler keyHandler;
+    private MouseHandler mouseHandler;
 
     public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
@@ -103,21 +102,21 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
     protected abstract void init();
 
-    protected void tick() {
+    void tick() {
         tickCount++;
         defaultKeyHandling();
         defaultMouseHandling();
         myTick();
     }
 
-    protected void render() {
+    void render() {
         myRender();
 
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         bufferStrategy.show();
     }
 
-    protected void debugInfo() {
+    void debugInfo() {
         System.out.println(ticks + " TPS, " + renders + "FPS");
         myDebugInfo();
         ticks = renders = 0;
@@ -153,12 +152,12 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         }
         if (keyHandler.equal.pressed) {
             screen.resetOffsetScale();
-            resetnsPerTickRender();
+            resetNsPerTickRender();
         }
         myKeyHandling();
     }
 
-    protected void resetnsPerTickRender() {
+    void resetNsPerTickRender() {
         nsPerTick = DEFAULTnsPerTick;
         nsPerRender = DEFAULTnsPerRender;
     }
@@ -185,7 +184,7 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         new Thread(this, TITLE + "-Thread").start();
     }
 
-    public void stop() {
+    void stop() {
         System.out.println("CanvasShell stop");
         running = false;
     }

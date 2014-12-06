@@ -4,9 +4,9 @@ package myutils.connection;
  * @author beenotung
  */
 public class MyPortforwardInfo {
-    private int localPort;
-    private String remoteHost;
-    private int remotePort;
+    private final int localPort;
+    private final String remoteHost;
+    private final int remotePort;
 
     public MyPortforwardInfo(int localPort, String remoteHost, int remotePort) {
         this.localPort = localPort;

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 /**
  * @author beenotung
  */
-@SuppressWarnings("FieldCanBeLocal")
-public class MySecureInfo {
+@SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
+class MySecureInfo {
 
     // digit ocean server
     public static boolean needPortForwarding = true;

@@ -8,18 +8,20 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 
-public class Display extends OutputStream {
-    public JFrame frame;
-    public Container container;
-    public JTextArea textArea;
-    public StringBuilder bufferString;
-    public long interval;
-    public long lastUpdate;
+class Display extends OutputStream {
+    private final JFrame frame;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final Container container;
+    private final JTextArea textArea;
+    private StringBuilder bufferString;
+    private long interval;
+    private long lastUpdate;
 
     /**
      * constructor *
      */
-    public Display(JTextArea textArea, double interval) {
+    @SuppressWarnings("SameParameterValue")
+    private Display(JTextArea textArea, double interval) {
         this.textArea = textArea;
         this.interval = Math.round(interval / 1000);
         frame = new JFrame();
@@ -57,6 +59,7 @@ public class Display extends OutputStream {
      */
     @Override
     public void write(byte[] buffer, int offset, int length) throws IOException {
+        if (buffer == null) return;
         final String text = new String(buffer, offset, length);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -87,7 +90,7 @@ public class Display extends OutputStream {
         frame.setVisible(true);
     }
 
-    public void hide() {
+    void hide() {
         frame.setVisible(false);
     }
 
@@ -95,7 +98,7 @@ public class Display extends OutputStream {
         return frame.isVisible();
     }
 
-    public void clear() {
+    void clear() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -123,12 +126,12 @@ public class Display extends OutputStream {
         bufferString.append(str);
     }
 
-    public void update() {
+    void update() {
         textArea.update(textArea.getGraphics());
         lastUpdate = System.currentTimeMillis();
     }
 
-    public void updateBuffer() {
+    void updateBuffer() {
         textArea.setText(bufferString.toString());
         lastUpdate = System.currentTimeMillis();
     }

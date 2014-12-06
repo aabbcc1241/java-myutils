@@ -52,7 +52,8 @@ import java.io.Serializable;
  *
  * @author David Gilbert
  */
-public class CenterLayout implements LayoutManager, Serializable {
+@SuppressWarnings("ALL")
+class CenterLayout implements LayoutManager, Serializable {
 
     /**
      * For serialization.

@@ -5,7 +5,6 @@ import myutils.google.GoogleUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -33,12 +32,12 @@ public class FileUtils {
     }
 
     public static String getStringFromUrlPlain(String url)
-            throws MalformedURLException, IOException {
+            throws IOException {
         return Utils.StringListToString(FileUtils.readFile(new URL(url)), " ");
     }
 
     public static String getStringFromUrlGoogleWeb(String url)
-            throws MalformedURLException, IOException {
+            throws IOException {
         return Utils.StringListToString(
                 GoogleUtils.getContentFromGDoc(new URL(url)), " ");
     }

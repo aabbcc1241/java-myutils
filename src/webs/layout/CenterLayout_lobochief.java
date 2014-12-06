@@ -29,7 +29,15 @@ import java.awt.*;
 /**
  * @author J. H. S.
  */
+
+@SuppressWarnings("ALL")
 public class CenterLayout_lobochief implements LayoutManager {
+    private static CenterLayout_lobochief instance = new CenterLayout_lobochief();
+
+    public static CenterLayout_lobochief getInstance() {
+        return instance;
+    }
+
     public void addLayoutComponent(String arg0, Component arg1) {
     }
 
@@ -105,11 +113,5 @@ public class CenterLayout_lobochief implements LayoutManager {
             }
             child.setBounds(x, y, width, height);
         }
-    }
-
-    private static CenterLayout_lobochief instance = new CenterLayout_lobochief();
-
-    public static CenterLayout_lobochief getInstance() {
-        return instance;
     }
 }

@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class Utils {
+    @SuppressWarnings("CanBeFinal")
     public static Random random = new Random(System.currentTimeMillis());
 
     public static Vector<Object> getShuffled(Vector<Object> ori) {
@@ -24,6 +25,7 @@ public class Utils {
         return result;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static String StringListToString(List<String> lines, String symbol) {
         String result = "";
         for (String line : lines)

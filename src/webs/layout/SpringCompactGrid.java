@@ -42,7 +42,8 @@ package webs.layout;
 import javax.swing.*;
 import java.awt.*;
 
-public class SpringCompactGrid {
+@SuppressWarnings("ALL")
+class SpringCompactGrid {
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event-dispatching thread.
@@ -98,6 +99,7 @@ public class SpringCompactGrid {
  * as SpringBox and SpringCompactGrid.
  */
 
+@SuppressWarnings("ALL")
 class SpringUtilities {
     /**
      * A debugging utility that prints to stdout the component's minimum,
@@ -215,6 +217,7 @@ class SpringUtilities {
      * @param xPad     x padding between cells
      * @param yPad     y padding between cells
      */
+    @SuppressWarnings("SameParameterValue")
     public static void makeCompactGrid(Container parent, int rows, int cols,
                                        int initialX, int initialY, int xPad, int yPad) {
         SpringLayout layout;

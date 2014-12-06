@@ -1,26 +1,6 @@
 package myutils.gui;
 
 public class Colors {
-    public static class RGB {
-        public int r, g, b;
-
-        public RGB() {
-            r = g = b = 0;
-        }
-
-        public void add(RGB rgb) {
-            r += rgb.r;
-            g += rgb.g;
-            b += rgb.b;
-        }
-
-        public void subtract(RGB rgb) {
-            r -= rgb.r;
-            g -= rgb.g;
-            b -= rgb.b;
-        }
-    }
-
     private static int get(double d) {
         return (int) Math.round(d * 255) & 255;
     }
@@ -44,5 +24,25 @@ public class Colors {
         rgbCode.g = (rawCode >> 8) & 0xFF;
         rgbCode.b = rawCode & 0xFF;
         return rgbCode;
+    }
+
+    public static class RGB {
+        public int r, g, b;
+
+        public RGB() {
+            r = g = b = 0;
+        }
+
+        public void add(RGB rgb) {
+            r += rgb.r;
+            g += rgb.g;
+            b += rgb.b;
+        }
+
+        public void subtract(RGB rgb) {
+            r -= rgb.r;
+            g -= rgb.g;
+            b -= rgb.b;
+        }
     }
 }

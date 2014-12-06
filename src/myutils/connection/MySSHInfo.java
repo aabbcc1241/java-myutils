@@ -4,9 +4,9 @@ package myutils.connection;
  * @author beenotung
  */
 public class MySSHInfo {
-    private String host;
-    private String username;
-    private String password;
+    private final String host;
+    private final String username;
+    private final String password;
 
     public MySSHInfo(String host, String username, String password) {
         this.host = host;

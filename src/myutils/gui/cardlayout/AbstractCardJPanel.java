@@ -1,31 +1,25 @@
 package myutils.gui.cardlayout;
 
-import java.awt.CardLayout;
-import java.awt.Component;
-
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public abstract class AbstractCardJPanel extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6243990180583440256L;
-	public CardLayout cardLayout;
+    private final CardLayout cardLayout;
 
-	public AbstractCardJPanel() {
-		cardLayout = new CardLayout();
-		setLayout(cardLayout);
-		myInit();
-	}
+    public AbstractCardJPanel() {
+        cardLayout = new CardLayout();
+        setLayout(cardLayout);
+        myInit();
+    }
 
-	protected abstract void myInit();
+    protected abstract void myInit();
 
-	public void addToCards(Component component, String label) {
-		add(component);
-		cardLayout.addLayoutComponent(component, label);
-	}
+    public void addToCards(Component component, String label) {
+        add(component);
+        cardLayout.addLayoutComponent(component, label);
+    }
 
-	public void switchToCard(String label) {
-		cardLayout.show(this, label);		
-	}
+    public void switchToCard(String label) {
+        cardLayout.show(this, label);
+    }
 }

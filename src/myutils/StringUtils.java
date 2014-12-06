@@ -1,6 +1,6 @@
 package myutils;
 
-public class StringUtils {
+class StringUtils {
     public static String center(String str, int n) {
         String result = new String(str);
         while (result.length() < n) {

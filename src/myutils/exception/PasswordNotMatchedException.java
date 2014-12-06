@@ -1,6 +1,6 @@
 package myutils.exception;
 
-class PasswordNotMatchedException extends Exception {
+public class PasswordNotMatchedException extends Exception {
     /**
      *
      */

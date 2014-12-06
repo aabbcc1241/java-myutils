@@ -1,6 +1,6 @@
 package myutils.exception;
 
-class DuplicatedException extends Exception {
+public class DuplicatedException extends Exception {
     /**
      *
      */

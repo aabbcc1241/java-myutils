@@ -42,7 +42,7 @@ class MySecureInfo {
     }
 
     public static MySqlServerInfo getMySqlServerInfo() {
-        return new MySqlServerInfo(mysqlProtocol, mysqlHost, mysqlPort, mysqlDatabasename, mysqlUsername,
+       return new MySqlServerInfo(mysqlProtocol, mysqlHost, mysqlPort, mysqlDatabasename, mysqlUsername,
                 mysqlPassword);
     }
 

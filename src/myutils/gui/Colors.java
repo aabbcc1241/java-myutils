@@ -25,6 +25,7 @@ public class Colors {
         return (int) Math.round(d * 255) & 255;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static int get(double r, double g, double b) {
         // System.out.println("r:"+r+", g:"+g+", b:"+b+", res:"+(int)(get(r) <<
         // 16 | get(g) << 8 | get(b)));

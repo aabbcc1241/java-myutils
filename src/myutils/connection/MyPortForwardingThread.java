@@ -14,7 +14,7 @@ public class MyPortForwardingThread implements Runnable {
     private int lport;
     private String rhost;
     private int rport;
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private int assinged_port;
 
     private Thread thread;

@@ -5,6 +5,7 @@ import myutils.Vector2D;
 public class Pixels {
     protected int[] pixels;
     public float scale, xOffset, yOffset;
+    @SuppressWarnings("FieldCanBeLocal")
     private final float DEFAULTZOOMRATE = 1.05f;
     public CanvasShell canvasShell;
 

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 /**
  * @author beenotung
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class MySecureInfo {
 
     // digit ocean server

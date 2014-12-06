@@ -27,6 +27,7 @@ public class Vector2D {
         return new Vector2D(x, y);
     }
 
+    @SuppressWarnings({"CloneDoesntCallSuperClone", "CloneDoesntDeclareCloneNotSupportedException"})
     public Vector2D clone() {
         return new Vector2D(x, y);
     }

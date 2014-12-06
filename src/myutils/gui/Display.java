@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 
+
 public class Display extends OutputStream {
     public JFrame frame;
     public Container container;

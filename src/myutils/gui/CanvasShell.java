@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-@SuppressWarnings("CanBeFinal")
+@SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
 public abstract class CanvasShell extends Canvas implements Runnable {
     private final double DEFAULTnsPerTick;
     private final double DEFAULTnsPerRender;

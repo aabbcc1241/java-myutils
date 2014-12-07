@@ -2,7 +2,7 @@ package myutils.gui;
 
 import myutils.Vector2D;
 
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "UnusedDeclaration"})
 public class Mouse {
     public Vector2D locationOnScreenScaled = new Vector2D();
     public Vector2D locationRelativeScaled = new Vector2D();

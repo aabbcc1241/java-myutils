@@ -1,10 +1,7 @@
 package myutils.exception;
 
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class PasswordNotMatchedException extends Exception {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
     private final String message;
 
     public PasswordNotMatchedException() {

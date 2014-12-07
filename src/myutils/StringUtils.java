@@ -1,8 +1,9 @@
 package myutils;
 
+@SuppressWarnings("UnusedDeclaration")
 class StringUtils {
     public static String center(String str, int n) {
-        String result = new String(str);
+        @SuppressWarnings("RedundantStringConstructorCall") String result = new String(str);
         while (result.length() < n) {
             result = " " + result;
             if (result.length() < n)

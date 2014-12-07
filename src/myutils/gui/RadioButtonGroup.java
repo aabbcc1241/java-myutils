@@ -3,6 +3,7 @@ package myutils.gui;
 import javax.swing.*;
 import java.util.Vector;
 
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class RadioButtonGroup {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final Vector<JRadioButton> buttons = new Vector<JRadioButton>();

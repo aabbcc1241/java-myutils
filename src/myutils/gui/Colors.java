@@ -1,5 +1,6 @@
 package myutils.gui;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Colors {
     private static int get(double d) {
         return (int) Math.round(d * 255) & 255;
@@ -26,6 +27,7 @@ public class Colors {
         return rgbCode;
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public static class RGB {
         public int r, g, b;
 

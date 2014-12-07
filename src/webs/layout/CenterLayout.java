@@ -39,7 +39,7 @@ package webs.layout;
  * Changes (from 5-Nov-2001)
  * -------------------------
  * 05-Nov-2001 : Changed package to com.jrefinery.layout.* (DG);
- * 10-Oct-2002 : Fixed errors reported by Checkstyle (DG);
+ * 10-Oct-2002 : Fixed errors reported by CheckStyle (DG);
  *
  */
 

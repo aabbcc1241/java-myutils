@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 class Display extends OutputStream {
     private final JFrame frame;
     @SuppressWarnings("FieldCanBeLocal")
@@ -21,7 +22,7 @@ class Display extends OutputStream {
      * constructor *
      */
     @SuppressWarnings("SameParameterValue")
-    private Display(JTextArea textArea, double interval) {
+    public Display(JTextArea textArea, double interval) {
         this.textArea = textArea;
         this.interval = Math.round(interval / 1000);
         frame = new JFrame();
@@ -57,6 +58,7 @@ class Display extends OutputStream {
     /**
      * implementing *
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public void write(byte[] buffer, int offset, int length) throws IOException {
         if (buffer == null) return;

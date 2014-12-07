@@ -3,7 +3,7 @@ package myutils.gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class KeyHandler implements KeyListener {
 
     public final Key esc = new Key();

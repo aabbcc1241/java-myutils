@@ -14,7 +14,7 @@ import java.util.Vector;
 /**
  * @author beenotung
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class MyDatabaseConnector {
     private static MyPortForwardingThread portForwardingThread = null;
     private static Connection connection = null;
@@ -37,15 +37,15 @@ public class MyDatabaseConnector {
     private static void connect() throws SQLException {
         if ((portForwardingThread == null) && (MySecureInfo.needPortForwarding)) {
             portForwardingThread = new MyPortForwardingThread(
-                    MySecureInfo.getMySSHInfo(), MySecureInfo.getMyPortforwardInfo());
+                    MySecureInfo.getMySSHInfo(), MySecureInfo.getMyPortForwardInfo());
             portForwardingThread.start();
         }
         if (connection == null) {
             MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
             connection = DriverManager.getConnection(
                     mySqlServerInfoForm.getUrlWithoutDB(),
-                    mySqlServerInfoForm.getMysqlusername(),
-                    mySqlServerInfoForm.getMysqlpassword());
+                    mySqlServerInfoForm.getMysqlUsername(),
+                    mySqlServerInfoForm.getMysqlPassword());
         }
     }
 
@@ -143,10 +143,10 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuss = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<Integer>();
         for (String sqlQuery : sqlQuerys)
-            sqlStatuss.add(executeUpdate(sqlQuery));
-        return sqlStatuss;
+            sqlStatuses.add(executeUpdate(sqlQuery));
+        return sqlStatuses;
     }
 
     public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
@@ -160,10 +160,10 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuss = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<Integer>();
         for (PreparedStatement preparedStatement : preparedStatements)
-            sqlStatuss.add(executeUpdate(preparedStatement));
-        return sqlStatuss;
+            sqlStatuses.add(executeUpdate(preparedStatement));
+        return sqlStatuses;
     }
 
     public static Vector<ResultSet> executeQuery_PreparedStatements(

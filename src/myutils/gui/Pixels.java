@@ -2,10 +2,11 @@ package myutils.gui;
 
 import myutils.Vector2D;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Pixels {
     private final int[] pixels;
     @SuppressWarnings("FieldCanBeLocal")
-    private final float DEFAULTZOOMRATE = 1.05f;
+    private final float DEFAULT_ZOOM_RATE = 1.05f;
     private final CanvasShell canvasShell;
     private float scale;
     private float xOffset;
@@ -23,15 +24,15 @@ public class Pixels {
     }
 
     public void add(Vector2D l, int color) {
-        int ix = (int) Math.round((l.x + -xOffset) * scale + canvasShell.cx);
-        int iy = (int) Math.round((l.y - yOffset) * scale + canvasShell.cy);
+        int ix = Math.round((l.x + -xOffset) * scale + canvasShell.cx);
+        int iy = Math.round((l.y - yOffset) * scale + canvasShell.cy);
         if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
             pixels[ix + iy * canvasShell.WIDTH] = color;
     }
 
     public void add(float x, float y, int color) {
-        int ix = (int) Math.round((x + -xOffset) * scale + canvasShell.cx);
-        int iy = (int) Math.round((y - yOffset) * scale + canvasShell.cy);
+        int ix = Math.round((x + -xOffset) * scale + canvasShell.cx);
+        int iy = Math.round((y - yOffset) * scale + canvasShell.cy);
         if (inside(ix, iy, 0, 0, canvasShell.WIDTH - 1, canvasShell.HEIGHT - 1))
             pixels[ix + iy * canvasShell.WIDTH] = color;
     }
@@ -50,7 +51,7 @@ public class Pixels {
     }
 
     public void zoom(int r) {
-        scale *= Math.pow(DEFAULTZOOMRATE, r);
+        scale *= Math.pow(DEFAULT_ZOOM_RATE, r);
     }
 
     void resetOffsetScale() {

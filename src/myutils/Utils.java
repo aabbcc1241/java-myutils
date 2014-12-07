@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Utils {
     @SuppressWarnings("CanBeFinal")
     public static Random random = new Random(System.currentTimeMillis());

@@ -21,6 +21,7 @@ import java.awt.*;
  * @version $Name: $ - $Revision: 1.1.1.1 $ - $Date: 2005/04/07 18:36:20 $
  *          Test
  */
+@SuppressWarnings("ALL")
 class DividerLayout implements LayoutManager2 {
 
     /**
@@ -221,7 +222,7 @@ class DividerLayout implements LayoutManager2 {
         int maxWidth = (containerSize.width - centerBounds.width - insets.left - insets.right) / 2;
 
 		/*
-		 * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
+         * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
 		 * = Math.max(maxHeight, containerSize.height - insets.top -
 		 * insets.bottom);
 		 */

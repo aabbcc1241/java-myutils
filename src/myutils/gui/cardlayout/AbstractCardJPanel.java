@@ -3,6 +3,7 @@ package myutils.gui.cardlayout;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractCardJPanel extends JPanel {
     private final CardLayout cardLayout;
 

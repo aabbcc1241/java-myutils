@@ -3,12 +3,12 @@ package myutils.connection;
 /**
  * @author beenotung
  */
-public class MyPortforwardInfo {
+public class MyPortForwardInfo {
     private final int localPort;
     private final String remoteHost;
     private final int remotePort;
 
-    public MyPortforwardInfo(int localPort, String remoteHost, int remotePort) {
+    public MyPortForwardInfo(int localPort, String remoteHost, int remotePort) {
         this.localPort = localPort;
         this.remoteHost = remoteHost;
         this.remotePort = remotePort;

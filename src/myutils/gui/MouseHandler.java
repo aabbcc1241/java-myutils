@@ -2,7 +2,7 @@ package myutils.gui;
 
 import java.awt.event.*;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class MouseHandler implements MouseListener, MouseMotionListener,
         MouseWheelListener {
 

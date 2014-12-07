@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Vector;
 
+@SuppressWarnings("UnusedDeclaration")
 public class FileUtils {
 
     public static List<String> readFile(Path path) throws IOException {

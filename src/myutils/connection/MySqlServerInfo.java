@@ -3,20 +3,21 @@ package myutils.connection;
 /**
  * @author beenotung
  */
+@SuppressWarnings("UnusedDeclaration")
 public class MySqlServerInfo {
-    private String protocol;
-    private String host;
-    private int port;
-    private String username;
-    private String password;
-    private String databasename;
+    private final String protocol;
+    private final String host;
+    private final int port;
+    private final String username;
+    private final String password;
+    private final String databaseName;
 
-    public MySqlServerInfo(String protocol, String host, int port, String databasename,
+    public MySqlServerInfo(String protocol, String host, int port, String databaseName,
                            String username, String password) {
         this.protocol = protocol;
         this.host = host;
         this.port = port;
-        this.databasename = databasename;
+        this.databaseName = databaseName;
         this.username = username;
         this.password = password;
     }
@@ -26,19 +27,19 @@ public class MySqlServerInfo {
     }
 
     public String getUrlWithDB() {
-        return getUrlWithoutDB() + "/" + databasename;
+        return getUrlWithoutDB() + "/" + databaseName;
     }
 
-    public String getMysqlusername() {
+    public String getMysqlUsername() {
         return username;
     }
 
-    public String getMysqlpassword() {
+    public String getMysqlPassword() {
         return password;
     }
 
-    public String getDatabasename() {
-        return databasename;
+    public String getDatabaseName() {
+        return databaseName;
     }
 
 }

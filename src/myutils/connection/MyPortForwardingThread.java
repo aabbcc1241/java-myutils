@@ -7,6 +7,7 @@ import javax.swing.*;
 /**
  * @author beenotung
  */
+@SuppressWarnings("UnusedDeclaration")
 class MyPortForwardingThread implements Runnable {
     private final String host;
     private final String user;
@@ -14,30 +15,30 @@ class MyPortForwardingThread implements Runnable {
     private final int localPort;
     private final String remoteHost;
     private final int remotePort;
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private int assingedPort;
+    @SuppressWarnings({"FieldCanBeLocal"})
+    private int assignedPort;
 
     private Thread thread;
     private boolean alive = false;
 
-    public MyPortForwardingThread(String host, String user, String password, int lport,
+    public MyPortForwardingThread(String host, String user, String password, int localPort,
                                   String remoteHost, int remotePort) {
         this.host = host;
         this.user = user;
         this.password = password;
-        this.localPort = lport;
+        this.localPort = localPort;
         this.remoteHost = remoteHost;
         this.remotePort = remotePort;
     }
 
     public MyPortForwardingThread(MySSHInfo mySSHInfoForm,
-                                  MyPortforwardInfo myPortforwardInfoForm) {
+                                  MyPortForwardInfo myPortForwardInfoForm) {
         this.host = mySSHInfoForm.getHost();
         this.user = mySSHInfoForm.getUsername();
         this.password = mySSHInfoForm.getPassword();
-        this.localPort = myPortforwardInfoForm.getLocalPort();
-        this.remoteHost = myPortforwardInfoForm.getRemoteHost();
-        this.remotePort = myPortforwardInfoForm.getRemotePort();
+        this.localPort = myPortForwardInfoForm.getLocalPort();
+        this.remoteHost = myPortForwardInfoForm.getRemoteHost();
+        this.remotePort = myPortForwardInfoForm.getRemotePort();
     }
 
     private void connect() throws JSchException {
@@ -54,7 +55,7 @@ class MyPortForwardingThread implements Runnable {
         // Channel channel=session.openChannel("shell");
         // channel.connect();
 
-        assingedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
+        assignedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
     }
 
     /**

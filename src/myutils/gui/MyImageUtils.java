@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings("UnusedDeclaration")
 class MyImageUtils {
     public static ImageIcon scaleImageIconByHeight(ImageIcon image, int height) {
         int width = (int) Math.round(image.getIconWidth() * (height * 1.0 / image.getIconHeight()));

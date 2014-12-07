@@ -19,7 +19,6 @@ public abstract class AbstractCardJFrame extends JFrame {
 
     protected abstract void myInit();
 
-
     public void addToCards(Component component, String label) {
         add(component);
         cardLayout.addLayoutComponent(component, label);

@@ -84,5 +84,4 @@ public class Pixels {
         v.x = x / canvasShell.SCALE - canvasShell.cx + xOffset;
         v.y = y / canvasShell.SCALE - canvasShell.cy + yOffset;
     }
-
 }

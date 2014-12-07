@@ -43,11 +43,9 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         this.DEFAULTnsPerRender = nsPerRender;
         this.nsPerTick = DEFAULTnsPerTick;
         this.nsPerRender = DEFAULTnsPerRender;
-
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
-
         frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -56,14 +54,11 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
-
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData(), this);
-
         createBufferStrategy(3);
         bufferStrategy = getBufferStrategy();
         graphics = bufferStrategy.getDrawGraphics();
-
         keyHandler = new KeyHandler(this);
         mouseHandler = new MouseHandler(this);
     }
@@ -111,7 +106,6 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
     void render() {
         myRender();
-
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         bufferStrategy.show();
     }
@@ -188,5 +182,4 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         System.out.println("CanvasShell stop");
         running = false;
     }
-
 }

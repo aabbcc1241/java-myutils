@@ -25,5 +25,4 @@ public class MySSHInfo {
     public String getPassword() {
         return password;
     }
-
 }

@@ -7,7 +7,6 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 class Display extends OutputStream {
     private final JFrame frame;
@@ -44,9 +43,7 @@ class Display extends OutputStream {
         frame.pack();
         // frame.setSize(textArea.getWidth(), textArea.getHeight());
         // frame.setVisible(true);
-
         bufferString = new StringBuilder();
-
         clear();
         update();
     }
@@ -112,7 +109,6 @@ class Display extends OutputStream {
     public void setFPS(double fps) {
         interval = Math.round(1000 / fps);
     }
-
 
     public void clearBuffer() {
         bufferString = new StringBuilder();

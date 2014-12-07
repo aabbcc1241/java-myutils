@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class KeyHandler implements KeyListener {
-
     public final Key esc = new Key();
     public final Key up = new Key();
     public final Key down = new Key();
@@ -24,7 +23,6 @@ public class KeyHandler implements KeyListener {
     public final Key closeBracket = new Key();
     public final Key comma = new Key();
     public final Key period = new Key();
-
     public final Key r = new Key();
 
     public KeyHandler(CanvasShell canvasShell) {

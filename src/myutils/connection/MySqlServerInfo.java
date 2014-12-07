@@ -41,5 +41,4 @@ public class MySqlServerInfo {
     public String getDatabaseName() {
         return databaseName;
     }
-
 }

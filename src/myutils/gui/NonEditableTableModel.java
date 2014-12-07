@@ -2,6 +2,7 @@ package myutils.gui;
 
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("UnusedDeclaration")
 public class NonEditableTableModel extends DefaultTableModel {
     public NonEditableTableModel(int i, int j) {
         super(i, j);

@@ -18,20 +18,26 @@ package webs.layout;
 /*
  * Created on Mar 19, 2005
  */
+
 import java.awt.*;
+
 /**
  * @author J. H. S.
  */
 @SuppressWarnings("ALL")
 public class CenterLayout_lobochief implements LayoutManager {
     private static CenterLayout_lobochief instance = new CenterLayout_lobochief();
+
     public static CenterLayout_lobochief getInstance() {
         return instance;
     }
+
     public void addLayoutComponent(String arg0, Component arg1) {
     }
+
     public void removeLayoutComponent(Component arg0) {
     }
+
     public Dimension preferredLayoutSize(Container arg0) {
         java.awt.Insets insets = arg0.getInsets();
         int count = arg0.getComponentCount();
@@ -44,6 +50,7 @@ public class CenterLayout_lobochief implements LayoutManager {
                     + insets.bottom);
         }
     }
+
     /*
      * (non-Javadoc)
      *
@@ -61,6 +68,7 @@ public class CenterLayout_lobochief implements LayoutManager {
                     + insets.bottom);
         }
     }
+
     /*
      * (non-Javadoc)
      *

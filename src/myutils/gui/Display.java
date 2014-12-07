@@ -1,10 +1,12 @@
 package myutils.gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.OutputStream;
+
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 class Display extends OutputStream {
     private final JFrame frame;
@@ -14,6 +16,7 @@ class Display extends OutputStream {
     private StringBuilder bufferString;
     private long interval;
     private long lastUpdate;
+
     /**
      * constructor *
      */
@@ -44,9 +47,11 @@ class Display extends OutputStream {
         clear();
         update();
     }
+
     public Display(JTextArea textArea) {
         this(textArea, 0);
     }
+
     /**
      * implementing *
      */
@@ -62,10 +67,12 @@ class Display extends OutputStream {
             }
         });
     }
+
     @Override
     public void write(int b) throws IOException {
         write(new byte[]{(byte) b}, 0, 1);
     }
+
     public void write(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -74,18 +81,22 @@ class Display extends OutputStream {
             }
         });
     }
+
     /**
      * instance method *
      */
     public void show() {
         frame.setVisible(true);
     }
+
     void hide() {
         frame.setVisible(false);
     }
+
     public boolean isShown() {
         return frame.isVisible();
     }
+
     void clear() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -94,41 +105,51 @@ class Display extends OutputStream {
             }
         });
     }
+
     public void setFPS(double fps) {
         interval = Math.round(1000 / fps);
     }
+
     public void clearBuffer() {
         bufferString = new StringBuilder();
     }
+
     public void setBuffer(String str) {
         bufferString = new StringBuilder(str);
     }
+
     public void writeBuffer(String str) {
         if (bufferString == null)
             bufferString = new StringBuilder();
         bufferString.append(str);
     }
+
     void update() {
         textArea.update(textArea.getGraphics());
         lastUpdate = System.currentTimeMillis();
     }
+
     void updateBuffer() {
         textArea.setText(bufferString.toString());
         lastUpdate = System.currentTimeMillis();
     }
+
     public void checkUpdate() {
         if (System.currentTimeMillis() - lastUpdate >= interval)
             update();
     }
+
     public void checkUpdateBuffer() {
         if (System.currentTimeMillis() - lastUpdate >= interval)
             updateBuffer();
     }
+
     public void setSize(int width, int height) {
         // frame.setPreferredSize(new Dimension(width,height));
         // frame.pack();
         frame.setSize(width, height);
     }
+
     public void end() {
         hide();
         frame.dispose();

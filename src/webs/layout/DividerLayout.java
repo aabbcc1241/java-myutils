@@ -3,7 +3,9 @@ package webs.layout;
  * $Id: DividerLayout.java,v 1.1.1.1 2005/04/07 18:36:20 pocho Exp $
  */
 // Revised from javautils swing;
+
 import java.awt.*;
+
 /**
  * <p>
  * <code>DividerLayout</code> is layout that divides two components with the
@@ -44,6 +46,7 @@ class DividerLayout implements LayoutManager2 {
      * east component
      */
     private Component eastComponent;
+
     /**
      * Adds a component to specified position.
      */
@@ -56,6 +59,7 @@ class DividerLayout implements LayoutManager2 {
             eastComponent = comp;
         }
     }
+
     /**
      * @see java.awt.LayoutManager2#maximumLayoutSize(java.awt.Container)
      */
@@ -81,23 +85,27 @@ class DividerLayout implements LayoutManager2 {
         }
         return new Dimension(width, height);
     }
+
     /**
      * @see java.awt.LayoutManager2#getLayoutAlignmentX(java.awt.Container)
      */
     public float getLayoutAlignmentX(Container target) {
         return 0.0f;
     }
+
     /**
      * @see java.awt.LayoutManager2#getLayoutAlignmentY(java.awt.Container)
      */
     public float getLayoutAlignmentY(Container target) {
         return 0.0f;
     }
+
     /**
      * @see java.awt.LayoutManager2#invalidateLayout(java.awt.Container)
      */
     public void invalidateLayout(Container target) {
     }
+
     /**
      * @see java.awt.LayoutManager#addLayoutComponent(java.lang.String,
      * java.awt.Component)
@@ -105,6 +113,7 @@ class DividerLayout implements LayoutManager2 {
     public void addLayoutComponent(String name, Component comp) {
         addLayoutComponent(comp, name);
     }
+
     /**
      * @see java.awt.LayoutManager#removeLayoutComponent(java.awt.Component)
      */
@@ -117,6 +126,7 @@ class DividerLayout implements LayoutManager2 {
             centerComponent = null;
         }
     }
+
     /**
      * @see java.awt.LayoutManager#preferredLayoutSize(java.awt.Container)
      */
@@ -142,6 +152,7 @@ class DividerLayout implements LayoutManager2 {
         }
         return new Dimension(width, height);
     }
+
     /**
      * @see java.awt.LayoutManager#minimumLayoutSize(java.awt.Container)
      */
@@ -167,6 +178,7 @@ class DividerLayout implements LayoutManager2 {
         }
         return new Dimension(width, height);
     }
+
     /**
      * @see java.awt.LayoutManager#layoutContainer(java.awt.Container)
      */

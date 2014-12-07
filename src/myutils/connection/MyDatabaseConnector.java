@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Vector;
+
 /**
  * @author beenotung
  */
@@ -17,12 +18,14 @@ import java.util.Vector;
 public class MyDatabaseConnector {
     private static MyPortForwardingThread portForwardingThread = null;
     private static Connection connection = null;
+
     /**
      * constructor *
      */
     public MyDatabaseConnector() throws SQLException {
         connect();
     }
+
     /**
      * My Database connection methods init, connection, commit
      */
@@ -30,6 +33,7 @@ public class MyDatabaseConnector {
         if (connection == null)
             connect();
     }
+
     private static void connect() throws SQLException {
         if ((portForwardingThread == null) && (MySecureInfo.needPortForwarding)) {
             portForwardingThread = new MyPortForwardingThread(
@@ -44,15 +48,18 @@ public class MyDatabaseConnector {
                     mySqlServerInfoForm.getMysqlPassword());
         }
     }
+
     public static void commit() throws SQLException {
         checkConnection();
         connection.commit();
     }
+
     public static void disconnect() throws SQLException {
         if (connection != null)
             connection.close();
         connection = null;
     }
+
     /**
      * My Database connection methods get connection, preparedStatement
      */
@@ -60,10 +67,12 @@ public class MyDatabaseConnector {
         checkConnection();
         return connection;
     }
+
     public static PreparedStatement getPreparedStatement(String sql) throws SQLException {
         checkConnection();
         return connection.prepareStatement(sql);
     }
+
     public static PreparedStatement getPreparedStatementFromSQLFile(String filename)
             throws IOException, SQLException {
         checkConnection();
@@ -71,6 +80,7 @@ public class MyDatabaseConnector {
                 " ");
         return connection.prepareStatement(string);
     }
+
     /**
      * My Database connection methods single execute
      */
@@ -78,24 +88,29 @@ public class MyDatabaseConnector {
         checkConnection();
         return connection.createStatement().executeQuery(sqlQuery);
     }
+
     private static int executeUpdate(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().executeUpdate(sqlQuery);
     }
+
     private static boolean execute(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().execute(sqlQuery);
     }
+
     private static int executeUpdate(PreparedStatement preparedStatement)
             throws SQLException {
         checkConnection();
         return preparedStatement.executeUpdate();
     }
+
     private static ResultSet executeQuery(PreparedStatement preparedStatement)
             throws SQLException {
         checkConnection();
         return preparedStatement.executeQuery();
     }
+
     public static boolean executeSQLFile(String filename) throws IOException,
             SQLException {
         checkConnection();
@@ -103,6 +118,7 @@ public class MyDatabaseConnector {
                 FileUtils.readFile(Paths.get(filename)), " ");
         return execute(sqlQuery);
     }
+
     /**
      * My Database connection methods batch (/vector) execute
      */
@@ -114,6 +130,7 @@ public class MyDatabaseConnector {
         }
         return statement.executeBatch();
     }
+
     public static Vector<ResultSet> executeQuery_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
@@ -122,6 +139,7 @@ public class MyDatabaseConnector {
             resultSets.add(executeQuery(sqlQuery));
         return resultSets;
     }
+
     public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
@@ -130,6 +148,7 @@ public class MyDatabaseConnector {
             sqlStatuses.add(executeUpdate(sqlQuery));
         return sqlStatuses;
     }
+
     public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
         checkConnection();
         Vector<Boolean> hasResultSets = new Vector<>();
@@ -137,6 +156,7 @@ public class MyDatabaseConnector {
             hasResultSets.add(execute(sqlQuery));
         return hasResultSets;
     }
+
     public static Vector<Integer> executeUpdate_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
@@ -145,6 +165,7 @@ public class MyDatabaseConnector {
             sqlStatuses.add(executeUpdate(preparedStatement));
         return sqlStatuses;
     }
+
     public static Vector<ResultSet> executeQuery_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
@@ -153,6 +174,7 @@ public class MyDatabaseConnector {
             resultSets.add(executeQuery(preparedStatement));
         return resultSets;
     }
+
     /**
      * debug method *
      */
@@ -163,6 +185,7 @@ public class MyDatabaseConnector {
         System.out.println("SQLException Message: " + e.getMessage());
         e.printStackTrace();
     }
+
     public static DefaultTableModel getTableModel(ResultSet resultSet)
             throws SQLException {
         DefaultTableModel model = new DefaultTableModel(0, 0);
@@ -178,6 +201,7 @@ public class MyDatabaseConnector {
         }
         return model;
     }
+
     public static void resetTableModel(NonEditableTableModel model, ResultSet resultSet)
             throws SQLException {
         String[] titles = new String[resultSet.getMetaData().getColumnCount()];
@@ -193,6 +217,7 @@ public class MyDatabaseConnector {
             model.addRow(rowData);
         }
     }
+
     public static void resetTableModel(DefaultTableModel model, ResultSet resultSet)
             throws SQLException {
         String[] titles = new String[resultSet.getMetaData().getColumnCount()];
@@ -208,6 +233,7 @@ public class MyDatabaseConnector {
             model.addRow(rowData);
         }
     }
+
     public static void addToTableModel(DefaultTableModel model, ResultSet resultSet)
             throws SQLException {
         while (resultSet.next()) {
@@ -217,6 +243,7 @@ public class MyDatabaseConnector {
             model.addRow(rowData);
         }
     }
+
     public static Vector<Object[]> resultSetToVectors(ResultSet resultSet) throws SQLException {
         Vector<Object[]> vectors = new Vector<>();
         while (resultSet.next()) {

@@ -1,5 +1,7 @@
 package myutils.gui;
+
 import myutils.Vector2D;
+
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "UnusedDeclaration"})
 public class Mouse {
     public Vector2D locationOnScreenScaled = new Vector2D();
@@ -12,6 +14,7 @@ public class Mouse {
     @SuppressWarnings("FieldCanBeLocal")
     private int y;
     private int numTimesClicked = 0;
+
     public void toggle(int xPos, int yPos, boolean isClicked, Pixels screen) {
         x = xPos;
         y = yPos;
@@ -22,6 +25,7 @@ public class Mouse {
         if (clicked = isClicked)
             numTimesClicked++;
     }
+
     public void reset() {
         this.numTimesClicked = 0;
     }

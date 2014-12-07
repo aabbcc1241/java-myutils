@@ -11,11 +11,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Vector;
+
 @SuppressWarnings("UnusedDeclaration")
 public class FileUtils {
     public static List<String> readFile(Path path) throws IOException {
         return Files.readAllLines(path, Charset.defaultCharset());
     }
+
     public static List<String> readFile(URL url) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(
                 url.openStream());
@@ -28,10 +30,12 @@ public class FileUtils {
         inputStreamReader.close();
         return lines;
     }
+
     public static String getStringFromUrlPlain(String url)
             throws IOException {
         return Utils.StringListToString(FileUtils.readFile(new URL(url)), " ");
     }
+
     public static String getStringFromUrlGoogleWeb(String url)
             throws IOException {
         return Utils.StringListToString(

@@ -41,8 +41,10 @@ package webs.layout;
  * 10-Oct-2002 : Fixed errors reported by CheckStyle (DG);
  *
  */
+
 import java.awt.*;
 import java.io.Serializable;
+
 /**
  * A layout manager that displays a single component in the center of its
  * container.
@@ -55,11 +57,13 @@ class CenterLayout implements LayoutManager, Serializable {
      * For serialization.
      */
     private static final long serialVersionUID = 469319532333015042L;
+
     /**
      * Creates a new layout manager.
      */
     public CenterLayout() {
     }
+
     /**
      * Returns the preferred size.
      *
@@ -81,6 +85,7 @@ class CenterLayout implements LayoutManager, Serializable {
             }
         }
     }
+
     /**
      * Returns the minimum size.
      *
@@ -101,6 +106,7 @@ class CenterLayout implements LayoutManager, Serializable {
             }
         }
     }
+
     /**
      * Lays out the components.
      *
@@ -124,6 +130,7 @@ class CenterLayout implements LayoutManager, Serializable {
             }
         }
     }
+
     /**
      * Not used.
      *
@@ -132,6 +139,7 @@ class CenterLayout implements LayoutManager, Serializable {
     public void addLayoutComponent(final Component comp) {
         // not used.
     }
+
     /**
      * Not used.
      *
@@ -140,6 +148,7 @@ class CenterLayout implements LayoutManager, Serializable {
     public void removeLayoutComponent(final Component comp) {
         // not used
     }
+
     /**
      * Not used.
      *
@@ -149,6 +158,7 @@ class CenterLayout implements LayoutManager, Serializable {
     public void addLayoutComponent(final String name, final Component comp) {
         // not used
     }
+
     /**
      * Not used.
      *

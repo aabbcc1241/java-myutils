@@ -1,6 +1,8 @@
 package webs.layout;
+
 import javax.swing.*;
 import java.awt.*;
+
 /**
  * FlowLayout subclass that fully supports wrapping of components.
  */
@@ -8,6 +10,7 @@ import java.awt.*;
 class WrapLayout extends FlowLayout {
     @SuppressWarnings("unused")
     private Dimension preferredLayoutSize;
+
     /**
      * Constructs a new <code>WrapLayout</code> with a left
      * alignment and a default 5-unit horizontal and vertical gap.
@@ -15,6 +18,7 @@ class WrapLayout extends FlowLayout {
     public WrapLayout() {
         super();
     }
+
     /**
      * Constructs a new <code>FlowLayout</code> with the specified
      * alignment and a default 5-unit horizontal and vertical gap.
@@ -27,6 +31,7 @@ class WrapLayout extends FlowLayout {
     public WrapLayout(int align) {
         super(align);
     }
+
     /**
      * Creates a new flow layout manager with the indicated alignment
      * and the indicated horizontal and vertical gaps.
@@ -42,6 +47,7 @@ class WrapLayout extends FlowLayout {
     public WrapLayout(int align, int hgap, int vgap) {
         super(align, hgap, vgap);
     }
+
     /**
      * Returns the preferred dimensions for this layout given the
      * <i>visible</i> components in the specified target container.
@@ -54,6 +60,7 @@ class WrapLayout extends FlowLayout {
     public Dimension preferredLayoutSize(Container target) {
         return layoutSize(target, true);
     }
+
     /**
      * Returns the minimum dimensions needed to layout the <i>visible</i>
      * components contained in the specified target container.
@@ -68,6 +75,7 @@ class WrapLayout extends FlowLayout {
         minimum.width -= (getHgap() + 1);
         return minimum;
     }
+
     /**
      * Returns the minimum or preferred dimension needed to layout the target
      * container.
@@ -126,6 +134,7 @@ class WrapLayout extends FlowLayout {
             return dim;
         }
     }
+
     /*
      *  A new row has been completed. Use the dimensions of this row
      *  to update the preferred size for the container.

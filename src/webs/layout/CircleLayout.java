@@ -13,7 +13,6 @@ package webs.layout;
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 import java.awt.*;
 /**
  * @version 1.32 2007-06-12
@@ -22,7 +21,6 @@ import java.awt.*;
 /**
  * A frame that shows buttons arranged along a circle.
  */
-
 /**
  * A layout manager that lays out components along a circle.
  */
@@ -35,13 +33,10 @@ class CircleLayout implements LayoutManager {
     private boolean sizesSet = false;
     private int maxComponentWidth = 0;
     private int maxComponentHeight = 0;
-
     public void addLayoutComponent(String name, Component comp) {
     }
-
     public void removeLayoutComponent(Component comp) {
     }
-
     void setSizes(Container parent) {
         if (sizesSet)
             return;
@@ -68,7 +63,6 @@ class CircleLayout implements LayoutManager {
         minHeight = preferredHeight / 2;
         sizesSet = true;
     }
-
     public Dimension preferredLayoutSize(Container parent) {
         setSizes(parent);
         Insets insets = parent.getInsets();
@@ -76,7 +70,6 @@ class CircleLayout implements LayoutManager {
         int height = preferredHeight + insets.top + insets.bottom;
         return new Dimension(width, height);
     }
-
     public Dimension minimumLayoutSize(Container parent) {
         setSizes(parent);
         Insets insets = parent.getInsets();
@@ -84,7 +77,6 @@ class CircleLayout implements LayoutManager {
         int height = minHeight + insets.top + insets.bottom;
         return new Dimension(width, height);
     }
-
     public void layoutContainer(Container parent) {
         setSizes(parent);
         // compute center of the circle

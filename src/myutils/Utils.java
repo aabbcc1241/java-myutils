@@ -1,15 +1,12 @@
 package myutils;
-
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
-
 @SuppressWarnings("UnusedDeclaration")
 public class Utils {
     @SuppressWarnings("CanBeFinal")
     public static Random random = new Random(System.currentTimeMillis());
-
     public static Vector<Object> getShuffled(Vector<Object> ori) {
         Vector<Object> result = new Vector<>();
         for (Object o : ori)
@@ -25,7 +22,6 @@ public class Utils {
         }
         return result;
     }
-
     @SuppressWarnings("SameParameterValue")
     public static String StringListToString(List<String> lines, String symbol) {
         String result = "";
@@ -33,7 +29,6 @@ public class Utils {
             result += line + symbol;
         return result;
     }
-
     public static java.sql.Timestamp getCurrentTimestamp() {
         return new java.sql.Timestamp(Calendar.getInstance().getTime()
                 .getTime());

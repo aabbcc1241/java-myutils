@@ -1,14 +1,11 @@
 package myutils.gui;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 @SuppressWarnings({"serial", "rawtypes", "unchecked", "UnusedDeclaration"})
 class JComboBoxPopup extends JComboBox {
     private boolean showing = false;
-
     public JComboBoxPopup(Object[] objects) {
         super(objects);
         addMouseListener(new MouseAdapter() {
@@ -17,13 +14,11 @@ class JComboBoxPopup extends JComboBox {
                 super.mouseClicked(e);
                 switchPopup();
             }
-
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 showPopup(true);
             }
-
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
@@ -33,7 +28,6 @@ class JComboBoxPopup extends JComboBox {
         setEditable(true);
         // setKeySelectionManager(aManager);
     }
-
     @Override
     public void setModel(ComboBoxModel aModel) {
         super.setModel(aModel);
@@ -44,7 +38,6 @@ class JComboBoxPopup extends JComboBox {
                 }
             });
     }
-
     void showPopup(boolean toShow) {
         if (toShow)
             showPopup();
@@ -53,7 +46,6 @@ class JComboBoxPopup extends JComboBox {
         showing = toShow;
         System.out.println("showing: " + showing);
     }
-
     void switchPopup() {
         if (showing)
             hidePopup();
@@ -62,13 +54,11 @@ class JComboBoxPopup extends JComboBox {
         showing = !showing;
         System.out.println("showing: " + showing);
     }
-
     @Override
     public void showPopup() {
         super.showPopup();
         setPopupVisible(true);
     }
-
     @Override
     public void hidePopup() {
         super.hidePopup();

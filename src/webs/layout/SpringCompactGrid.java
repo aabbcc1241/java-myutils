@@ -37,10 +37,8 @@ package webs.layout;
  * A 1.4 application that uses SpringLayout to create a compact grid. Other
  * files required: SpringUtilities.java.
  */
-
 import javax.swing.*;
 import java.awt.*;
-
 @SuppressWarnings("ALL")
 class SpringCompactGrid {
     /**
@@ -74,7 +72,6 @@ class SpringCompactGrid {
         frame.pack();
         frame.setVisible(true);
     }
-
     public static void mainDemo(String[] args) {
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
@@ -85,7 +82,6 @@ class SpringCompactGrid {
         });
     }
 }
-
 /**
  * A 1.4 file that provides utility methods for creating form- or grid-style
  * layouts with SpringLayout. These utilities are used by several programs, such
@@ -102,7 +98,6 @@ class SpringUtilities {
         System.out.println("preferredSize = " + c.getPreferredSize());
         System.out.println("maximumSize = " + c.getMaximumSize());
     }
-
     /**
      * Aligns the first <code>rows</code>*<code>cols</code> components of
      * <code>parent</code> in a grid. Each component is as big as the maximum
@@ -178,7 +173,6 @@ class SpringUtilities {
                 Spring.sum(Spring.constant(xPad),
                         lastCons.getConstraint(SpringLayout.EAST)));
     }
-
     /* Used by makeCompactGrid. */
     private static SpringLayout.Constraints getConstraintsForCell(int row, int col,
                                                                   Container parent, int cols) {
@@ -186,7 +180,6 @@ class SpringUtilities {
         Component c = parent.getComponent(row * cols + col);
         return layout.getConstraints(c);
     }
-
     /**
      * Aligns the first <code>rows</code>*<code>cols</code> components of
      * <code>parent</code> in a grid. Each component in a column is as wide as

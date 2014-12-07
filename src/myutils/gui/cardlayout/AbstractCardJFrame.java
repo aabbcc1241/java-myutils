@@ -1,12 +1,9 @@
 package myutils.gui.cardlayout;
-
 import javax.swing.*;
 import java.awt.*;
-
 @SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractCardJFrame extends JFrame {
     private final CardLayout cardLayout;
-
     @SuppressWarnings("UnusedDeclaration")
     public AbstractCardJFrame(String title) {
         setVisible(false);
@@ -16,14 +13,11 @@ public abstract class AbstractCardJFrame extends JFrame {
         myInit();
         setVisible(true);
     }
-
     protected abstract void myInit();
-
     public void addToCards(Component component, String label) {
         add(component);
         cardLayout.addLayoutComponent(component, label);
     }
-
     public void switchToCard(String label) {
         cardLayout.show(getContentPane(), label);
     }

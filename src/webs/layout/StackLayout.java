@@ -3,10 +3,8 @@ package webs.layout;
  *  StackLayout.java
  *  2005-07-15
  */
-
 import javax.swing.*;
 import java.awt.*;
-
 /**
  * Similar to BoxLayout, uses an orientation to determine if the contents should
  * be arranged horizontally or vertically. By default, Resizes each item to
@@ -26,20 +24,17 @@ class StackLayout implements LayoutManager {
     private boolean ourFill = false;
     private boolean ourDrop = false;
     private int ourSqueezeFactor = 100;
-
     /**
      * Creates a new StackLayout with a horizontal orientation.
      */
     public StackLayout() {
     }
-
     /**
      * Creates a new StackLayout with the specified orientation.
      */
     public StackLayout(int orientation) {
         setOrientation(orientation);
     }
-
     /**
      * Creates a new StackLayout with the specified orientation and spacing.
      */
@@ -47,7 +42,6 @@ class StackLayout implements LayoutManager {
         setOrientation(orientation);
         setSpacing(spacing);
     }
-
     /**
      * Creates a new StackLayout matching the component lengths and depths as
      * indicated.
@@ -56,7 +50,6 @@ class StackLayout implements LayoutManager {
         setMatchesComponentLengths(matchLengths);
         setMatchesComponentDepths(matchDepths);
     }
-
     /**
      * Creates a new StackLayout with the specified orientation and spacing,
      * matching the component lengths and depths as indicated.
@@ -68,7 +61,6 @@ class StackLayout implements LayoutManager {
         setMatchesComponentLengths(matchLengths);
         setMatchesComponentDepths(matchDepths);
     }
-
     /**
      * Returns this StackLayout's orientation, either SwingConstants.HORIZONTAL
      * or SwingConstants.VERTICAL.
@@ -76,7 +68,6 @@ class StackLayout implements LayoutManager {
     public int getOrientation() {
         return ourOrientation;
     }
-
     /**
      * Sets this StackLayout's orientation, either SwingConstants.HORIZONTAL or
      * SwingConstants.VERTICAL.
@@ -86,7 +77,6 @@ class StackLayout implements LayoutManager {
             ourOrientation = orientation;
         }
     }
-
     /**
      * Returns the spacing between components that this StackLayout uses when
      * laying out the components.
@@ -94,7 +84,6 @@ class StackLayout implements LayoutManager {
     public int getSpacing() {
         return ourSpacing;
     }
-
     /**
      * Sets the spacing between components that this StackLayout uses when
      * laying out the components.
@@ -102,7 +91,6 @@ class StackLayout implements LayoutManager {
     void setSpacing(int spacing) {
         ourSpacing = Math.max(0, spacing);
     }
-
     /**
      * Sets whether or not the last component in the stack should be stretched
      * to fill any remaining space within the parent container. The default
@@ -111,7 +99,6 @@ class StackLayout implements LayoutManager {
     public void setFillsTrailingSpace(boolean shouldFill) {
         ourFill = shouldFill;
     }
-
     /**
      * Returns whether or not the last component in the stack should be
      * stretched to fill any remaining space within the parent container.
@@ -119,7 +106,6 @@ class StackLayout implements LayoutManager {
     public boolean fillsTrailingSpace() {
         return ourFill;
     }
-
     /**
      * Sets whether or not components in the stack that do not fit in the parent
      * container should be left out of the layout. The default value is false;
@@ -127,7 +113,6 @@ class StackLayout implements LayoutManager {
     public void setDropsPartialComponents(boolean shouldDrop) {
         ourDrop = shouldDrop;
     }
-
     /**
      * Returns whether or not components in the stack that do not fit in the
      * parent container should be left out of the layout.
@@ -135,7 +120,6 @@ class StackLayout implements LayoutManager {
     public boolean dropsPartialComponents() {
         return ourDrop;
     }
-
     /**
      * Sets whether or not all components in the stack will be sized to the same
      * height (when in a horizontal orientation) or width (when in a vertical
@@ -144,7 +128,6 @@ class StackLayout implements LayoutManager {
     void setMatchesComponentDepths(boolean match) {
         ourDepthsMatched = match;
     }
-
     /**
      * Returns whether or not all components in the stack will be sized to the
      * same height (when in a horizontal orientation) or width (when in a
@@ -153,7 +136,6 @@ class StackLayout implements LayoutManager {
     public boolean matchesComponentDepths() {
         return ourDepthsMatched;
     }
-
     /**
      * Sets whether or not all components in the stack will be sized to the same
      * width (when in a horizontal orientation) or height (when in a vertical
@@ -162,7 +144,6 @@ class StackLayout implements LayoutManager {
     void setMatchesComponentLengths(boolean match) {
         ourLengthsMatched = match;
     }
-
     /**
      * Returns whether or not all components in the stack will be sized to the
      * same width (when in a horizontal orientation) or height (when in a
@@ -171,7 +152,6 @@ class StackLayout implements LayoutManager {
     public boolean matchesComponentLengths() {
         return ourLengthsMatched;
     }
-
     /**
      * Returns the percentage of a component's preferred size that it may be
      * squeezed in order to attempt to fit all components into the layout.
@@ -179,7 +159,6 @@ class StackLayout implements LayoutManager {
     public int getSqueezeFactor() {
         return ourSqueezeFactor;
     }
-
     /**
      * Sets the percentage of a component's preferred size that it may be
      * squeezed in order to attempt to fit all components into the layout. The
@@ -202,19 +181,16 @@ class StackLayout implements LayoutManager {
             ourSqueezeFactor = factor;
     }
     // //// LayoutManager implementation //////
-
     /**
      * Adds the specified component with the specified name to this layout.
      */
     public void addLayoutComponent(String name, Component comp) {
     }
-
     /**
      * Removes the specified component from this layout.
      */
     public void removeLayoutComponent(Component comp) {
     }
-
     /**
      * Returns the preferred size for this layout to arrange the indicated
      * parent's children.
@@ -225,7 +201,6 @@ class StackLayout implements LayoutManager {
         }
         return preferredLayoutSize(parent, ourOrientation);
     }
-
     /**
      * Returns the preferred size for this layout to arrange the indicated
      * parent's children at the specified orientation.
@@ -247,7 +222,6 @@ class StackLayout implements LayoutManager {
             return total;
         }
     }
-
     /**
      * Returns the minimum size for this layout to arrange the indicated
      * parent's children at the specified orientation.
@@ -270,7 +244,6 @@ class StackLayout implements LayoutManager {
             return total;
         }
     }
-
     /**
      * Lays out the child components within the indicated parent container.
      */
@@ -282,7 +255,6 @@ class StackLayout implements LayoutManager {
             layoutComponents(parent);
         }
     }
-
     private void layoutComponents(Container parent) {
         Component[] components = parent.getComponents();
         Insets in = parent.getInsets();
@@ -353,7 +325,6 @@ class StackLayout implements LayoutManager {
             sum += ourSpacing;
         }
     }
-
     /**
      * Returns the largest preferred width of the provided components.
      */
@@ -371,7 +342,6 @@ class StackLayout implements LayoutManager {
         }
         return maxWidth;
     }
-
     /**
      * Returns the largest preferred height of the provided components.
      */
@@ -389,7 +359,6 @@ class StackLayout implements LayoutManager {
         }
         return maxHeight;
     }
-
     /**
      * Calculates the preferred "length" of this layout for the provided
      * components based on the largest component preferred size.
@@ -411,7 +380,6 @@ class StackLayout implements LayoutManager {
         total += gaps;
         return total;
     }
-
     /**
      * Calculates the minimum "length" of this layout for the provided
      * components, taking the squeeze factor into account when necessary.
@@ -438,7 +406,6 @@ class StackLayout implements LayoutManager {
         total += gaps;
         return total;
     }
-
     /**
      * Calculates the preferred "length" of this layout for the provided
      * components.
@@ -461,7 +428,6 @@ class StackLayout implements LayoutManager {
         total += gaps;
         return total;
     }
-
     /**
      * Returns the preferred "depth" of this layout for the provided components.
      */
@@ -473,7 +439,6 @@ class StackLayout implements LayoutManager {
         else
             return 0;
     }
-
     private int countSeparators(Component[] components) {
         int count = 0;
         for (int i = 0; i < components.length; i++) {

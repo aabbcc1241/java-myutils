@@ -3,7 +3,6 @@ package myutils.connection;
 import com.jcraft.jsch.*;
 
 import javax.swing.*;
-
 /**
  * @author beenotung
  */
@@ -19,7 +18,6 @@ class MyPortForwardingThread implements Runnable {
     private int assignedPort;
     private Thread thread;
     private boolean alive = false;
-
     public MyPortForwardingThread(String host, String user, String password, int localPort,
                                   String remoteHost, int remotePort) {
         this.host = host;
@@ -29,7 +27,6 @@ class MyPortForwardingThread implements Runnable {
         this.remoteHost = remoteHost;
         this.remotePort = remotePort;
     }
-
     public MyPortForwardingThread(MySSHInfo mySSHInfoForm,
                                   MyPortForwardInfo myPortForwardInfoForm) {
         this.host = mySSHInfoForm.getHost();
@@ -39,7 +36,6 @@ class MyPortForwardingThread implements Runnable {
         this.remoteHost = myPortForwardInfoForm.getRemoteHost();
         this.remotePort = myPortForwardInfoForm.getRemotePort();
     }
-
     private void connect() throws JSchException {
         JSch jsch = new JSch();
         Session session = jsch.getSession(user, host, 22);
@@ -51,7 +47,6 @@ class MyPortForwardingThread implements Runnable {
         // channel.connect();
         assignedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
     }
-
     /**
      * thread staff *
      */
@@ -73,55 +68,44 @@ class MyPortForwardingThread implements Runnable {
             }
         }
     }
-
     public void start() {
         if (thread == null)
             thread = new Thread(this);
         alive = true;
         thread.start();
     }
-
     public void stop() {
         alive = false;
     }
-
     private static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
         private final String password;
-
         public MyUserInfo(String password) {
             this.password = password;
         }
-
         @Override
         public String getPassword() {
             return password;
         }
-
         @Override
         public boolean promptYesNo(String str) {
             return true;
         }
-
         @Override
         public String getPassphrase() {
             return null;
         }
-
         @Override
         public boolean promptPassphrase(String message) {
             return true;
         }
-
         @Override
         public boolean promptPassword(String message) {
             return true;
         }
-
         @Override
         public void showMessage(String message) {
             JOptionPane.showMessageDialog(null, message);
         }
-
         @Override
         public String[] promptKeyboardInteractive(String destination, String name,
                                                   String instruction, String[] prompt, boolean[] echo) {

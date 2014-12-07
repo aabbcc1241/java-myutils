@@ -1,11 +1,9 @@
 package myutils.gui;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-
 @SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
 public abstract class CanvasShell extends Canvas implements Runnable {
     private final double DEFAULTnsPerTick;
@@ -31,7 +29,6 @@ public abstract class CanvasShell extends Canvas implements Runnable {
     private BufferedImage image;
     private KeyHandler keyHandler;
     private MouseHandler mouseHandler;
-
     public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
         HEIGHT = height / scale;
@@ -62,7 +59,6 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         keyHandler = new KeyHandler(this);
         mouseHandler = new MouseHandler(this);
     }
-
     @Override
     public void run() {
         init();
@@ -94,34 +90,26 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         }
         System.exit(0);
     }
-
     protected abstract void init();
-
     void tick() {
         tickCount++;
         defaultKeyHandling();
         defaultMouseHandling();
         myTick();
     }
-
     void render() {
         myRender();
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         bufferStrategy.show();
     }
-
     void debugInfo() {
         System.out.println(ticks + " TPS, " + renders + "FPS");
         myDebugInfo();
         ticks = renders = 0;
     }
-
     protected abstract void myTick();
-
     protected abstract void myRender();
-
     protected abstract void myDebugInfo();
-
     private void defaultKeyHandling() {
         if (keyHandler.esc.pressed) {
             stop();
@@ -150,12 +138,10 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         }
         myKeyHandling();
     }
-
     void resetNsPerTickRender() {
         nsPerTick = DEFAULTnsPerTick;
         nsPerRender = DEFAULTnsPerRender;
     }
-
     private void defaultMouseHandling() {
         if (mouseHandler.right.clicked) {
             screen.setOffset(mouseHandler.right.locationRelativeScaled);
@@ -167,17 +153,13 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         }
         myMouseHandling();
     }
-
     protected abstract void myKeyHandling();
-
     protected abstract void myMouseHandling();
-
     public synchronized void start() {
         System.out.println("CanvasShell start");
         running = true;
         new Thread(this, TITLE + "-Thread").start();
     }
-
     void stop() {
         System.out.println("CanvasShell stop");
         running = false;

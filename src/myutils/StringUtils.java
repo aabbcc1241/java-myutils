@@ -1,5 +1,4 @@
 package myutils;
-
 @SuppressWarnings("UnusedDeclaration")
 class StringUtils {
     public static String center(String str, int n) {

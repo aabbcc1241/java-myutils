@@ -1,8 +1,6 @@
 package myutils.gui;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class KeyHandler implements KeyListener {
     public final Key esc = new Key();
@@ -24,25 +22,20 @@ public class KeyHandler implements KeyListener {
     public final Key comma = new Key();
     public final Key period = new Key();
     public final Key r = new Key();
-
     public KeyHandler(CanvasShell canvasShell) {
         canvasShell.addKeyListener(this);
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         toggle(e.getKeyCode(), true);
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         toggle(e.getKeyCode(), false);
     }
-
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
     private void toggle(int keyCode, boolean isPressed) {
         switch (keyCode) {
             case KeyEvent.VK_W:

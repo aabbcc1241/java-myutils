@@ -8,10 +8,10 @@ import java.awt.image.DataBufferInt;
 
 @SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
 public abstract class CanvasJFrame extends Canvas implements Runnable {
-    private static final double DEFAULT_NS_PER_TICK = 1e9D / 60D;
-    private static final double DEFAULT_NS_PER_RENDER = 1e9D / 30D;
-    private static final Color DEFAULT_BACKGROUND_COLOR = Color.black;
-    private static Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+    protected static final double DEFAULT_NS_PER_TICK = 1e9D / 60D;
+    protected static final double DEFAULT_NS_PER_RENDER = 1e9D / 30D;
+    protected static final Color DEFAULT_BACKGROUND_COLOR = Color.black;
+    protected static Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
     public Pixels screen;
@@ -22,13 +22,13 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     protected KeyHandler keyHandler;
     @SuppressWarnings("FieldCanBeLocal")
     protected JFrame frame;
+    protected double nsPerTick;
+    protected double nsPerRender;
     private boolean running = false;
     private long tickCount = 0;
     private int ticks = 0;
     private int renders = 0;
     private String TITLE;
-    private double nsPerTick;
-    private double nsPerRender;
     private double deltaTick = 0;
     private double deltaRender = 0;
     private BufferedImage image;
@@ -64,6 +64,10 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         graphics = bufferStrategy.getDrawGraphics();
         keyHandler = new KeyHandler(this);
         mouseHandler = new MouseHandler(this);
+    }
+
+    public CanvasJFrame(double widthRate, double heightRate, int scale, final String APP_NAME) {
+        this((int) Math.round(screenSize.getWidth() * widthRate), (int) Math.round(screenSize.getHeight() * heightRate), scale, APP_NAME, DEFAULT_NS_PER_TICK, DEFAULT_NS_PER_RENDER);
     }
 
     @Override

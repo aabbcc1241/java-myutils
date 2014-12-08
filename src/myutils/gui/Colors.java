@@ -2,6 +2,8 @@ package myutils.gui;
 
 import myutils.Utils;
 
+import java.awt.*;
+
 @SuppressWarnings("UnusedDeclaration")
 public class Colors {
     private static int get(double d) {
@@ -28,13 +30,13 @@ public class Colors {
         return new RGB(r, g, b);
     }
 
-    public static java.awt.Color getColor(RGB rgb) {
+    public static Color getColor(RGB rgb) {
         return new java.awt.Color(rgb.r, rgb.g, rgb.b);
     }
 
-    public static java.awt.Color getColor() {
+    public static Color getColor() {
         RGB rgb = new RGB();
-        return new java.awt.Color(rgb.r, rgb.g, rgb.b);
+        return new Color(rgb.r, rgb.g, rgb.b);
     }
 
     @SuppressWarnings("UnusedDeclaration")

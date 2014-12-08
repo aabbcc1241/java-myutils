@@ -15,7 +15,6 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
     public Pixels screen;
-    protected Color backGroundColor;
     protected int x, y, xPos, yPos;
     protected Graphics graphics;
     protected BufferStrategy bufferStrategy;
@@ -45,7 +44,6 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         this.nsPerRender = nsPerRender;
         this.nsPerTick = DEFAULT_NS_PER_TICK;
         this.nsPerRender = DEFAULT_NS_PER_RENDER;
-        backGroundColor = DEFAULT_BACKGROUND_COLOR;
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
@@ -100,6 +98,10 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
             }
         }
         System.exit(0);
+    }
+
+    protected void clearScreen() {
+        screen.clear(getBackground());
     }
 
     protected abstract void init();

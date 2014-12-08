@@ -2,6 +2,8 @@ package myutils.gui;
 
 import myutils.Vector2D;
 
+import java.awt.*;
+
 @SuppressWarnings("UnusedDeclaration")
 public class Pixels {
     private final int[] pixels;
@@ -40,6 +42,10 @@ public class Pixels {
     public void clear(int c) {
         for (int i = 0; i < pixels.length; i++)
             pixels[i] = c;
+    }
+
+    public void clear(Color backGroundColor) {
+        clear(backGroundColor.getRGB());
     }
 
     public void scrollX(int numTimesPressed) {
@@ -84,4 +90,6 @@ public class Pixels {
         v.x = x / canvasJFrame.SCALE - canvasJFrame.cx + xOffset;
         v.y = y / canvasJFrame.SCALE - canvasJFrame.cy + yOffset;
     }
+
+
 }

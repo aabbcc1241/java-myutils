@@ -62,9 +62,9 @@ class MySecureInfo {
         sshHost = "128.199.172.14";
         sshUsername = "beeno";
         sshPassword = "wpc1415";
-        portforwardLocalPort = 1234;
-        portforwardRemoteHost = "localhost";
-        portforwardRemotePort = 3306;
+        portForwardLocalPort = 1234;
+        portForwardRemoteHost = "localhost";
+        portForwardRemotePort = 3306;
         mysqlProtocol = "jdbc:mariadb";
         mysqlPort = portForwardLocalPort;
         mysqlUsername = "beeno";

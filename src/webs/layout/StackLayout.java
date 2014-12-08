@@ -201,15 +201,6 @@ class StackLayout implements LayoutManager {
         else
             ourSqueezeFactor = factor;
     }
-
-    /**
-     * Returns the percentage of a component's preferred size that it may be
-     * squeezed in order to attempt to fit all components into the layout.
-     */
-    public int getSqueezeFactor() {
-        return ourSqueezeFactor;
-    }
-
     // //// LayoutManager implementation //////
 
     /**

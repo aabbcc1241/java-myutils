@@ -108,10 +108,4 @@ public class CenterLayout_lobochief implements LayoutManager {
             child.setBounds(x, y, width, height);
         }
     }
-
-    private static CenterLayout_lobochief instance = new CenterLayout_lobochief();
-
-    public static CenterLayout_lobochief getInstance() {
-        return instance;
-    }
 }

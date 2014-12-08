@@ -43,9 +43,7 @@ class Display extends OutputStream {
         frame.pack();
         // frame.setSize(textArea.getWidth(), textArea.getHeight());
         // frame.setVisible(true);
-
         bufferString = new StringBuilder();
-
         clear();
         update();
     }

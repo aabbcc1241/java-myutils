@@ -134,7 +134,7 @@ public class MyDatabaseConnector {
     public static Vector<ResultSet> executeQuery_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
-        Vector<ResultSet> resultSets = new Vector<ResultSet>();
+        Vector<ResultSet> resultSets = new Vector<>();
         for (String sqlQuery : sqlQuerys)
             resultSets.add(executeQuery(sqlQuery));
         return resultSets;
@@ -143,7 +143,7 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuses = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<>();
         for (String sqlQuery : sqlQuerys)
             sqlStatuses.add(executeUpdate(sqlQuery));
         return sqlStatuses;
@@ -151,7 +151,7 @@ public class MyDatabaseConnector {
 
     public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
         checkConnection();
-        Vector<Boolean> hasResultSets = new Vector<Boolean>();
+        Vector<Boolean> hasResultSets = new Vector<>();
         for (String sqlQuery : sqlQuerys)
             hasResultSets.add(execute(sqlQuery));
         return hasResultSets;
@@ -160,7 +160,7 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuses = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<>();
         for (PreparedStatement preparedStatement : preparedStatements)
             sqlStatuses.add(executeUpdate(preparedStatement));
         return sqlStatuses;
@@ -169,7 +169,7 @@ public class MyDatabaseConnector {
     public static Vector<ResultSet> executeQuery_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
-        Vector<ResultSet> resultSets = new Vector<ResultSet>();
+        Vector<ResultSet> resultSets = new Vector<>();
         for (PreparedStatement preparedStatement : preparedStatements)
             resultSets.add(executeQuery(preparedStatement));
         return resultSets;
@@ -245,7 +245,7 @@ public class MyDatabaseConnector {
     }
 
     public static Vector<Object[]> resultSetToVectors(ResultSet resultSet) throws SQLException {
-        Vector<Object[]> vectors = new Vector<Object[]>();
+        Vector<Object[]> vectors = new Vector<>();
         while (resultSet.next()) {
             Object[] rowData = new Object[resultSet.getMetaData().getColumnCount()];
             for (int i = 0; i < rowData.length; i++)

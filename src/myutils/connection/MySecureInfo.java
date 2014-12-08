@@ -7,7 +7,6 @@ import java.sql.SQLException;
  */
 @SuppressWarnings({"FieldCanBeLocal", "CanBeFinal", "UnusedDeclaration"})
 class MySecureInfo {
-
     // digit ocean server
     public static boolean needPortForwarding = true;
     private static String sshHost = "128.199.172.14";
@@ -22,7 +21,6 @@ class MySecureInfo {
     private static String mysqlUsername = "beeno";
     private static String mysqlPassword = "wpc1415";
     private static String mysqlDatabaseName = "beeno";
-
     // local server
     // private static String mysqlProtocol = "jdbc:mysql";// jdbc:mariadb
     // private static int mysqlPort = 3306;

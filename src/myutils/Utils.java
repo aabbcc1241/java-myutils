@@ -11,7 +11,7 @@ public class Utils {
     public static Random random = new Random(System.currentTimeMillis());
 
     public static Vector<Object> getShuffled(Vector<Object> ori) {
-        Vector<Object> result = new Vector<Object>();
+        Vector<Object> result = new Vector<>();
         for (Object o : ori)
             result.add(o);
         int t;

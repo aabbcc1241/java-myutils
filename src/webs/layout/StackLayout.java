@@ -1,5 +1,4 @@
 package webs.layout;
-
 /*
  *  StackLayout.java
  *  2005-07-15
@@ -20,22 +19,18 @@ import java.awt.*;
 class StackLayout implements LayoutManager {
     private static final int HORIZONTAL = SwingConstants.HORIZONTAL;
     private static final int VERTICAL = SwingConstants.VERTICAL;
-
     private int ourOrientation = HORIZONTAL;
     private int ourSpacing = 0;
-
     private boolean ourDepthsMatched = true;
     private boolean ourLengthsMatched = false;
     private boolean ourFill = false;
     private boolean ourDrop = false;
-
     private int ourSqueezeFactor = 100;
 
     /**
      * Creates a new StackLayout with a horizontal orientation.
      */
     public StackLayout() {
-
     }
 
     /**
@@ -206,21 +201,18 @@ class StackLayout implements LayoutManager {
         else
             ourSqueezeFactor = factor;
     }
-
     // //// LayoutManager implementation //////
 
     /**
      * Adds the specified component with the specified name to this layout.
      */
     public void addLayoutComponent(String name, Component comp) {
-
     }
 
     /**
      * Removes the specified component from this layout.
      */
     public void removeLayoutComponent(Component comp) {
-
     }
 
     /**
@@ -231,7 +223,6 @@ class StackLayout implements LayoutManager {
         if (parent instanceof JToolBar) {
             setOrientation(((JToolBar) parent).getOrientation());
         }
-
         return preferredLayoutSize(parent, ourOrientation);
     }
 
@@ -244,20 +235,15 @@ class StackLayout implements LayoutManager {
         synchronized (parent.getTreeLock()) {
             Component[] comps = parent.getComponents();
             Dimension total = new Dimension(0, 0);
-
             int depth = calculatePreferredDepth(comps, orientation);
-
             int length = (ourLengthsMatched ? calculateAdjustedLength(comps,
                     orientation, ourSpacing) : calculatePreferredLength(comps,
                     orientation, ourSpacing));
-
             total.width = (orientation == HORIZONTAL ? length : depth);
             total.height = (orientation == HORIZONTAL ? depth : length);
-
             Insets in = parent.getInsets();
             total.width += in.left + in.right;
             total.height += in.top + in.bottom;
-
             return total;
         }
     }
@@ -271,21 +257,16 @@ class StackLayout implements LayoutManager {
             if (parent instanceof JToolBar) {
                 setOrientation(((JToolBar) parent).getOrientation());
             }
-
             Component[] comps = parent.getComponents();
             Dimension total = new Dimension(0, 0);
-
             int depth = calculatePreferredDepth(comps, ourOrientation);
             int length = calculateMinimumLength(comps, ourOrientation,
                     ourSpacing);
-
             total.width = (ourOrientation == HORIZONTAL ? length : depth);
             total.height = (ourOrientation == HORIZONTAL ? depth : length);
-
             Insets in = parent.getInsets();
             total.width += in.left + in.right;
             total.height += in.top + in.bottom;
-
             return total;
         }
     }
@@ -298,43 +279,34 @@ class StackLayout implements LayoutManager {
             if (parent instanceof JToolBar) {
                 setOrientation(((JToolBar) parent).getOrientation());
             }
-
             layoutComponents(parent);
-
         }
     }
 
     private void layoutComponents(Container parent) {
         Component[] components = parent.getComponents();
         Insets in = parent.getInsets();
-
         int maxHeight = parent.getHeight() - in.top - in.bottom;
         int maxWidth = parent.getWidth() - in.left - in.right;
         boolean horiz = (ourOrientation == HORIZONTAL);
-
         int totalDepth = calculatePreferredDepth(components, ourOrientation);
         totalDepth = Math.max(totalDepth, (horiz ? maxHeight : maxWidth));
-
         int prefLength = (ourLengthsMatched ? calculateAdjustedLength(
                 components, ourOrientation, ourSpacing)
                 : calculatePreferredLength(components, ourOrientation,
                 ourSpacing));
         int totalLength = Math.min(prefLength, (horiz ? maxWidth : maxHeight));
-
         int a = (horiz ? in.left : in.top);
         int b = (horiz ? in.top : in.left);
         int l = 0, d = 0, sum = 0;
         int matchedLength = 0;
         Dimension prefsize = null;
-
         if (ourLengthsMatched) {
             matchedLength = (horiz ? getMaxPrefWidth(components)
                     : getMaxPrefHeight(components));
-
             if (prefLength > totalLength && ourSqueezeFactor < 100) {
                 int minLength = calculateMinimumLength(components,
                         ourOrientation, ourSpacing);
-
                 if (minLength >= totalLength) {
                     matchedLength = (matchedLength * ourSqueezeFactor) / 100;
                 } else {
@@ -347,14 +319,12 @@ class StackLayout implements LayoutManager {
                 }
             }
         }
-
         for (int i = 0; i < components.length; i++) {
             prefsize = components[i].getPreferredSize();
             if (!ourLengthsMatched)
                 l = (horiz ? prefsize.width : prefsize.height);
             else
                 l = matchedLength;
-
             if (components[i] instanceof JSeparator) {
                 // l = Math.min(prefsize.width, prefsize.height);
                 l = (horiz ? prefsize.width : prefsize.height);
@@ -366,27 +336,22 @@ class StackLayout implements LayoutManager {
                 sum += l;
                 if (ourDrop && sum > totalLength)
                     l = 0;
-
                 else if (ourFill && !ourLengthsMatched
                         && i == components.length - 1) {
                     l = Math.max(l, (horiz ? maxWidth : maxHeight));
                 }
-
                 if (ourDepthsMatched)
                     d = totalDepth;
                 else
                     d = (horiz ? prefsize.height : prefsize.width);
             }
-
             if (horiz)
                 components[i].setBounds(a, b + (totalDepth - d) / 2, l, d);
             else
                 components[i].setBounds(b + (totalDepth - d) / 2, a, d, l);
-
             a += l + ourSpacing;
             sum += ourSpacing;
         }
-
     }
 
     /**
@@ -396,18 +361,14 @@ class StackLayout implements LayoutManager {
         int maxWidth = 0;
         int componentWidth = 0;
         Dimension d = null;
-
         for (int i = 0; i < components.length; i++) {
             d = components[i].getPreferredSize();
             componentWidth = d.width;
-
             if (components[i] instanceof JSeparator) {
                 componentWidth = Math.min(d.width, d.height);
             }
-
             maxWidth = Math.max(maxWidth, componentWidth);
         }
-
         return maxWidth;
     }
 
@@ -418,17 +379,14 @@ class StackLayout implements LayoutManager {
         int maxHeight = 0;
         int componentHeight = 0;
         Dimension d = null;
-
         for (int i = 0; i < components.length; i++) {
             d = components[i].getPreferredSize();
             componentHeight = d.height;
-
             if (components[i] instanceof JSeparator) {
                 componentHeight = Math.min(d.width, d.height);
             } else
                 maxHeight = Math.max(maxHeight, componentHeight);
         }
-
         return maxHeight;
     }
 
@@ -441,7 +399,6 @@ class StackLayout implements LayoutManager {
         int total = 0;
         int componentLength = (orientation == HORIZONTAL ? getMaxPrefWidth(components)
                 : getMaxPrefHeight(components));
-
         for (int i = 0; i < components.length; i++) {
             if (components[i] instanceof JSeparator) {
                 Dimension d = components[i].getPreferredSize();
@@ -450,10 +407,8 @@ class StackLayout implements LayoutManager {
             } else
                 total += componentLength;
         }
-
         int gaps = Math.max(0, spacing * (components.length - 1));
         total += gaps;
-
         return total;
     }
 
@@ -465,16 +420,12 @@ class StackLayout implements LayoutManager {
                                        int spacing) {
         if (!ourLengthsMatched)
             return calculatePreferredLength(components, orientation, spacing);
-
         if (ourSqueezeFactor == 100)
             return calculateAdjustedLength(components, orientation, spacing);
-
         int total = 0;
         int componentLength = (orientation == HORIZONTAL ? getMaxPrefWidth(components)
                 : getMaxPrefHeight(components));
-
         componentLength = (componentLength * ourSqueezeFactor) / 100;
-
         for (int i = 0; i < components.length; i++) {
             if (components[i] instanceof JSeparator) {
                 Dimension d = components[i].getPreferredSize();
@@ -483,10 +434,8 @@ class StackLayout implements LayoutManager {
             } else
                 total += componentLength;
         }
-
         int gaps = Math.max(0, spacing * (components.length - 1));
         total += gaps;
-
         return total;
     }
 
@@ -498,10 +447,8 @@ class StackLayout implements LayoutManager {
                                          int orientation, int spacing) {
         int total = 0;
         Dimension d = null;
-
         for (int i = 0; i < components.length; i++) {
             d = components[i].getPreferredSize();
-
             // if (components[i] instanceof JSeparator)
             // {
             // total += Math.min(d.width, d.height);
@@ -510,10 +457,8 @@ class StackLayout implements LayoutManager {
             // else
             total += (orientation == HORIZONTAL ? d.width : d.height);
         }
-
         int gaps = Math.max(0, spacing * (components.length - 1));
         total += gaps;
-
         return total;
     }
 
@@ -531,13 +476,10 @@ class StackLayout implements LayoutManager {
 
     private int countSeparators(Component[] components) {
         int count = 0;
-
         for (int i = 0; i < components.length; i++) {
             if (components[i] instanceof JSeparator)
                 count++;
         }
-
         return count;
     }
-
 }

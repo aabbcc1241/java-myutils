@@ -1,5 +1,4 @@
 package webs.layout;
-
 /*
  * $Id: DividerLayout.java,v 1.1.1.1 2005/04/07 18:36:20 pocho Exp $
  */
@@ -23,7 +22,6 @@ import java.awt.*;
  */
 @SuppressWarnings("ALL")
 class DividerLayout implements LayoutManager2 {
-
     /**
      * Indicates west component
      */
@@ -36,17 +34,14 @@ class DividerLayout implements LayoutManager2 {
      * indicates center component
      */
     private final static String CENTER = "CENTER";
-
     /**
      * west component
      */
     private Component westComponent;
-
     /**
      * center component
      */
     private Component centerComponent;
-
     /**
      * east component
      */
@@ -220,8 +215,7 @@ class DividerLayout implements LayoutManager2 {
 		 * insets.left - insets.right) / 2);
 		 */
         int maxWidth = (containerSize.width - centerBounds.width - insets.left - insets.right) / 2;
-
-		/*
+        /*
          * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
 		 * = Math.max(maxHeight, containerSize.height - insets.top -
 		 * insets.bottom);
@@ -236,5 +230,4 @@ class DividerLayout implements LayoutManager2 {
                     centerY - (maxHeight / 2), maxWidth, maxHeight);
         }
     }
-
 }

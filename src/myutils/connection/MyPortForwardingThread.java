@@ -17,7 +17,6 @@ class MyPortForwardingThread implements Runnable {
     private final int remotePort;
     @SuppressWarnings({"FieldCanBeLocal"})
     private int assignedPort;
-
     private Thread thread;
     private boolean alive = false;
 
@@ -44,17 +43,12 @@ class MyPortForwardingThread implements Runnable {
     private void connect() throws JSchException {
         JSch jsch = new JSch();
         Session session = jsch.getSession(user, host, 22);
-
         // username and password will be given via UserInfo interface.
         UserInfo ui = new MyUserInfo(password);
-
         session.setUserInfo(ui);
-
         session.connect();
-
         // Channel channel=session.openChannel("shell");
         // channel.connect();
-
         assignedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
     }
 
@@ -134,5 +128,4 @@ class MyPortForwardingThread implements Runnable {
             return null;
         }
     }
-
 }

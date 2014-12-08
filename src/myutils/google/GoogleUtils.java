@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class GoogleUtils {
     public static List<String> getContentFromGDoc(URL url) throws IOException {
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         String content = Utils.StringListToString(FileUtils.readFile(url), " ");
         int a, b;
         a = content.indexOf("-=-=-start-=-=-");
@@ -31,5 +31,4 @@ public class GoogleUtils {
         }
         return lines;
     }
-
 }

@@ -25,5 +25,4 @@ public class MyPortForwardInfo {
     public int getRemotePort() {
         return remotePort;
     }
-
 }

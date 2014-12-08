@@ -7,14 +7,19 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 @SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
-public abstract class CanvasShell extends Canvas implements Runnable {
+public abstract class CanvasJFrame extends Canvas implements Runnable {
     private final double DEFAULTnsPerTick;
     private final double DEFAULTnsPerRender;
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
     public Pixels screen;
-    protected int background = Colors.get(0, 0, 0);
+    protected int background = Colors.decode(0, 0, 0);
     protected int x, y, xPos, yPos;
+    protected Graphics graphics;
+    protected BufferStrategy bufferStrategy;
+    protected KeyHandler keyHandler;
+    @SuppressWarnings("FieldCanBeLocal")
+    protected JFrame frame;
     private boolean running = false;
     private long tickCount = 0;
     private int ticks = 0;
@@ -24,15 +29,10 @@ public abstract class CanvasShell extends Canvas implements Runnable {
     private double nsPerRender;
     private double deltaTick = 0;
     private double deltaRender = 0;
-    @SuppressWarnings("FieldCanBeLocal")
-    private JFrame frame;
-    private Graphics graphics;
-    private BufferStrategy bufferStrategy;
     private BufferedImage image;
-    private KeyHandler keyHandler;
     private MouseHandler mouseHandler;
 
-    public CanvasShell(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
+    public CanvasJFrame(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
         HEIGHT = height / scale;
         cx = WIDTH / 2f;
@@ -43,11 +43,9 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         this.DEFAULTnsPerRender = nsPerRender;
         this.nsPerTick = DEFAULTnsPerTick;
         this.nsPerRender = DEFAULTnsPerRender;
-
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
-
         frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -56,14 +54,11 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
-
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData(), this);
-
         createBufferStrategy(3);
         bufferStrategy = getBufferStrategy();
         graphics = bufferStrategy.getDrawGraphics();
-
         keyHandler = new KeyHandler(this);
         mouseHandler = new MouseHandler(this);
     }
@@ -102,21 +97,20 @@ public abstract class CanvasShell extends Canvas implements Runnable {
 
     protected abstract void init();
 
-    void tick() {
+    protected void tick() {
         tickCount++;
         defaultKeyHandling();
         defaultMouseHandling();
         myTick();
     }
 
-    void render() {
+    protected void render() {
         myRender();
-
         graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         bufferStrategy.show();
     }
 
-    void debugInfo() {
+    protected void debugInfo() {
         System.out.println(ticks + " TPS, " + renders + "FPS");
         myDebugInfo();
         ticks = renders = 0;
@@ -188,5 +182,4 @@ public abstract class CanvasShell extends Canvas implements Runnable {
         System.out.println("CanvasShell stop");
         running = false;
     }
-
 }

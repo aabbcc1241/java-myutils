@@ -6,7 +6,7 @@ import java.util.Vector;
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class RadioButtonGroup {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private final Vector<JRadioButton> buttons = new Vector<JRadioButton>();
+    private final Vector<JRadioButton> buttons = new Vector<>();
     private final ButtonGroup buttonGroup = new ButtonGroup();
 
     public void addButton(JRadioButton button) {

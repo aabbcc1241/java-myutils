@@ -1,5 +1,4 @@
 package webs.layout;
-
 /*
  * $Id: DividerLayout.java,v 1.1.1.1 2005/04/07 18:36:20 pocho Exp $
  */
@@ -21,35 +20,32 @@ import java.awt.*;
  * @version $Name: $ - $Revision: 1.1.1.1 $ - $Date: 2005/04/07 18:36:20 $
  *          Test
  */
-public class DividerLayout implements LayoutManager2 {
-
+@SuppressWarnings("ALL")
+class DividerLayout implements LayoutManager2 {
     /**
      * Indicates west component
      */
-    public final static String WEST = "WEST";
+    private final static String WEST = "WEST";
     /**
      * indicates east component
      */
-    public final static String EAST = "EAST";
+    private final static String EAST = "EAST";
     /**
      * indicates center component
      */
-    public final static String CENTER = "CENTER";
-
+    private final static String CENTER = "CENTER";
     /**
      * west component
      */
-    protected Component westComponent;
-
+    private Component westComponent;
     /**
      * center component
      */
-    protected Component centerComponent;
-
+    private Component centerComponent;
     /**
      * east component
      */
-    protected Component eastComponent;
+    private Component eastComponent;
 
     /**
      * Adds a component to specified position.
@@ -219,8 +215,7 @@ public class DividerLayout implements LayoutManager2 {
 		 * insets.left - insets.right) / 2);
 		 */
         int maxWidth = (containerSize.width - centerBounds.width - insets.left - insets.right) / 2;
-
-		/*
+        /*
          * int maxHeight = Math.min(westSize.height, eastSize.height); maxHeight
 		 * = Math.max(maxHeight, containerSize.height - insets.top -
 		 * insets.bottom);
@@ -235,5 +230,4 @@ public class DividerLayout implements LayoutManager2 {
                     centerY - (maxHeight / 2), maxWidth, maxHeight);
         }
     }
-
 }

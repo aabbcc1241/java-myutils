@@ -1,5 +1,4 @@
 package webs.layout;
-
 /*
  * JCommon : a free general purpose class library for the Java(tm) platform
  *
@@ -39,7 +38,7 @@ package webs.layout;
  * Changes (from 5-Nov-2001)
  * -------------------------
  * 05-Nov-2001 : Changed package to com.jrefinery.layout.* (DG);
- * 10-Oct-2002 : Fixed errors reported by Checkstyle (DG);
+ * 10-Oct-2002 : Fixed errors reported by CheckStyle (DG);
  *
  */
 
@@ -52,8 +51,8 @@ import java.io.Serializable;
  *
  * @author David Gilbert
  */
-public class CenterLayout implements LayoutManager, Serializable {
-
+@SuppressWarnings("ALL")
+class CenterLayout implements LayoutManager, Serializable {
     /**
      * For serialization.
      */
@@ -72,7 +71,6 @@ public class CenterLayout implements LayoutManager, Serializable {
      * @return the preferred size.
      */
     public Dimension preferredLayoutSize(final Container parent) {
-
         synchronized (parent.getTreeLock()) {
             final Insets insets = parent.getInsets();
             if (parent.getComponentCount() > 0) {
@@ -86,7 +84,6 @@ public class CenterLayout implements LayoutManager, Serializable {
                         + insets.bottom);
             }
         }
-
     }
 
     /**
@@ -96,7 +93,6 @@ public class CenterLayout implements LayoutManager, Serializable {
      * @return the minimum size.
      */
     public Dimension minimumLayoutSize(final Container parent) {
-
         synchronized (parent.getTreeLock()) {
             final Insets insets = parent.getInsets();
             if (parent.getComponentCount() > 0) {
@@ -109,7 +105,6 @@ public class CenterLayout implements LayoutManager, Serializable {
                         + insets.bottom);
             }
         }
-
     }
 
     /**
@@ -118,7 +113,6 @@ public class CenterLayout implements LayoutManager, Serializable {
      * @param parent the parent.
      */
     public void layoutContainer(final Container parent) {
-
         synchronized (parent.getTreeLock()) {
             if (parent.getComponentCount() > 0) {
                 final Insets insets = parent.getInsets();
@@ -135,7 +129,6 @@ public class CenterLayout implements LayoutManager, Serializable {
                         componentSize.height);
             }
         }
-
     }
 
     /**
@@ -175,5 +168,4 @@ public class CenterLayout implements LayoutManager, Serializable {
     public void removeLayoutComponent(final String name, final Component comp) {
         // not used
     }
-
 }

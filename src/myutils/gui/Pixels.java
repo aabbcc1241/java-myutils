@@ -2,11 +2,15 @@ package myutils.gui;
 
 import myutils.Vector2D;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Pixels {
-    protected static float DEFAULT_ZOOM_RATE = 1.05f;
-    public float scale, xOffset, yOffset;
-    public CanvasJFrame canvasJFrame;
-    protected int[] pixels;
+    private final int[] pixels;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final float DEFAULT_ZOOM_RATE = 1.05f;
+    private final CanvasJFrame canvasJFrame;
+    private float scale;
+    private float xOffset;
+    private float yOffset;
 
     Pixels(int[] p, CanvasJFrame canvasJFrame) {
         this.pixels = p;
@@ -14,20 +18,21 @@ public class Pixels {
         resetOffsetScale();
     }
 
-    public static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
+    @SuppressWarnings("SameParameterValue")
+    private static boolean inside(int x, int y, int xMin, int yMin, int xMax, int yMax) {
         return (x >= xMin) && (x <= xMax) && (y >= yMin) && (y <= yMax);
     }
 
     public void add(Vector2D l, int color) {
-        int ix = (int) Math.round((l.x + -xOffset) * scale + canvasJFrame.cx);
-        int iy = (int) Math.round((l.y - yOffset) * scale + canvasJFrame.cy);
+        int ix = Math.round((l.x + -xOffset) * scale + canvasJFrame.cx);
+        int iy = Math.round((l.y - yOffset) * scale + canvasJFrame.cy);
         if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
             pixels[ix + iy * canvasJFrame.WIDTH] = color;
     }
 
     public void add(float x, float y, int color) {
-        int ix = (int) Math.round((x + -xOffset) * scale + canvasJFrame.cx);
-        int iy = (int) Math.round((y - yOffset) * scale + canvasJFrame.cy);
+        int ix = Math.round((x + -xOffset) * scale + canvasJFrame.cx);
+        int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
         if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
             pixels[ix + iy * canvasJFrame.WIDTH] = color;
     }
@@ -49,7 +54,7 @@ public class Pixels {
         scale *= Math.pow(DEFAULT_ZOOM_RATE, r);
     }
 
-    protected void resetOffsetScale() {
+    void resetOffsetScale() {
         xOffset = 0;
         yOffset = 0;
         scale = 1;
@@ -79,5 +84,4 @@ public class Pixels {
         v.x = x / canvasJFrame.SCALE - canvasJFrame.cx + xOffset;
         v.y = y / canvasJFrame.SCALE - canvasJFrame.cy + yOffset;
     }
-
 }

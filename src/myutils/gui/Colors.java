@@ -2,17 +2,19 @@ package myutils.gui;
 
 import myutils.Utils;
 
-import java.awt.*;
-
+@SuppressWarnings("UnusedDeclaration")
 public class Colors {
     private static int get(double d) {
         return (int) Math.round(d * 255) & 255;
     }
 
-    public static int get(double r, double g, double b) {
-        // System.out.println("r:"+r+", g:"+g+", b:"+b+", res:"+(int)(get(r) <<
-        // 16 | get(g) << 8 | get(b)));
+    @SuppressWarnings("SameParameterValue")
+    public static int decode(double r, double g, double b) {
         return get(r) << 16 | get(g) << 8 | get(b);
+    }
+
+    public static int decode(int r, int g, int b) {
+        return r << 16 | g << 8 | b;
     }
 
     public static void decode(int rawCode, RGB rgbCode) {
@@ -29,18 +31,33 @@ public class Colors {
         return rgbCode;
     }
 
-    public static Color getRandomColor() {
-        float r = Utils.random.nextFloat();
-        float g = Utils.random.nextFloat();
-        float b = Utils.random.nextFloat();
-        return new Color(r, g, b);
+    public static java.awt.Color getColor(RGB rgb) {
+        return new java.awt.Color(rgb.r, rgb.g, rgb.b);
     }
 
+    public static java.awt.Color getColor() {
+        RGB rgb = new RGB();
+        return new java.awt.Color(rgb.r, rgb.g, rgb.b);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
     public static class RGB {
         public int r, g, b;
 
         public RGB() {
-            r = g = b = 0;
+            r = Utils.random.nextInt(256);
+            g = Utils.random.nextInt(256);
+            b = Utils.random.nextInt(256);
+        }
+
+        public RGB(int rgb) {
+            r = g = b = rgb;
+        }
+
+        public RGB(int r, int g, int b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
         }
 
         public void add(RGB rgb) {

@@ -1,11 +1,8 @@
 package myutils.exception;
 
+@SuppressWarnings("UnusedDeclaration")
 public class BlankOrNullException extends Exception {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    public String message;
+    private final String message;
 
     public BlankOrNullException(String msg) {
         message = msg;

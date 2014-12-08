@@ -7,52 +7,49 @@ import javax.swing.*;
 /**
  * @author beenotung
  */
-public class MyPortForwardingThread implements Runnable {
-    private String host;
-    private String user;
-    private String password;
-    private int lport;
-    private String rhost;
-    private int rport;
-
+@SuppressWarnings("UnusedDeclaration")
+class MyPortForwardingThread implements Runnable {
+    private final String host;
+    private final String user;
+    private final String password;
+    private final int localPort;
+    private final String remoteHost;
+    private final int remotePort;
+    @SuppressWarnings({"FieldCanBeLocal"})
+    private int assignedPort;
     private Thread thread;
     private boolean alive = false;
 
-    public MyPortForwardingThread(String host, String user, String password, int lport,
-                                  String rhost, int rport) {
+    public MyPortForwardingThread(String host, String user, String password, int localPort,
+                                  String remoteHost, int remotePort) {
         this.host = host;
         this.user = user;
         this.password = password;
-        this.lport = lport;
-        this.rhost = rhost;
-        this.rport = rport;
+        this.localPort = localPort;
+        this.remoteHost = remoteHost;
+        this.remotePort = remotePort;
     }
 
     public MyPortForwardingThread(MySSHInfo mySSHInfoForm,
-                                  MyPortforwardInfo myPortforwardInfoForm) {
+                                  MyPortForwardInfo myPortForwardInfoForm) {
         this.host = mySSHInfoForm.getHost();
         this.user = mySSHInfoForm.getUsername();
         this.password = mySSHInfoForm.getPassword();
-        this.lport = myPortforwardInfoForm.getLocalPort();
-        this.rhost = myPortforwardInfoForm.getRemoteHost();
-        this.rport = myPortforwardInfoForm.getRemotePort();
+        this.localPort = myPortForwardInfoForm.getLocalPort();
+        this.remoteHost = myPortForwardInfoForm.getRemoteHost();
+        this.remotePort = myPortForwardInfoForm.getRemotePort();
     }
 
     private void connect() throws JSchException {
         JSch jsch = new JSch();
         Session session = jsch.getSession(user, host, 22);
-
         // username and password will be given via UserInfo interface.
         UserInfo ui = new MyUserInfo(password);
-
         session.setUserInfo(ui);
-
         session.connect();
-
         // Channel channel=session.openChannel("shell");
         // channel.connect();
-
-        int assinged_port = session.setPortForwardingL(lport, rhost, rport);
+        assignedPort = session.setPortForwardingL(localPort, remoteHost, remotePort);
     }
 
     /**
@@ -69,6 +66,7 @@ public class MyPortForwardingThread implements Runnable {
             e.printStackTrace();
         }
         while (alive) {
+            //noinspection EmptyCatchBlock
             try {
                 thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -88,7 +86,7 @@ public class MyPortForwardingThread implements Runnable {
     }
 
     private static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
-        private String password;
+        private final String password;
 
         public MyUserInfo(String password) {
             this.password = password;
@@ -130,5 +128,4 @@ public class MyPortForwardingThread implements Runnable {
             return null;
         }
     }
-
 }

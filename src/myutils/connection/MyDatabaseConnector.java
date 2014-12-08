@@ -14,6 +14,7 @@ import java.util.Vector;
 /**
  * @author beenotung
  */
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class MyDatabaseConnector {
     private static MyPortForwardingThread portForwardingThread = null;
     private static Connection connection = null;
@@ -28,23 +29,23 @@ public class MyDatabaseConnector {
     /**
      * My Database connection methods init, connection, commit
      */
-    public static void checkConnection() throws SQLException {
+    private static void checkConnection() throws SQLException {
         if (connection == null)
             connect();
     }
 
-    public static void connect() throws SQLException {
+    private static void connect() throws SQLException {
         if ((portForwardingThread == null) && (MySecureInfo.needPortForwarding)) {
             portForwardingThread = new MyPortForwardingThread(
-                    MySecureInfo.getMySSHInfo(), MySecureInfo.getMyPortforwardInfo());
+                    MySecureInfo.getMySSHInfo(), MySecureInfo.getMyPortForwardInfo());
             portForwardingThread.start();
         }
         if (connection == null) {
             MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
             connection = DriverManager.getConnection(
                     mySqlServerInfoForm.getUrlWithoutDB(),
-                    mySqlServerInfoForm.getMysqlusername(),
-                    mySqlServerInfoForm.getMysqlpassword());
+                    mySqlServerInfoForm.getMysqlUsername(),
+                    mySqlServerInfoForm.getMysqlPassword());
         }
     }
 
@@ -83,28 +84,28 @@ public class MyDatabaseConnector {
     /**
      * My Database connection methods single execute
      */
-    public static ResultSet executeQuery(String sqlQuery) throws SQLException {
+    private static ResultSet executeQuery(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().executeQuery(sqlQuery);
     }
 
-    public static int executeUpdate(String sqlQuery) throws SQLException {
+    private static int executeUpdate(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().executeUpdate(sqlQuery);
     }
 
-    public static boolean execute(String sqlQuery) throws SQLException {
+    private static boolean execute(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().execute(sqlQuery);
     }
 
-    public static int executeUpdate(PreparedStatement preparedStatement)
+    private static int executeUpdate(PreparedStatement preparedStatement)
             throws SQLException {
         checkConnection();
         return preparedStatement.executeUpdate();
     }
 
-    public static ResultSet executeQuery(PreparedStatement preparedStatement)
+    private static ResultSet executeQuery(PreparedStatement preparedStatement)
             throws SQLException {
         checkConnection();
         return preparedStatement.executeQuery();
@@ -120,8 +121,6 @@ public class MyDatabaseConnector {
 
     /**
      * My Database connection methods batch (/vector) execute
-     *
-     * @throws ProcessingException
      */
     public static int[] executeBatch(ArrayList<String> sqlQuerys) throws SQLException {
         checkConnection();
@@ -135,7 +134,7 @@ public class MyDatabaseConnector {
     public static Vector<ResultSet> executeQuery_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
-        Vector<ResultSet> resultSets = new Vector<ResultSet>();
+        Vector<ResultSet> resultSets = new Vector<>();
         for (String sqlQuery : sqlQuerys)
             resultSets.add(executeQuery(sqlQuery));
         return resultSets;
@@ -144,15 +143,15 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_Strings(Vector<String> sqlQuerys)
             throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuss = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<>();
         for (String sqlQuery : sqlQuerys)
-            sqlStatuss.add(executeUpdate(sqlQuery));
-        return sqlStatuss;
+            sqlStatuses.add(executeUpdate(sqlQuery));
+        return sqlStatuses;
     }
 
     public static Vector<Boolean> execute(Vector<String> sqlQuerys) throws SQLException {
         checkConnection();
-        Vector<Boolean> hasResultSets = new Vector<Boolean>();
+        Vector<Boolean> hasResultSets = new Vector<>();
         for (String sqlQuery : sqlQuerys)
             hasResultSets.add(execute(sqlQuery));
         return hasResultSets;
@@ -161,16 +160,16 @@ public class MyDatabaseConnector {
     public static Vector<Integer> executeUpdate_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
-        Vector<Integer> sqlStatuss = new Vector<Integer>();
+        Vector<Integer> sqlStatuses = new Vector<>();
         for (PreparedStatement preparedStatement : preparedStatements)
-            sqlStatuss.add(executeUpdate(preparedStatement));
-        return sqlStatuss;
+            sqlStatuses.add(executeUpdate(preparedStatement));
+        return sqlStatuses;
     }
 
     public static Vector<ResultSet> executeQuery_PreparedStatements(
             Vector<PreparedStatement> preparedStatements) throws SQLException {
         checkConnection();
-        Vector<ResultSet> resultSets = new Vector<ResultSet>();
+        Vector<ResultSet> resultSets = new Vector<>();
         for (PreparedStatement preparedStatement : preparedStatements)
             resultSets.add(executeQuery(preparedStatement));
         return resultSets;
@@ -246,7 +245,7 @@ public class MyDatabaseConnector {
     }
 
     public static Vector<Object[]> resultSetToVectors(ResultSet resultSet) throws SQLException {
-        Vector<Object[]> vectors = new Vector<Object[]>();
+        Vector<Object[]> vectors = new Vector<>();
         while (resultSet.next()) {
             Object[] rowData = new Object[resultSet.getMetaData().getColumnCount()];
             for (int i = 0; i < rowData.length; i++)

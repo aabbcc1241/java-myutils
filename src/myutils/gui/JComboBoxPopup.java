@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-@SuppressWarnings({"serial", "rawtypes", "unchecked"})
-public class JComboBoxPopup extends JComboBox {
+@SuppressWarnings({"serial", "rawtypes", "unchecked", "UnusedDeclaration"})
+class JComboBoxPopup extends JComboBox {
     private boolean showing = false;
 
     public JComboBoxPopup(Object[] objects) {
@@ -45,16 +45,16 @@ public class JComboBoxPopup extends JComboBox {
             });
     }
 
-    public void showPopup(boolean toshow) {
-        if (toshow)
+    void showPopup(boolean toShow) {
+        if (toShow)
             showPopup();
         else
             hidePopup();
-        showing = toshow;
+        showing = toShow;
         System.out.println("showing: " + showing);
     }
 
-    public void switchPopup() {
+    void switchPopup() {
         if (showing)
             hidePopup();
         else

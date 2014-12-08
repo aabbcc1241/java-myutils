@@ -3,28 +3,27 @@ package myutils.gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+@SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class KeyHandler implements KeyListener {
-
-    public Key esc = new Key();
-    public Key up = new Key();
-    public Key down = new Key();
-    public Key left = new Key();
-    public Key right = new Key();
-    public Key pageup = new Key();
-    public Key pagedown = new Key();
-    public Key equal = new Key();
-    public Key add = new Key();
-    public Key subtract = new Key();
-    public Key q = new Key();
-    public Key e = new Key();
-    public Key c = new Key();
-    public Key x = new Key();
-    public Key openBracket = new Key();
-    public Key closeBracket = new Key();
-    public Key comma = new Key();
-    public Key period = new Key();
-
-    public Key r = new Key();
+    public final Key esc = new Key();
+    public final Key up = new Key();
+    public final Key down = new Key();
+    public final Key left = new Key();
+    public final Key right = new Key();
+    public final Key pageup = new Key();
+    public final Key pagedown = new Key();
+    public final Key equal = new Key();
+    public final Key add = new Key();
+    public final Key subtract = new Key();
+    public final Key q = new Key();
+    public final Key e = new Key();
+    public final Key c = new Key();
+    public final Key x = new Key();
+    public final Key openBracket = new Key();
+    public final Key closeBracket = new Key();
+    public final Key comma = new Key();
+    public final Key period = new Key();
+    public final Key r = new Key();
 
     public KeyHandler(CanvasJFrame canvasJFrame) {
         canvasJFrame.addKeyListener(this);

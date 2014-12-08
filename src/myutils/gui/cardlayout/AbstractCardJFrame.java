@@ -3,13 +3,11 @@ package myutils.gui.cardlayout;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractCardJFrame extends JFrame {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -1690280875210999260L;
-    public CardLayout cardLayout;
+    private final CardLayout cardLayout;
 
+    @SuppressWarnings("UnusedDeclaration")
     public AbstractCardJFrame(String title) {
         setVisible(false);
         setTitle(title);

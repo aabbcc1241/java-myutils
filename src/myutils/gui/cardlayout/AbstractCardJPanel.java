@@ -3,12 +3,9 @@ package myutils.gui.cardlayout;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractCardJPanel extends JPanel {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6243990180583440256L;
-    public CardLayout cardLayout;
+    private final CardLayout cardLayout;
 
     public AbstractCardJPanel() {
         cardLayout = new CardLayout();

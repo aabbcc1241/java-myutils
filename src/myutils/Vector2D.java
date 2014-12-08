@@ -1,5 +1,6 @@
 package myutils;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Vector2D {
     public float x;
     public float y;
@@ -33,29 +34,22 @@ public class Vector2D {
         return Math.sqrt(Math.pow(v1.x - v2.x, 2) + Math.pow(v1.y - v2.y, 2));
     }
 
-    public void setRandom() {
+    void setRandom() {
         double d = Utils.random.nextDouble() * 2 * Math.PI;
         x = (float) Math.cos(d);
         y = (float) Math.sin(d);
     }
 
-    public Vector2D clone(){
-        Vector2D result;
-        try {
-            result = (Vector2D) super
-                    .clone();
-        } catch (CloneNotSupportedException e) {
-            result = new Vector2D(x, y);
-        }
-        return result;
+    @SuppressWarnings({"CloneDoesntCallSuperClone", "CloneDoesntDeclareCloneNotSupportedException"})
+    public Vector2D clone() {
+        return new Vector2D(x, y);
     }
 
-
-    public float getMagnitude() {
+    float getMagnitude() {
         return (float) (Math.sqrt(x * x + y * y));
     }
 
-    public void setMagnitude(float d) {
+    void setMagnitude(float d) {
         if (getMagnitude() == 0) {
             setRandom();
             x *= d;

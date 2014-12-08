@@ -6,28 +6,31 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+@SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
 public abstract class CanvasJFrame extends Canvas implements Runnable {
-    protected static final long serialVersionUID = 1L;
-    protected final double DEFAULTnsPerTick, DEFAULTnsPerRender;
+    private final double DEFAULTnsPerTick;
+    private final double DEFAULTnsPerRender;
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
     public Pixels screen;
-    public KeyHandler keyHandler;
-    public MouseHandler mouseHandler;
-    protected boolean running = false;
-    protected long tickCount = 0;
-    protected int ticks = 0;
-    protected int renders = 0;
-    protected String TITLE;
-    protected double nsPerTick, nsPerRender;
-    protected double deltaTick = 0;
-    protected double deltaRender = 0;
-    protected int background = Colors.get(0, 0, 0);
-    protected JFrame frame;
+    protected int background = Colors.decode(0, 0, 0);
+    protected int x, y, xPos, yPos;
     protected Graphics graphics;
     protected BufferStrategy bufferStrategy;
-    protected BufferedImage image;
-    protected int x, y, xPos, yPos;
+    protected KeyHandler keyHandler;
+    @SuppressWarnings("FieldCanBeLocal")
+    protected JFrame frame;
+    private boolean running = false;
+    private long tickCount = 0;
+    private int ticks = 0;
+    private int renders = 0;
+    private String TITLE;
+    private double nsPerTick;
+    private double nsPerRender;
+    private double deltaTick = 0;
+    private double deltaRender = 0;
+    private BufferedImage image;
+    private MouseHandler mouseHandler;
 
     public CanvasJFrame(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
@@ -149,12 +152,12 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         }
         if (keyHandler.equal.pressed) {
             screen.resetOffsetScale();
-            resetnsPerTickRender();
+            resetNsPerTickRender();
         }
         myKeyHandling();
     }
 
-    protected void resetnsPerTickRender() {
+    void resetNsPerTickRender() {
         nsPerTick = DEFAULTnsPerTick;
         nsPerRender = DEFAULTnsPerRender;
     }
@@ -176,13 +179,13 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     protected abstract void myMouseHandling();
 
     public synchronized void start() {
-        System.out.println("CanvasJFrame start");
+        System.out.println("CanvasShell start");
         running = true;
         new Thread(this, TITLE + "-Thread").start();
     }
 
-    public void stop() {
-        System.out.println("CanvasJFrame stop");
+    void stop() {
+        System.out.println("CanvasShell stop");
         running = false;
     }
 

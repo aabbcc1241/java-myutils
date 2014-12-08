@@ -8,12 +8,14 @@ import java.awt.image.DataBufferInt;
 
 @SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
 public abstract class CanvasJFrame extends Canvas implements Runnable {
-    private final double DEFAULTnsPerTick;
-    private final double DEFAULTnsPerRender;
+    private static final double DEFAULT_NS_PER_TICK = 1e9D / 60D;
+    private static final double DEFAULT_NS_PER_RENDER = 1e9D / 30D;
+    private static final Color DEFAULT_BACKGROUND_COLOR = Color.black;
+    private static Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
     public int WIDTH, HEIGHT, SCALE;
     public float cx, cy;
     public Pixels screen;
-    protected int background = Colors.decode(0, 0, 0);
+    protected Color backGroundColor;
     protected int x, y, xPos, yPos;
     protected Graphics graphics;
     protected BufferStrategy bufferStrategy;
@@ -39,10 +41,11 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         cy = HEIGHT / 2f;
         SCALE = scale;
         TITLE = title;
-        this.DEFAULTnsPerTick = nsPerTick;
-        this.DEFAULTnsPerRender = nsPerRender;
-        this.nsPerTick = DEFAULTnsPerTick;
-        this.nsPerRender = DEFAULTnsPerRender;
+        this.nsPerTick = nsPerTick;
+        this.nsPerRender = nsPerRender;
+        this.nsPerTick = DEFAULT_NS_PER_TICK;
+        this.nsPerRender = DEFAULT_NS_PER_RENDER;
+        backGroundColor = DEFAULT_BACKGROUND_COLOR;
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
@@ -152,8 +155,8 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     }
 
     void resetNsPerTickRender() {
-        nsPerTick = DEFAULTnsPerTick;
-        nsPerRender = DEFAULTnsPerRender;
+        nsPerTick = DEFAULT_NS_PER_TICK;
+        nsPerRender = DEFAULT_NS_PER_RENDER;
     }
 
     private void defaultMouseHandling() {
@@ -182,4 +185,5 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         System.out.println("CanvasShell stop");
         running = false;
     }
+
 }

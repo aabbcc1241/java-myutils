@@ -59,6 +59,12 @@ class MySecureInfo {
     public static void switchToSSH() throws SQLException {
         needPortForwarding = true;
         MyDatabaseConnector.disconnect();
+        sshHost = "128.199.172.14";
+        sshUsername = "beeno";
+        sshPassword = "wpc1415";
+        portForwardLocalPort = 1234;
+        portForwardRemoteHost = "localhost";
+        portForwardRemotePort = 3306;
         mysqlProtocol = "jdbc:mariadb";
         mysqlPort = portForwardLocalPort;
         mysqlUsername = "beeno";

@@ -2,6 +2,8 @@ package myutils.gui;
 
 import myutils.Utils;
 
+import java.awt.*;
+
 @SuppressWarnings("UnusedDeclaration")
 public class Colors {
     private static int get(double d) {
@@ -9,35 +11,32 @@ public class Colors {
     }
 
     @SuppressWarnings("SameParameterValue")
-    public static int decode(double r, double g, double b) {
+    public static int getRawCode(double r, double g, double b) {
         return get(r) << 16 | get(g) << 8 | get(b);
     }
 
-    public static int decode(int r, int g, int b) {
+    public static int getRawCode(int r, int g, int b) {
         return r << 16 | g << 8 | b;
     }
 
-    public static void decode(int rawCode, RGB rgbCode) {
-        rgbCode.r = (rawCode >> 16) & 0xFF;
-        rgbCode.g = (rawCode >> 8) & 0xFF;
-        rgbCode.b = rawCode & 0xFF;
+    public static int getRawCode(RGB rgb) {
+        return getRawCode(rgb.r, rgb.g, rgb.b);
     }
 
-    public static RGB decode(int rawCode) {
-        RGB rgbCode = new RGB();
-        rgbCode.r = (rawCode >> 16) & 0xFF;
-        rgbCode.g = (rawCode >> 8) & 0xFF;
-        rgbCode.b = rawCode & 0xFF;
-        return rgbCode;
+    public static RGB getRGB(int rawCode) {
+        int r = (rawCode >> 16) & 0xFF;
+        int g = (rawCode >> 8) & 0xFF;
+        int b = rawCode & 0xFF;
+        return new RGB(r, g, b);
     }
 
-    public static java.awt.Color getColor(RGB rgb) {
+    public static Color getColor(RGB rgb) {
         return new java.awt.Color(rgb.r, rgb.g, rgb.b);
     }
 
-    public static java.awt.Color getColor() {
+    public static Color getColor() {
         RGB rgb = new RGB();
-        return new java.awt.Color(rgb.r, rgb.g, rgb.b);
+        return new Color(rgb.r, rgb.g, rgb.b);
     }
 
     @SuppressWarnings("UnusedDeclaration")

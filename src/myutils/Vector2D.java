@@ -1,5 +1,7 @@
 package myutils;
 
+import java.util.Vector;
+
 @SuppressWarnings("UnusedDeclaration")
 public class Vector2D {
     public float x;
@@ -95,5 +97,13 @@ public class Vector2D {
     public void multiply(float r) {
         x *= r;
         y *= r;
+    }
+
+    @Override
+    public String toString() {
+        Vector coordination = new Vector();
+        coordination.add(x);
+        coordination.add(y);
+        return coordination.toString();
     }
 }

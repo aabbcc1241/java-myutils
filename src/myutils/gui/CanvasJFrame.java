@@ -104,6 +104,10 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
         screen.clear(getBackground());
     }
 
+    protected void clearScreen(Color color) {
+        screen.clear(color);
+    }
+
     protected abstract void init();
 
     protected void tick() {

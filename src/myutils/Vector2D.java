@@ -36,6 +36,12 @@ public class Vector2D {
         return Math.sqrt(Math.pow(v1.x - v2.x, 2) + Math.pow(v1.y - v2.y, 2));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Vector2D other = (Vector2D) obj;
+        return (this.x == other.x) && (this.y == other.y);
+    }
+
     void setRandom() {
         double d = Utils.random.nextDouble() * 2 * Math.PI;
         x = (float) Math.cos(d);
@@ -47,11 +53,11 @@ public class Vector2D {
         return new Vector2D(x, y);
     }
 
-    float getMagnitude() {
+    public float getMagnitude() {
         return (float) (Math.sqrt(x * x + y * y));
     }
 
-    void setMagnitude(float d) {
+    public void setMagnitude(float d) {
         if (getMagnitude() == 0) {
             setRandom();
             x *= d;

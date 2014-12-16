@@ -23,6 +23,7 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     protected JFrame frame;
     protected double nsPerTick;
     protected double nsPerRender;
+    protected MouseHandler mouseHandler;
     private boolean running = false;
     private long tickCount = 0;
     private int ticks = 0;
@@ -31,7 +32,6 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     private double deltaTick = 0;
     private double deltaRender = 0;
     private BufferedImage image;
-    private MouseHandler mouseHandler;
 
     public CanvasJFrame(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
@@ -102,6 +102,10 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
 
     protected void clearScreen() {
         screen.clear(getBackground());
+    }
+
+    protected void clearScreen(Color color) {
+        screen.clear(color);
     }
 
     protected abstract void init();

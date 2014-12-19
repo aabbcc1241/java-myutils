@@ -7,25 +7,19 @@ import myutils.Vector2D;
  * Created by beenotung on 12/12/2014.
  */
 public class Graph {
-    public float xMin;
-    public float yMin;
-    public float xMax;
-    public float yMax;
+    public Range2D range2D;
 
-    private EdgeManager edgeManager;
-    private VertexManager vertexManager;
+    public EdgeManager edgeManager;
+    public VertexManager vertexManager;
 
-    public Graph(float xMin, float yMin, float xMax, float yMax) {
-        this.xMin = xMin;
-        this.yMin = yMin;
-        this.xMax = xMax;
-        this.yMax = yMax;
+    public Graph(Range2D range2D) {
+        this.range2D = range2D;
         vertexManager = new VertexManager();
         edgeManager = new EdgeManager();
     }
 
     public void newVertex() {
-        vertexManager.addVertex(new Vertex(new Vector2D(Utils.random.nextFloat(xMin, xMax), Utils.random.nextFloat(yMin, yMax))));
+        vertexManager.addVertex(new Vertex(new Vector2D(Utils.random.nextFloat(range2D.xMin, range2D.xMax), Utils.random.nextFloat(range2D.yMin, range2D.yMax))));
     }
 
     public void newEdge() {

@@ -25,4 +25,8 @@ public class VertexManager {
     public Vertex getRandomVertex() {
         return vertexes.get(Utils.random.nextInt(vertexes.size()));
     }
+
+    public void init() {
+        vertexes.removeAllElements();
+    }
 }

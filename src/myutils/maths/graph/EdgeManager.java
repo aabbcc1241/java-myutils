@@ -31,4 +31,8 @@ public class EdgeManager {
     public Edge getRandomEdge() {
         return edges.get(Utils.random.nextInt(edges.size()));
     }
+
+    public void init() {
+        edges.removeAllElements();
+    }
 }

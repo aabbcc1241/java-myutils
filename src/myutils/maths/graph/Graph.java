@@ -1,7 +1,6 @@
 package myutils.maths.graph;
 
 import myutils.Utils;
-import myutils.Vector2D;
 
 /**
  * Created by beenotung on 12/12/2014.

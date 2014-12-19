@@ -1,4 +1,6 @@
-package myutils;
+package myutils.maths;
+
+import myutils.Utils;
 
 import java.util.Vector;
 

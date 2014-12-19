@@ -1,7 +1,5 @@
 package myutils.maths.graph;
 
-import myutils.Vector2D;
-
 public class Vertex implements Cloneable {
     public Vector2D location;
 

@@ -8,16 +8,15 @@ public class Mouse {
     public Vector2D locationRelativeScaled = new Vector2D();
     public Vector2D locationOnScreenAbsolute = new Vector2D();
     public Vector2D locationRelativeAbsolute = new Vector2D();
+    public Vector2D locationRaw = new Vector2D();
     public boolean clicked = false;
-    @SuppressWarnings("FieldCanBeLocal")
-    private int x;
-    @SuppressWarnings("FieldCanBeLocal")
-    private int y;
+    //public int x;
+    //public int y;
     private int numTimesClicked = 0;
 
-    public void toggle(int xPos, int yPos, boolean isClicked, Pixels screen) {
-        x = xPos;
-        y = yPos;
+    public void toggle(int x, int y, boolean isClicked, Pixels screen) {
+        locationRaw.x = x;
+        locationRaw.y = y;
         screen.convertOnScreenScaled(locationOnScreenScaled, x, y);
         screen.convertRelativeScaled(locationRelativeScaled, x, y);
         screen.convertOnScreenAbsolute(locationOnScreenAbsolute, x, y);
@@ -27,6 +26,7 @@ public class Mouse {
     }
 
     public void reset() {
-        this.numTimesClicked = 0;
+        numTimesClicked = 0;
+        clicked = false;
     }
 }

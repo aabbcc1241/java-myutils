@@ -7,7 +7,11 @@ import org.lwjgl.system.MemoryUtil;
 
 import java.nio.ByteBuffer;
 
-public abstract class AbstractOpenGLApplication {
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_TRUE;
+import static org.lwjgl.opengl.GL11.glClear;
+
+public abstract class AbstractOpenGLApplication implements Runnable {
     protected final String WINDOW_TITLE = "My OpenGL Application";
     protected int WINDOW_WIDTH = 800;
     protected int WINDOW_HEIGHT = 600;
@@ -28,14 +32,14 @@ public abstract class AbstractOpenGLApplication {
     }
 
     public void init() {
-        GLFW.glfwSetErrorCallback(glfwErrorCallback = Callbacks.errorCallbackPrint(System.err));
-        if (GLFW.glfwInit() != GL11.GL_TRUE) throw new IllegalStateException("Failed to int GLFW");
+        glfwSetErrorCallback(glfwErrorCallback = Callbacks.errorCallbackPrint(System.err));
+        if (glfwInit() != GL11.GL_TRUE) throw new IllegalStateException("Failed to int GLFW");
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL11.GL_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_FALSE);
         if ((window = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, MemoryUtil.NULL, MemoryUtil.NULL)) == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create GLFW window");
-        GLFW.glfwSetKeyCallback(window, glfwKeyCallback = getDefaultGLFWKeyCallback());
+        GLFW.glfwSetKeyCallback(window, glfwKeyCallback = getGLFWKeyCallback());
         ByteBuffer videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         WINDOW_CX = (GLFWvidmode.width(videoMode) - WINDOW_WIDTH) / 2;
         WINDOW_CY = (GLFWvidmode.height(videoMode) - WINDOW_HEIGHT) / 2;
@@ -55,8 +59,8 @@ public abstract class AbstractOpenGLApplication {
             @Override
             public void invoke(long window, int key, int scanCode, int action, int mode) {
                 switch (key) {
-                    case GLFW.GLFW_KEY_ESCAPE:
-                        if (action == GLFW.GLFW_RELEASE) GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
+                    case GLFW_KEY_ESCAPE:
+                        if (action == GLFW_RELEASE) glfwSetWindowShouldClose(window, GL_TRUE);
                 }
             }
         };
@@ -72,7 +76,7 @@ public abstract class AbstractOpenGLApplication {
         long currentTime;
         deltaTick = 0;
         deltaRender = 0;
-        while (GLFW.glfwWindowShouldClose(window) == GL11.GL_FALSE) {
+        while (glfwWindowShouldClose(window) == GL11.GL_FALSE) {
             currentTime = System.nanoTime();
             deltaTick += (currentTime - lastTime) / nsPerTick;
             deltaRender += (currentTime - lastTime) / nsPerRender;
@@ -96,7 +100,7 @@ public abstract class AbstractOpenGLApplication {
 
     protected void tick() {
         ticking = true;
-        GLFW.glfwPollEvents();
+        glfwPollEvents();
         myTick();
         ticking = false;
     }
@@ -105,16 +109,16 @@ public abstract class AbstractOpenGLApplication {
 
     protected void render() {
         if (ticking) return;
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         myRender();
-        GLFW.glfwSwapBuffers(window);
+        glfwSwapBuffers(window);
     }
 
     protected abstract void myRender();
 
 
     public void end() {
-        GLFW.glfwTerminate();
+        glfwTerminate();
         glfwErrorCallback.release();
     }
 

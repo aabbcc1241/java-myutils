@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.glClear;
 
 public abstract class AbstractOpenGLApplication implements Runnable {
     protected final String WINDOW_TITLE = "My OpenGL Application";
@@ -52,7 +51,14 @@ public abstract class AbstractOpenGLApplication implements Runnable {
 
     protected abstract void myInit();
 
-    protected abstract GLFWKeyCallback getGLFWKeyCallback();
+    protected GLFWKeyCallback getGLFWKeyCallback() {
+        return new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scanCode, int action, int mode) {
+                keyInvoke(window, key, scanCode, action, mode);
+            }
+        };
+    }
 
     protected GLFWKeyCallback getDefaultGLFWKeyCallback() {
         return new GLFWKeyCallback() {
@@ -65,6 +71,8 @@ public abstract class AbstractOpenGLApplication implements Runnable {
             }
         };
     }
+
+    protected abstract void keyInvoke(long window, int key, int scanCode, int action, int mode);
 
     public void loop() {
         GLContext.createFromCurrent();
@@ -109,9 +117,7 @@ public abstract class AbstractOpenGLApplication implements Runnable {
 
     protected void render() {
         if (ticking) return;
-        glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         myRender();
-        glfwSwapBuffers(window);
     }
 
     protected abstract void myRender();

@@ -1,7 +1,6 @@
 package myutils.gui.opengl;
 
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWKeyCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -15,10 +14,6 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected float xRange, yRange, zRange;
     protected float cx, cy, cz;
     protected float vx, vy, vz;
-
-    protected void key_escape() {
-        GLFW.glfwSetWindowShouldClose(window, GL_TRUE);
-    }
 
     protected void keyInvoke(long window, int key, int scanCode, int action, int mode) {
         switch (key) {

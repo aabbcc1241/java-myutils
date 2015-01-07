@@ -1,5 +1,7 @@
 package myutils.maths.graph;
 
+import myutils.maths.Vector2D;
+
 public class Edge implements Comparable<Edge> {
     public Vertex srcVertex, destVertex;
     public Double distance;

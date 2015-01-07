@@ -1,5 +1,6 @@
 package myutils.gui.opengl;
 
+import myutils.Utils;
 import org.lwjgl.glfw.GLFW;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -15,12 +16,70 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected float xRange, yRange, zRange;
     protected float cx, cy, cz;
     protected float vx, vy, vz;
+    protected float zMin, zMax;
+    protected boolean zEquilateral;
 
     @Override
     protected void myInit() {
         cx = cy = cz = vx = vy = vz = 0f;
         xRange = yRange = zRange = 10f;
+        zMin = -1;
+        zMax = 10;
         scrollSpeed = DEFAULT_SCROLL_SPEED;
+        zEquilateral = false;
+    }
+
+    protected void renderSphere(float x, float y, float z, float r, float step, float min) {
+        float[] floatsBuffer = new float[3];
+        float sumBuffer = r * r;
+        glBegin(GL_POINTS);
+        //glBegin(GL_TRIANGLE_FAN);
+        for (floatsBuffer[0] = x - r; floatsBuffer[0] <= x + r; floatsBuffer[0] += step)
+            for (floatsBuffer[1] = y - r; floatsBuffer[1] <= y + r; floatsBuffer[1] += step)
+                for (floatsBuffer[2] = z - r; floatsBuffer[2] <= z + r; floatsBuffer[2] += step)
+                    if (Math.abs(floatsBuffer[0] * floatsBuffer[0]
+                                    + floatsBuffer[1] * floatsBuffer[1]
+                                    + floatsBuffer[2] * floatsBuffer[2] - sumBuffer
+                    ) <= min)
+                        glVertex3f(floatsBuffer[0], floatsBuffer[1], floatsBuffer[2]);
+        glEnd();
+    }
+
+
+    protected void renderSphere1(float x, float y, float z, float r, float step, float min) {
+        float[] floatsBuffer = new float[3];
+        float sumBuffer = r * r;
+        float s = 0.1f;
+        glBegin(GL_TRIANGLES);
+        while (step > 0) {
+            step--;
+            floatsBuffer[0] = x + r * Utils.random.nextFloat(-1, 1);
+            floatsBuffer[1] = y + r * Utils.random.nextFloat(-1, 1);
+            floatsBuffer[2] = z + r * Utils.random.nextFloat(-1, 1);
+            if (Math.abs(floatsBuffer[0] * floatsBuffer[0]
+                            + floatsBuffer[1] * floatsBuffer[1]
+                            + floatsBuffer[2] * floatsBuffer[2] - sumBuffer
+            ) <= min) {
+                glVertex3f(floatsBuffer[0] + s, floatsBuffer[1], floatsBuffer[2]);
+                glVertex3f(floatsBuffer[0], floatsBuffer[1] + s, floatsBuffer[2]);
+                glVertex3f(floatsBuffer[0], floatsBuffer[1], floatsBuffer[2] + s);
+            }
+        }
+        glEnd();
+    }
+
+    protected float getZRangeMin() {
+        if (zEquilateral)
+            return cz - zRange;
+        else
+            return cz - zMin;
+    }
+
+    protected float getZRangeMax() {
+        if (zEquilateral)
+            return cz + zRange;
+        else
+            return cz + zMax;
     }
 
     protected void keyInvoke(long window, int key, int scanCode, int action, int mode) {
@@ -117,16 +176,17 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
                     (cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
                     (cx + xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
                     cy - yRange, cy + yRange,
-                    cz - zRange, cz + zRange
+                    getZRangeMin(), getZRangeMax()
             );
         else
             glOrtho(
                     cx - xRange, cx + xRange,
                     (cy - yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
                     (cy + yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
-                    cz - zRange, cz + zRange
+                    getZRangeMin(), getZRangeMax()
             );
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
     }
+
 }

@@ -2,13 +2,12 @@ package myutils;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 import java.util.Vector;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Utils {
     @SuppressWarnings("CanBeFinal")
-    public static Random random = new Random(System.currentTimeMillis());
+    public static Randoms random = new Randoms();
 
     public static Vector<Object> getShuffled(Vector<Object> ori) {
         Vector<Object> result = new Vector<>();

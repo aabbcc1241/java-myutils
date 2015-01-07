@@ -3,6 +3,8 @@ package myutils.gui.opengl;
 import myutils.Utils;
 import org.lwjgl.glfw.GLFW;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -12,12 +14,17 @@ import static org.lwjgl.opengl.GL11.*;
 
 public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLApplication {
     protected final float DEFAULT_SCROLL_SPEED = 0.2f;
-    protected float scrollSpeed;
+    protected final float DEFAULT_ROLL_SPEED = 0.5f;
+    protected float scrollSpeed, rollSpeed;
     protected float xRange, yRange, zRange;
     protected float cx, cy, cz;
+    protected float cxr, cyr, czr;
     protected float vx, vy, vz;
+    protected float rvx, rvy, rvz;
     protected float zMin, zMax;
     protected boolean zEquilateral;
+    protected boolean isCameraOrtho;
+
 
     @Override
     protected void myInit() {
@@ -26,7 +33,27 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
         zMin = -1;
         zMax = 10;
         scrollSpeed = DEFAULT_SCROLL_SPEED;
+        rollSpeed = DEFAULT_ROLL_SPEED;
         zEquilateral = false;
+        isCameraOrtho = true;
+    }
+
+    protected void renderSphere(float x, float y, float z, float r, float step) {
+        float alpha, beta, nx, ny, nz;
+        double a, b;
+        //glBegin(GL_POINTS);
+        glBegin(GL_POINTS);
+        for (alpha = 0; alpha < 360; alpha += step) {
+            a = (alpha / 180 * Math.PI);
+            for (beta = -90; beta < 90; beta += step) {
+                b = (beta / 180 * Math.PI);
+                nx = (float) (x + cos(a) * cos(b) * r);
+                ny = (float) (x + cos(a) * sin(b) * r);
+                nz = (float) (x + sin(a) * r);
+                glVertex3f(nx, ny, nz);
+            }
+        }
+        glEnd();
     }
 
     protected void renderSphere(float x, float y, float z, float r, float step, float min) {
@@ -44,7 +71,6 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
                         glVertex3f(floatsBuffer[0], floatsBuffer[1], floatsBuffer[2]);
         glEnd();
     }
-
 
     protected void renderSphere1(float x, float y, float z, float r, float step, float min) {
         float[] floatsBuffer = new float[3];
@@ -147,6 +173,46 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
                         break;
                 }
                 break;
+            case GLFW_KEY_RIGHT:
+                switch (action) {
+                    case GLFW_PRESS:
+                        rvy = rollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        rvy = 0;
+                        break;
+                }
+                break;
+            case GLFW_KEY_LEFT:
+                switch (action) {
+                    case GLFW_PRESS:
+                        rvy = -rollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        rvy = 0;
+                        break;
+                }
+                break;
+            case GLFW_KEY_DOWN:
+                switch (action) {
+                    case GLFW_PRESS:
+                        rvx = rollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        rvx = 0;
+                        break;
+                }
+                break;
+            case GLFW_KEY_UP:
+                switch (action) {
+                    case GLFW_PRESS:
+                        rvx = -rollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        rvx = 0;
+                        break;
+                }
+                break;
             default:
                 myKeyInvoke(window, key, scanCode, action, mode);
                 break;
@@ -164,6 +230,9 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
         cx += vx;
         cy += vy;
         cz += vz;
+        cxr += rvx;
+        cyr += rvy;
+        czr += rvz;
     }
 
     @Override
@@ -171,15 +240,30 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
         glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        if (WINDOW_WIDTH > WINDOW_HEIGHT)
-            glOrtho(
+        if (isCameraOrtho)
+            if (WINDOW_WIDTH > WINDOW_HEIGHT)
+                glOrtho(
+                        (cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
+                        (cx + xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
+                        cy - yRange, cy + yRange,
+                        getZRangeMin(), getZRangeMax()
+                );
+            else
+                glOrtho(
+                        cx - xRange, cx + xRange,
+                        (cy - yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
+                        (cy + yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
+                        getZRangeMin(), getZRangeMax()
+                );
+        else if (WINDOW_WIDTH > WINDOW_HEIGHT)
+            glFrustum(
                     (cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
                     (cx + xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,
                     cy - yRange, cy + yRange,
                     getZRangeMin(), getZRangeMax()
             );
         else
-            glOrtho(
+            glFrustum(
                     cx - xRange, cx + xRange,
                     (cy - yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
                     (cy + yRange) * WINDOW_HEIGHT / WINDOW_WIDTH,
@@ -187,6 +271,10 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
             );
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
+        //glTranslatef(cx,cy,cz);
+        glRotatef(cxr, 1, 0, 0);
+        glRotatef(cyr, 0, 1, 0);
+        glRotatef(czr, 0, 0, 1);
     }
 
 }

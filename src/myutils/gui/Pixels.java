@@ -1,6 +1,6 @@
 package myutils.gui;
 
-import myutils.Vector2D;
+import myutils.maths.graph.Vector2D;
 
 import java.awt.*;
 

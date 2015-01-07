@@ -136,6 +136,7 @@ public abstract class AbstractOpenGLApplication implements Runnable {
         rendering = false;
     }
 
+
     protected abstract void reshape();
 
 

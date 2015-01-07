@@ -10,10 +10,18 @@ import static org.lwjgl.opengl.GL11.*;
  */
 
 public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLApplication {
-    protected float DEFAULT_SCROLL_SPEED = 0.2f;
+    protected final float DEFAULT_SCROLL_SPEED = 0.2f;
+    protected float scrollSpeed;
     protected float xRange, yRange, zRange;
     protected float cx, cy, cz;
     protected float vx, vy, vz;
+
+    @Override
+    protected void myInit() {
+        cx = cy = cz = vx = vy = vz = 0f;
+        xRange = yRange = zRange = 10f;
+        scrollSpeed = DEFAULT_SCROLL_SPEED;
+    }
 
     protected void keyInvoke(long window, int key, int scanCode, int action, int mode) {
         switch (key) {
@@ -23,17 +31,37 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
             case GLFW_KEY_W:
                 switch (action) {
                     case GLFW_PRESS:
-                        vy = -DEFAULT_SCROLL_SPEED;
+                        vz = scrollSpeed;
                         break;
                     case GLFW_RELEASE:
-                        vy = 0;
+                        vz = 0;
                         break;
                 }
                 break;
             case GLFW_KEY_S:
                 switch (action) {
                     case GLFW_PRESS:
-                        vy = DEFAULT_SCROLL_SPEED;
+                        vz = -scrollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        vz = 0;
+                        break;
+                }
+                break;
+            case GLFW_KEY_Q:
+                switch (action) {
+                    case GLFW_PRESS:
+                        vy = scrollSpeed;
+                        break;
+                    case GLFW_RELEASE:
+                        vy = 0;
+                        break;
+                }
+                break;
+            case GLFW_KEY_Z:
+                switch (action) {
+                    case GLFW_PRESS:
+                        vy = -scrollSpeed;
                         break;
                     case GLFW_RELEASE:
                         vy = 0;
@@ -43,7 +71,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
             case GLFW_KEY_A:
                 switch (action) {
                     case GLFW_PRESS:
-                        vx = -DEFAULT_SCROLL_SPEED;
+                        vx = -scrollSpeed;
                         break;
                     case GLFW_RELEASE:
                         vx = 0;
@@ -53,7 +81,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
             case GLFW_KEY_D:
                 switch (action) {
                     case GLFW_PRESS:
-                        vx = DEFAULT_SCROLL_SPEED;
+                        vx = scrollSpeed;
                         break;
                     case GLFW_RELEASE:
                         vx = 0;
@@ -83,6 +111,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected void reshape() {
         glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
         if (WINDOW_WIDTH > WINDOW_HEIGHT)
             glOrtho(
                     (cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT,

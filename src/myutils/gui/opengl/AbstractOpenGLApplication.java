@@ -59,7 +59,14 @@ public abstract class AbstractOpenGLApplication implements Runnable {
 
     protected abstract void myInit();
 
-    protected abstract GLFWKeyCallback getGLFWKeyCallback();
+    protected GLFWKeyCallback getGLFWKeyCallback() {
+        return new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scanCode, int action, int mode) {
+                keyInvoke(window, key, scanCode, action, mode);
+            }
+        };
+    }
 
     protected GLFWKeyCallback getDefaultGLFWKeyCallback() {
         return new GLFWKeyCallback() {
@@ -72,6 +79,8 @@ public abstract class AbstractOpenGLApplication implements Runnable {
             }
         };
     }
+
+    protected abstract void keyInvoke(long window, int key, int scanCode, int action, int mode);
 
     public void loop() {
         GLContext.createFromCurrent();

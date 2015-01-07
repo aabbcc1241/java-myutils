@@ -16,14 +16,8 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected float cx, cy, cz;
     protected float vx, vy, vz;
 
-    @Override
-    protected GLFWKeyCallback getGLFWKeyCallback() {
-        return new GLFWKeyCallback() {
-            @Override
-            public void invoke(long window, int key, int scanCode, int action, int mode) {
-                keyInvoke(window, key, scanCode, action, mode);
-            }
-        };
+    protected void key_escape() {
+        GLFW.glfwSetWindowShouldClose(window, GL_TRUE);
     }
 
     protected void keyInvoke(long window, int key, int scanCode, int action, int mode) {

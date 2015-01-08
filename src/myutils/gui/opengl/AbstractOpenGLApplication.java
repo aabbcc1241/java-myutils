@@ -36,9 +36,11 @@ public abstract class AbstractOpenGLApplication implements Runnable {
         if (glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Failed to int GLFW");
 
-        GLFW.glfwDefaultWindowHints();
+
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL11.GL_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_FALSE);
+        windowConfigure();
+
+
 
         if ((window = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, MemoryUtil.NULL, MemoryUtil.NULL)) == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create GLFW window");
@@ -55,6 +57,11 @@ public abstract class AbstractOpenGLApplication implements Runnable {
         GLFW.glfwShowWindow(window);
 
         myInit();
+    }
+
+    protected void windowConfigure() {
+        GLFW.glfwDefaultWindowHints();
+        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_FALSE);
     }
 
     protected abstract void myInit();

@@ -199,6 +199,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
 
     @Override
     protected void reshape() {
+        //TODO update width and height
         glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();

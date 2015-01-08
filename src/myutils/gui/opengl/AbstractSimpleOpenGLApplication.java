@@ -49,6 +49,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
                 nx = (float) (x + cos(a) * cos(b) * r);
                 ny = (float) (x + cos(a) * sin(b) * r);
                 nz = (float) (x + sin(a) * r);
+                //glColor3f(nx,ny,nz);
                 glVertex3f(nx, ny, nz);
             }
         }

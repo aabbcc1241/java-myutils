@@ -37,23 +37,64 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
         isCameraOrtho = true;
     }
 
-    protected void renderSphere(float x, float y, float z, float r, float step) {
+    protected void renderSpherePoint(float x, float y, float z, float r, float step) {
         float alpha, beta, nx, ny, nz;
         double a, b;
-        //glBegin(GL_POINTS);
         glBegin(GL_POINTS);
         for (alpha = 0; alpha < 360; alpha += step) {
             a = (alpha / 180 * Math.PI);
-            for (beta = -90; beta < 90; beta += step) {
+            for (beta = -90; beta <= 90; beta += step) {
                 b = (beta / 180 * Math.PI);
                 nx = (float) (x + cos(a) * cos(b) * r);
-                ny = (float) (x + cos(a) * sin(b) * r);
-                nz = (float) (x + sin(a) * r);
-                //glColor3f(nx,ny,nz);
+                ny = (float) (y + cos(a) * sin(b) * r);
+                nz = (float) (z + sin(a) * r);
                 glVertex3f(nx, ny, nz);
+                glVertex3f(nz, nx, ny);
+                glVertex3f(ny, nz, nx);
             }
         }
         glEnd();
+    }
+
+    protected void renderSphereLine(float x, float y, float z, float r, float step) {
+        float alpha, beta, nx, ny, nz;
+        double a, b;
+        for (alpha = 0; alpha < 360; alpha += step) {
+            glBegin(GL_LINE_STRIP);
+            a = (alpha / 180 * Math.PI);
+            for (beta = -90; beta <= 90; beta += step) {
+                b = (beta / 180 * Math.PI);
+                nx = (float) (x + cos(a) * cos(b) * r);
+                ny = (float) (y + cos(a) * sin(b) * r);
+                nz = (float) (z + sin(a) * r);
+                glVertex3f(nx, ny, nz);
+            }
+            glEnd();
+        }
+        for (alpha = 0; alpha < 360; alpha += step) {
+            glBegin(GL_LINE_STRIP);
+            a = (alpha / 180 * Math.PI);
+            for (beta = -90; beta <= 90; beta += step) {
+                b = (beta / 180 * Math.PI);
+                nx = (float) (x + cos(a) * cos(b) * r);
+                ny = (float) (y + cos(a) * sin(b) * r);
+                nz = (float) (z + sin(a) * r);
+                glVertex3f(nz, nx, ny);
+            }
+            glEnd();
+        }
+        for (alpha = 0; alpha < 360; alpha += step) {
+            glBegin(GL_LINE_STRIP);
+            a = (alpha / 180 * Math.PI);
+            for (beta = -90; beta <= 90; beta += step) {
+                b = (beta / 180 * Math.PI);
+                nx = (float) (x + cos(a) * cos(b) * r);
+                ny = (float) (y + cos(a) * sin(b) * r);
+                nz = (float) (z + sin(a) * r);
+                glVertex3f(ny, nz, nx);
+            }
+            glEnd();
+        }
     }
 
 

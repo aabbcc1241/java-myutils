@@ -18,30 +18,22 @@ import java.util.Vector;
 public class MyDatabaseConnector {
     private static MyPortForwardingThread portForwardingThread = null;
     private static Connection connection = null;
-
-    /**
-     * constructor *
-     */
-    public MyDatabaseConnector() throws SQLException {
-        connect();
-    }
+    private static MySqlServerInfo mySqlServerInfoForm = null;
 
     /**
      * My Database connection methods init, connection, commit
      */
+    public static void saveMySqlServerInfo(MySqlServerInfo mySqlServerInfoForm) {
+        MyDatabaseConnector.mySqlServerInfoForm = mySqlServerInfoForm;
+    }
+
     private static void checkConnection() throws SQLException {
         if (connection == null)
             connect();
     }
 
     private static void connect() throws SQLException {
-        if ((portForwardingThread == null) && (MySecureInfo.needPortForwarding)) {
-            portForwardingThread = new MyPortForwardingThread(
-                    MySecureInfo.getMySSHInfo(), MySecureInfo.getMyPortForwardInfo());
-            portForwardingThread.start();
-        }
         if (connection == null) {
-            MySqlServerInfo mySqlServerInfoForm = MySecureInfo.getMySqlServerInfo();
             connection = DriverManager.getConnection(
                     mySqlServerInfoForm.getUrlWithoutDB(),
                     mySqlServerInfoForm.getMysqlUsername(),

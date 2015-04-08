@@ -1,4 +1,6 @@
-package myutils.gui.opengl; /** * Created by beenotung on 1/2/15. */
+package myutils.gui.opengl; /**
+ * Created by beenotung on 1/2/15.
+ */
 
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL11;
@@ -39,7 +41,6 @@ public abstract class AbstractOpenGLApplication implements Runnable {
 
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL11.GL_FALSE);
         windowConfigure();
-
 
 
         if ((window = GLFW.glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, MemoryUtil.NULL, MemoryUtil.NULL)) == MemoryUtil.NULL)

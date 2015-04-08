@@ -185,12 +185,12 @@ class StackLayout implements LayoutManager {
      * squeezed in order to attempt to fit all components into the layout. The
      * squeeze factor will only be applied when this layout is set to match
      * component lengths.
-     * <p/>
+     * <p>
      * For example, if the parent container is 100 pixels wide and holds two
      * buttons, the largest having a preferred width of 80 pixels, a squeeze
      * factor of 50 will allow each button to be sized to as small as 40 pixels
      * wide (50 percent of the preferred width.
-     * <p/>
+     * <p>
      * The default value is 100.
      */
     public void setSqueezeFactor(int factor) {

@@ -18,6 +18,8 @@ import java.awt.*;
 /**
  * @version 1.32 2007-06-12
  * @author Cay Horstmann
+ * <p>
+ * A frame that shows buttons arranged along a circle.
  */
 /**
  * A frame that shows buttons arranged along a circle.

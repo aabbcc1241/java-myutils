@@ -84,7 +84,7 @@ public class MyDatabaseConnector {
     /**
      * My Database connection methods single execute
      */
-    private static ResultSet executeQuery(String sqlQuery) throws SQLException {
+    public static ResultSet executeQuery(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().executeQuery(sqlQuery);
     }
@@ -94,7 +94,7 @@ public class MyDatabaseConnector {
         return connection.createStatement().executeUpdate(sqlQuery);
     }
 
-    private static boolean execute(String sqlQuery) throws SQLException {
+    public static boolean execute(String sqlQuery) throws SQLException {
         checkConnection();
         return connection.createStatement().execute(sqlQuery);
     }

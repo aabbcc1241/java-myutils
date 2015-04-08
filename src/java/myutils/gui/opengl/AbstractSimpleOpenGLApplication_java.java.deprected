@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
  * Created by beenotung on 1/2/15.
  */
 
-public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLApplication {
+public abstract class AbstractSimpleOpenGLApplication_java extends AbstractOpenGLApplication {
     protected final float DEFAULT_SCROLL_SPEED = 0.2f;
     protected final float DEFAULT_ROLL_SPEED = 0.5f;
     protected float scrollSpeed, rollSpeed;
@@ -24,7 +24,7 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected boolean zEquilateral;
     protected boolean isCameraOrtho;
 
-    public AbstractSimpleOpenGLApplication(int WINDOW_WIDTH, int WINDOW_HEIGHT, String WINDOW_TITLE) {
+    public AbstractSimpleOpenGLApplication_java(int WINDOW_WIDTH, int WINDOW_HEIGHT, String WINDOW_TITLE) {
         super(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     }
 

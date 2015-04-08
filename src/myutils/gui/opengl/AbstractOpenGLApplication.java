@@ -13,9 +13,9 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public abstract class AbstractOpenGLApplication implements Runnable {
-    protected final String WINDOW_TITLE = "My OpenGL Application";
-    protected int WINDOW_WIDTH = 800;
-    protected int WINDOW_HEIGHT = 600;
+    protected int WINDOW_WIDTH;
+    protected int WINDOW_HEIGHT;
+    protected String WINDOW_TITLE;
     protected GLFWKeyCallback glfwKeyCallback;
     protected GLFWErrorCallback glfwErrorCallback;
     protected int WINDOW_CX, WINDOW_CY;
@@ -26,7 +26,10 @@ public abstract class AbstractOpenGLApplication implements Runnable {
     private float deltaTick = 0;
     private float deltaRender = 0;
 
-    public AbstractOpenGLApplication() {
+    public AbstractOpenGLApplication(int WINDOW_WIDTH, int WINDOW_HEIGHT, String WINDOW_TITLE) {
+        this.WINDOW_WIDTH = WINDOW_WIDTH;
+        this.WINDOW_HEIGHT = WINDOW_HEIGHT;
+        this.WINDOW_TITLE = WINDOW_TITLE;
         nsPerRender = 1e9f / 60f;
         nsPerTick = 1e9f / 30f;
         ticking = false;

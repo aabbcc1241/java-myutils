@@ -24,6 +24,10 @@ public abstract class AbstractSimpleOpenGLApplication extends AbstractOpenGLAppl
     protected boolean zEquilateral;
     protected boolean isCameraOrtho;
 
+    public AbstractSimpleOpenGLApplication(int WINDOW_WIDTH, int WINDOW_HEIGHT, String WINDOW_TITLE) {
+        super(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+    }
+
 
     @Override
     protected void myInit() {

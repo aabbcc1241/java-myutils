@@ -9,8 +9,24 @@ import org.lwjgl.opengl.GL11._
 /**
  * Created by beenotung on 4/8/15.
  */
-object SimpleOpenGL{
-  protected def renderSpherePoint(x: Float, y: Float, z: Float, r: Float, step: Float) {
+
+
+abstract class AbstractSimpleOpenGLApplication(
+                                                window_width: Int = 800,
+                                                width_height: Int = 600,
+                                                window_title: String = "My OpenGL Application",
+                                                nsPerTick: Float = 1e9f / 60f,
+                                                nsPerRender: Float = 1e9f / 30f,
+                                                debug_interval: Long = 1000L,
+                                                backgroundColors: Array[Float] = Array.fill[Float](4)(0f))
+  extends AbstractOpenGLApplication(window_width, width_height, window_title,
+    nsPerTick, nsPerRender, debug_interval,
+    backgroundColors) {
+  protected val DEFAULT_SCROLL_SPEED: Float = 0.2f
+  protected val DEFAULT_ROLL_SPEED: Float = 0.5f
+  protected var scrollSpeed: Float = .0f
+
+  def renderSpherePoint(x: Float, y: Float, z: Float, r: Float, step: Float) {
     var alpha: Float = .0f
     var beta: Float = .0f
     var nx: Float = .0f
@@ -38,7 +54,7 @@ object SimpleOpenGL{
     glEnd
   }
 
-  protected def renderSphereLine(x: Float, y: Float, z: Float, r: Float, step: Float) {
+  def renderSphereLine(x: Float, y: Float, z: Float, r: Float, step: Float) {
     var alpha: Float = .0f
     var beta: Float = .0f
     var nx: Float = .0f
@@ -98,11 +114,6 @@ object SimpleOpenGL{
       glEnd
     }
   }
-}
-abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT: Int, WINDOW_TITLE: String) extends AbstractOpenGLApplication(backgroundColors = Array.fill[Float](4)(0f)) {
-  protected val DEFAULT_SCROLL_SPEED: Float = 0.2f
-  protected val DEFAULT_ROLL_SPEED: Float = 0.5f
-  protected var scrollSpeed: Float = .0f
 
   protected var rollSpeed: Float = .0f
   protected var xRange: Float = .0f
@@ -156,13 +167,13 @@ abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT:
   }
 
   protected def getZRangeMin: Float = {
-    if (zEquilateral) return cz - zRange
-    else return cz - zMin
+    if (zEquilateral) cz - zRange
+    else cz - zMin
   }
 
   protected def getZRangeMax: Float = {
-    if (zEquilateral) return cz + zRange
-    else return cz + zMax
+    if (zEquilateral) cz + zRange
+    else cz + zMax
   }
 
   protected def keyInvoke(window: Long, key: Int, scanCode: Int, action: Int, mode: Int) {
@@ -171,70 +182,70 @@ abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT:
         key_escape
       case GLFW_KEY_W =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vz = scrollSpeed
           case GLFW_RELEASE =>
             vz = 0
         }
       case GLFW_KEY_S =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vz = -scrollSpeed
           case GLFW_RELEASE =>
             vz = 0
         }
       case GLFW_KEY_Q =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vy = scrollSpeed
           case GLFW_RELEASE =>
             vy = 0
         }
       case GLFW_KEY_Z =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vy = -scrollSpeed
           case GLFW_RELEASE =>
             vy = 0
         }
       case GLFW_KEY_A =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vx = -scrollSpeed
           case GLFW_RELEASE =>
             vx = 0
         }
       case GLFW_KEY_D =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             vx = scrollSpeed
           case GLFW_RELEASE =>
             vx = 0
         }
       case GLFW_KEY_RIGHT =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             rvy = rollSpeed
           case GLFW_RELEASE =>
             rvy = 0
         }
       case GLFW_KEY_LEFT =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             rvy = -rollSpeed
           case GLFW_RELEASE =>
             rvy = 0
         }
       case GLFW_KEY_DOWN =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             rvx = rollSpeed
           case GLFW_RELEASE =>
             rvx = 0
         }
       case GLFW_KEY_UP =>
         action match {
-          case GLFW_PRESS =>
+          case GLFW_PRESS | GLFW_REPEAT =>
             rvx = -rollSpeed
           case GLFW_RELEASE =>
             rvx = 0
@@ -260,13 +271,13 @@ abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT:
   }
 
   protected def reshape {
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+    glViewport(0, 0, window_width, width_height)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity
-    if (isCameraOrtho) if (WINDOW_WIDTH > WINDOW_HEIGHT) glOrtho((cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT, (cx + xRange) * WINDOW_WIDTH / WINDOW_HEIGHT, cy - yRange, cy + yRange, getZRangeMin, getZRangeMax)
-    else glOrtho(cx - xRange, cx + xRange, (cy - yRange) * WINDOW_HEIGHT / WINDOW_WIDTH, (cy + yRange) * WINDOW_HEIGHT / WINDOW_WIDTH, getZRangeMin, getZRangeMax)
-    else if (WINDOW_WIDTH > WINDOW_HEIGHT) glFrustum((cx - xRange) * WINDOW_WIDTH / WINDOW_HEIGHT, (cx + xRange) * WINDOW_WIDTH / WINDOW_HEIGHT, cy - yRange, cy + yRange, getZRangeMin, getZRangeMax)
-    else glFrustum(cx - xRange, cx + xRange, (cy - yRange) * WINDOW_HEIGHT / WINDOW_WIDTH, (cy + yRange) * WINDOW_HEIGHT / WINDOW_WIDTH, getZRangeMin, getZRangeMax)
+    if (isCameraOrtho) if (window_width > width_height) glOrtho((cx - xRange) * window_width / width_height, (cx + xRange) * window_width / width_height, cy - yRange, cy + yRange, getZRangeMin, getZRangeMax)
+    else glOrtho(cx - xRange, cx + xRange, (cy - yRange) * width_height / window_width, (cy + yRange) * width_height / window_width, getZRangeMin, getZRangeMax)
+    else if (window_width > width_height) glFrustum((cx - xRange) * window_width / width_height, (cx + xRange) * window_width / width_height, cy - yRange, cy + yRange, getZRangeMin, getZRangeMax)
+    else glFrustum(cx - xRange, cx + xRange, (cy - yRange) * width_height / window_width, (cy + yRange) * width_height / window_width, getZRangeMin, getZRangeMax)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity
     glRotatef(cxr, 1, 0, 0)

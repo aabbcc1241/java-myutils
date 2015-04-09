@@ -1,6 +1,7 @@
 package myutils.gui.opengl
 
 import java.nio.ByteBuffer
+import java.util.concurrent.Semaphore
 
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.{GLFWErrorCallback, GLFWKeyCallback, _}
@@ -14,20 +15,21 @@ import org.lwjgl.system.MemoryUtil
 
 /**
  *
- * @param WINDOW_WIDTH
- * @param WINDOW_HEIGHT
- * @param WINDOW_TITLE
+ * @param window_width
+ * @param window_height
+ * @param window_title
  * @param nsPerTick
  * @param nsPerRender
  * @param backgroundColors
  * Array[Float]=r,g,b,a
  * range 0..1
  */
-abstract class AbstractOpenGLApplication(protected var WINDOW_WIDTH: Int = 800,
-                                         protected var WINDOW_HEIGHT: Int = 600,
-                                         protected var WINDOW_TITLE: String = "My OpenGL Application",
-                                         protected var nsPerTick: Float = 1e9f / 60f,
-                                         protected var nsPerRender: Float = 1e9f / 30f,
+abstract class AbstractOpenGLApplication(protected var window_width: Int,
+                                         protected var window_height: Int,
+                                         protected var window_title: String,
+                                         protected var nsPerTick: Float,
+                                         protected var nsPerRender: Float,
+                                         protected var debug_interval: Long,
                                          protected var backgroundColors: Array[Float])
   extends Runnable {
   protected var glfwKeyCallback: GLFWKeyCallback = getGLFWKeyCallback
@@ -45,12 +47,12 @@ abstract class AbstractOpenGLApplication(protected var WINDOW_WIDTH: Int = 800,
     if (glfwInit != GL_TRUE) throw new IllegalStateException("Failed to int GLFW")
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE)
     windowConfigure
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, MemoryUtil.NULL, MemoryUtil.NULL)
+    window = glfwCreateWindow(window_width, window_height, window_title, MemoryUtil.NULL, MemoryUtil.NULL)
     if (window == MemoryUtil.NULL) throw new RuntimeException("Failed to create GLFW window")
     glfwSetKeyCallback(window, glfwKeyCallback)
     val videoMode: ByteBuffer = glfwGetVideoMode(glfwGetPrimaryMonitor)
-    WINDOW_CX = (GLFWvidmode.width(videoMode) - WINDOW_WIDTH) / 2
-    WINDOW_CY = (GLFWvidmode.height(videoMode) - WINDOW_HEIGHT) / 2
+    WINDOW_CX = (GLFWvidmode.width(videoMode) - window_width) / 2
+    WINDOW_CY = (GLFWvidmode.height(videoMode) - window_height) / 2
     glfwSetWindowPos(window, WINDOW_CX, WINDOW_CY)
     glfwMakeContextCurrent(window)
     glfwSwapInterval(1)
@@ -106,8 +108,8 @@ abstract class AbstractOpenGLApplication(protected var WINDOW_WIDTH: Int = 800,
         deltaRender = 0
         render
       }
-      if (System.currentTimeMillis - debugTime >= 1000) {
-        debugTime += 1000
+      if (System.currentTimeMillis - debugTime >= debug_interval) {
+        debugTime += debug_interval
         debugInfo
       }
     }
@@ -116,23 +118,23 @@ abstract class AbstractOpenGLApplication(protected var WINDOW_WIDTH: Int = 800,
   protected def debugInfo
 
   protected def tick {
-    if (rendering) return
-    ticking = true
+    semaphore.acquire
     glfwPollEvents
     myTick
-    ticking = false
+    semaphore.release
   }
 
   protected def myTick
 
+  val semaphore = new Semaphore(1)
+
   protected def render {
-    if (ticking) return
-    rendering = true
+    semaphore.acquire
     reshape
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     myRender
     glfwSwapBuffers(window)
-    rendering = false
+    semaphore.release
   }
 
   protected def reshape

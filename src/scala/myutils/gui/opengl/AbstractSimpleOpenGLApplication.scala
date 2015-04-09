@@ -9,62 +9,7 @@ import org.lwjgl.opengl.GL11._
 /**
  * Created by beenotung on 4/8/15.
  */
-abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT: Int, WINDOW_TITLE: String) extends AbstractOpenGLApplication(backgroundColors = Array.fill[Float](4)(0f)) {
-  protected val DEFAULT_SCROLL_SPEED: Float = 0.2f
-  protected val DEFAULT_ROLL_SPEED: Float = 0.5f
-  protected var scrollSpeed: Float = .0f
-
-  protected var rollSpeed: Float = .0f
-  protected var xRange: Float = .0f
-
-  protected var yRange: Float = .0f
-
-  protected var zRange: Float = .0f
-  protected var cx: Float = .0f
-
-  protected var cy: Float = .0f
-
-  protected var cz: Float = .0f
-  protected var cxr: Float = .0f
-
-  protected var cyr: Float = .0f
-
-  protected var czr: Float = .0f
-  protected var vx: Float = .0f
-
-  protected var vy: Float = .0f
-
-  protected var vz: Float = .0f
-  protected var rvx: Float = .0f
-
-  protected var rvy: Float = .0f
-
-  protected var rvz: Float = .0f
-  protected var zMin: Float = .0f
-
-  protected var zMax: Float = .0f
-  protected var zEquilateral: Boolean = false
-  protected var isCameraOrtho: Boolean = false
-
-
-  protected def myInit {
-    cx = 0f
-    cy = 0f
-    cz = 0f
-    vx = 0f
-    vy = 0f
-    vz = 0f
-    xRange = 10f
-    yRange = 10f
-    zRange = 10f
-    zMin = -1
-    zMax = 10
-    scrollSpeed = DEFAULT_SCROLL_SPEED
-    rollSpeed = DEFAULT_ROLL_SPEED
-    zEquilateral = false
-    isCameraOrtho = true
-  }
-
+object SimpleOpenGL{
   protected def renderSpherePoint(x: Float, y: Float, z: Float, r: Float, step: Float) {
     var alpha: Float = .0f
     var beta: Float = .0f
@@ -152,6 +97,62 @@ abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT:
       alpha += step
       glEnd
     }
+  }
+}
+abstract class AbstractSimpleOpenGLApplication(WINDOW_WIDTH: Int, WINDOW_HEIGHT: Int, WINDOW_TITLE: String) extends AbstractOpenGLApplication(backgroundColors = Array.fill[Float](4)(0f)) {
+  protected val DEFAULT_SCROLL_SPEED: Float = 0.2f
+  protected val DEFAULT_ROLL_SPEED: Float = 0.5f
+  protected var scrollSpeed: Float = .0f
+
+  protected var rollSpeed: Float = .0f
+  protected var xRange: Float = .0f
+
+  protected var yRange: Float = .0f
+
+  protected var zRange: Float = .0f
+  protected var cx: Float = .0f
+
+  protected var cy: Float = .0f
+
+  protected var cz: Float = .0f
+  protected var cxr: Float = .0f
+
+  protected var cyr: Float = .0f
+
+  protected var czr: Float = .0f
+  protected var vx: Float = .0f
+
+  protected var vy: Float = .0f
+
+  protected var vz: Float = .0f
+  protected var rvx: Float = .0f
+
+  protected var rvy: Float = .0f
+
+  protected var rvz: Float = .0f
+  protected var zMin: Float = .0f
+
+  protected var zMax: Float = .0f
+  protected var zEquilateral: Boolean = false
+  protected var isCameraOrtho: Boolean = false
+
+
+  protected def myInit {
+    cx = 0f
+    cy = 0f
+    cz = 0f
+    vx = 0f
+    vy = 0f
+    vz = 0f
+    xRange = 10f
+    yRange = 10f
+    zRange = 10f
+    zMin = -1
+    zMax = 10
+    scrollSpeed = DEFAULT_SCROLL_SPEED
+    rollSpeed = DEFAULT_ROLL_SPEED
+    zEquilateral = false
+    isCameraOrtho = true
   }
 
   protected def getZRangeMin: Float = {

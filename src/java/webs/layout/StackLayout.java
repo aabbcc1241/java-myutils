@@ -16,7 +16,7 @@ import java.awt.*;
  * @author Christopher Bach
  */
 @SuppressWarnings("ALL")
-class StackLayout implements LayoutManager {
+public class StackLayout implements LayoutManager {
     private static final int HORIZONTAL = SwingConstants.HORIZONTAL;
     private static final int VERTICAL = SwingConstants.VERTICAL;
     private int ourOrientation = HORIZONTAL;

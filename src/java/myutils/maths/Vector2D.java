@@ -4,7 +4,6 @@ import myutils.Utils;
 
 import java.util.Vector;
 
-@SuppressWarnings("UnusedDeclaration")
 public class Vector2D implements Cloneable {
     public float x;
     public float y;

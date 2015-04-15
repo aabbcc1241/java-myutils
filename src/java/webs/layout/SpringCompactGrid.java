@@ -42,7 +42,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @SuppressWarnings("ALL")
-class SpringCompactGrid {
+public class SpringCompactGrid {
     /**
      * Create the GUI and show it. For thread safety, this method should be
      * invoked from the event-dispatching thread.

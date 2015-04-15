@@ -21,7 +21,7 @@ import java.awt.*;
  *          Test
  */
 @SuppressWarnings("ALL")
-class DividerLayout implements LayoutManager2 {
+public class DividerLayout implements LayoutManager2 {
     /**
      * Indicates west component
      */

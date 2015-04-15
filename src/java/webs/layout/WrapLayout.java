@@ -7,7 +7,7 @@ import java.awt.*;
  * FlowLayout subclass that fully supports wrapping of components.
  */
 @SuppressWarnings("ALL")
-class WrapLayout extends FlowLayout {
+public class WrapLayout extends FlowLayout {
     @SuppressWarnings("unused")
     private Dimension preferredLayoutSize;
 

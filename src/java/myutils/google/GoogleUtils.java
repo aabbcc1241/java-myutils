@@ -1,7 +1,7 @@
 package myutils.google;
 
 import myutils.FileUtils;
-import myutils.Utils;
+import myutils.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +14,7 @@ import java.util.List;
 public class GoogleUtils {
     public static List<String> getContentFromGDoc(URL url) throws IOException {
         List<String> lines = new ArrayList<>();
-        String content = Utils.StringListToString(FileUtils.readFile(url), " ");
+        String content = CollectionUtils.StringListToString(FileUtils.readFile(url), " ");
         int a, b;
         a = content.indexOf("-=-=-start-=-=-");
         b = content.indexOf("-=-=-end-=-=-");

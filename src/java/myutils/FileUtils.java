@@ -2,14 +2,14 @@ package myutils;
 
 import myutils.google.GoogleUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.servlet.http.Cookie;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -33,12 +33,19 @@ public class FileUtils {
 
     public static String getStringFromUrlPlain(String url)
             throws IOException {
-        return Utils.StringListToString(FileUtils.readFile(new URL(url)), " ");
+        return CollectionUtils.StringListToString(FileUtils.readFile(new URL(url)), " ");
     }
 
     public static String getStringFromUrlGoogleWeb(String url)
             throws IOException {
-        return Utils.StringListToString(
+        return CollectionUtils.StringListToString(
                 GoogleUtils.getContentFromGDoc(new URL(url)), " ");
+    }
+
+    public static Set<Cookie> readCookie(File file) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+        Set<Cookie> result = (Set<Cookie>) in.readObject();
+        in.close();
+        return result;
     }
 }

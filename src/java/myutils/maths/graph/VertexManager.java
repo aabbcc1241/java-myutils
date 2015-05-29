@@ -1,6 +1,6 @@
 package myutils.maths.graph;
 
-import myutils.Utils;
+import myutils.CollectionUtils;
 
 import java.util.Vector;
 
@@ -23,7 +23,7 @@ public class VertexManager {
     }
 
     public Vertex getRandomVertex() {
-        return vertexes.get(Utils.random.nextInt(vertexes.size()));
+        return vertexes.get(CollectionUtils.random.nextInt(vertexes.size()));
     }
 
     public void init() {

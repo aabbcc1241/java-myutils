@@ -1,7 +1,7 @@
 package myutils.connection;
 
 import myutils.FileUtils;
-import myutils.Utils;
+import myutils.CollectionUtils;
 import myutils.gui.NonEditableTableModel;
 
 import javax.swing.table.DefaultTableModel;
@@ -68,7 +68,7 @@ public class MyDatabaseConnector {
     public static PreparedStatement getPreparedStatementFromSQLFile(String filename)
             throws IOException, SQLException {
         checkConnection();
-        String string = Utils.StringListToString(FileUtils.readFile(Paths.get(filename)),
+        String string = CollectionUtils.StringListToString(FileUtils.readFile(Paths.get(filename)),
                 " ");
         return connection.prepareStatement(string);
     }
@@ -106,7 +106,7 @@ public class MyDatabaseConnector {
     public static boolean executeSQLFile(String filename) throws IOException,
             SQLException {
         checkConnection();
-        String sqlQuery = Utils.StringListToString(
+        String sqlQuery = CollectionUtils.StringListToString(
                 FileUtils.readFile(Paths.get(filename)), " ");
         return execute(sqlQuery);
     }

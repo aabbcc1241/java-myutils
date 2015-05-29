@@ -1,6 +1,6 @@
 package myutils.maths;
 
-import myutils.Utils;
+import myutils.CollectionUtils;
 
 import java.util.Vector;
 
@@ -19,7 +19,7 @@ public class Vector2D implements Cloneable {
     }
 
     public static Vector2D getRandom() {
-        double d = Utils.random.nextDouble() * 2 * Math.PI;
+        double d = CollectionUtils.random.nextDouble() * 2 * Math.PI;
         float x = (float) Math.cos(d);
         float y = (float) Math.sin(d);
         return new Vector2D(x, y);
@@ -44,7 +44,7 @@ public class Vector2D implements Cloneable {
     }
 
     void setRandom() {
-        double d = Utils.random.nextDouble() * 2 * Math.PI;
+        double d = CollectionUtils.random.nextDouble() * 2 * Math.PI;
         x = (float) Math.cos(d);
         y = (float) Math.sin(d);
     }

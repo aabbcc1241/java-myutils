@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 @SuppressWarnings("UnusedDeclaration")
-public class Utils {
+public class CollectionUtils {
     @SuppressWarnings("CanBeFinal")
     public static Randoms random = new Randoms();
 

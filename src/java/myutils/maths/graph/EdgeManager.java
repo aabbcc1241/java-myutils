@@ -1,6 +1,6 @@
 package myutils.maths.graph;
 
-import myutils.Utils;
+import myutils.CollectionUtils;
 
 import java.util.Vector;
 
@@ -29,7 +29,7 @@ public class EdgeManager {
     }
 
     public Edge getRandomEdge() {
-        return edges.get(Utils.random.nextInt(edges.size()));
+        return edges.get(CollectionUtils.random.nextInt(edges.size()));
     }
 
     public void init() {

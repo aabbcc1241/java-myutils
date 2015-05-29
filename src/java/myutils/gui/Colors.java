@@ -1,6 +1,6 @@
 package myutils.gui;
 
-import myutils.Utils;
+import myutils.CollectionUtils;
 
 import java.awt.*;
 
@@ -44,9 +44,9 @@ public class Colors {
         public int r, g, b;
 
         public RGB() {
-            r = Utils.random.nextInt(256);
-            g = Utils.random.nextInt(256);
-            b = Utils.random.nextInt(256);
+            r = CollectionUtils.random.nextInt(256);
+            g = CollectionUtils.random.nextInt(256);
+            b = CollectionUtils.random.nextInt(256);
         }
 
         public RGB(int rgb) {

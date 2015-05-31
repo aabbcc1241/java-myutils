@@ -31,4 +31,16 @@ public class GoogleUtils {
         }
         return lines;
     }
+
+    public static String extractDocKey(String url) {
+        String key = url.substring(url.indexOf("/d/") + 3);
+        return key.split("/")[0];
+    }
+
+    public static String generateDocExportUrl(String key, String format) {
+        String docKey = key;
+        if (docKey.contains("/d/")) docKey = extractDocKey(docKey);
+        return "https://docs.google.com/spreadsheets/d/" + docKey + "/export?format=" + format + "&id=" + docKey;
+    }
+
 }

@@ -6,18 +6,9 @@ import java.util.Calendar;
  * Created by hkpu on 15/5/2015.
  */
 public class Debug {
-    private static final String BASE = "Error Code: ";
-    public static final String ERROR_CODE_FILE_READ = gen(1);
-    public static final String ERROR_MESSAGE_FILE_READ = "Failed to read from the file, please retry, or refer to the user manual " + ERROR_CODE_FILE_READ;
-    public static final String ERROR_CODE_FILE_WRITE = gen(2);
-    public static final String ERROR_MESSAGE_FILE_WRITE = "Failed to save to the file, please retry, or refer to the user manual " + ERROR_CODE_FILE_WRITE;
-
-    public static String gen(int code) {
-        String CODE = String.valueOf(code);
-        if (CODE.length() < 2)
-            CODE = "0" + CODE;
-        return "(" + BASE + CODE + ")";
-    }
+    public static final ErrorPair ERROR_PAIR_FILE_READ = ErrorPair.newErrorPair("Failed to read from the file.");
+    public static final ErrorPair ERROR_PAIR_FILE_WRITE = ErrorPair.newErrorPair("Failed to save to the file.");
+    public static final ErrorPair ERROR_PAIR_FILE_DOWNLOAD = ErrorPair.newErrorPair("Failed to download the file.");
 
     public static String MODE_DEBUG = "Debug Mode";
     public static String MODE_RELEASE = "Release Mode";
@@ -27,7 +18,8 @@ public class Debug {
         if (MODE == MODE_DEBUG)
             System.out.println(msg);
     }
-    public static void showMessage(String msg){
-        Debug.println(Calendar.getInstance().toInstant().toString()+"\t"+msg);
+
+    public static void showMessage(String msg) {
+        Debug.println(Calendar.getInstance().toInstant().toString() + "\t" + msg);
     }
 }

@@ -10,7 +10,7 @@ public class Debug {
     public static final String ERROR_CODE_FILE_READ = gen(1);
     public static final String ERROR_MESSAGE_FILE_READ = "Failed to read from the file, please retry, or refer to the user manual " + ERROR_CODE_FILE_READ;
     public static final String ERROR_CODE_FILE_WRITE = gen(2);
-    public static final String ERROR_MESSAGE_FILE_WRITE = "Failed to save to the file, please retry, or refer to the user manual " + ERROR_CODE_FILE_READ;
+    public static final String ERROR_MESSAGE_FILE_WRITE = "Failed to save to the file, please retry, or refer to the user manual " + ERROR_CODE_FILE_WRITE;
 
     public static String gen(int code) {
         String CODE = String.valueOf(code);

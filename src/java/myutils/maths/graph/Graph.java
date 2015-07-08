@@ -1,6 +1,6 @@
 package myutils.maths.graph;
 
-import myutils.Utils;
+import myutils.CollectionUtils;
 import myutils.maths.Vector2D;
 
 /**
@@ -20,7 +20,7 @@ public class Graph {
 
     public void newVertex() {
         vertexManager.addVertex(
-                new Vertex(new Vector2D(Utils.random.nextFloat((int) range2D.xMin, (int) range2D.xMax), Utils.random.nextFloat((int) range2D.yMin, (int) range2D.yMax))));
+                new Vertex(new Vector2D(CollectionUtils.random.nextFloat((int) range2D.xMin, (int) range2D.xMax), CollectionUtils.random.nextFloat((int) range2D.yMin, (int) range2D.yMax))));
     }
 
     public void newEdge() {

@@ -20,9 +20,18 @@ public class Debug {
     public static String MODE_RELEASE = "Release Mode";
     public static String MODE = MODE_DEBUG;
 
+    public static String getCurrentThreadTag() {
+        Thread currentThread = Thread.currentThread();
+        return "[Thread:" + currentThread.getName() + "-" + currentThread.getId() + "]";
+    }
+
     public static void logd(Object tag, Object o) {
         if (DISPLAY_LEVEL >= DEBUG)
             log(System.out, tag, o);
+    }
+
+    public static void logd(Object o) {
+        logd(getCurrentThreadTag(), o);
     }
 
     public static void loge(Object tag, Object o) {
@@ -30,10 +39,18 @@ public class Debug {
             log(System.err, tag, o);
     }
 
+    public static void loge(Object o) {
+        loge(getCurrentThreadTag(), o);
+    }
+
     public static void logw(Object tag, Object o) {
         if (DISPLAY_LEVEL >= RELEASE) {
             log(System.out, tag, o);
         }
+    }
+
+    public static void logw(Object o) {
+        logw(getCurrentThreadTag(), o);
     }
 
     public static void log(PrintStream printStream, Object tag, Object o) {

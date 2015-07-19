@@ -6,17 +6,17 @@ import java.awt.event.*;
 public class MouseHandler implements MouseListener, MouseMotionListener,
         MouseWheelListener {
     public final Mouse right = new Mouse();
-    public final CanvasJFrame canvasJFrame;
+    public final IterativeCanvas iterativeCanvas;
     public final Mouse mouseMoved = new Mouse();
     public final Mouse left = new Mouse();
     public final Mouse middle = new Mouse();
     public int amountScrolled = 0;
 
-    public MouseHandler(CanvasJFrame canvasJFrame) {
-        this.canvasJFrame = canvasJFrame;
-        canvasJFrame.addMouseListener(this);
-        canvasJFrame.addMouseMotionListener(this);
-        canvasJFrame.addMouseWheelListener(this);
+    public MouseHandler(IterativeCanvas iterativeCanvas) {
+        this.iterativeCanvas = iterativeCanvas;
+        iterativeCanvas.addMouseListener(this);
+        iterativeCanvas.addMouseMotionListener(this);
+        iterativeCanvas.addMouseWheelListener(this);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseMoved.toggle(e.getX(), e.getY(), true, canvasJFrame.screen);
+        mouseMoved.toggle(e.getX(), e.getY(), true, iterativeCanvas.screen);
     }
 
     @Override
@@ -58,13 +58,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener,
     private void toggle(int button, int x, int y, boolean isClicked) {
         switch (button) {
             case 1:
-                left.toggle(x, y, isClicked, canvasJFrame.screen);
+                left.toggle(x, y, isClicked, iterativeCanvas.screen);
                 break;
             case 2:
-                middle.toggle(x, y, isClicked, canvasJFrame.screen);
+                middle.toggle(x, y, isClicked, iterativeCanvas.screen);
                 break;
             case 3:
-                right.toggle(x, y, isClicked, canvasJFrame.screen);
+                right.toggle(x, y, isClicked, iterativeCanvas.screen);
                 break;
             default:
         }

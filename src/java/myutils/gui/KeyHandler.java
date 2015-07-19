@@ -25,8 +25,8 @@ public class KeyHandler implements KeyListener {
     public final Key period = new Key();
     public final Key r = new Key();
 
-    public KeyHandler(CanvasJFrame canvasJFrame) {
-        canvasJFrame.addKeyListener(this);
+    public KeyHandler(IterativeCanvas iterativeCanvas) {
+        iterativeCanvas.addKeyListener(this);
     }
 
     @Override

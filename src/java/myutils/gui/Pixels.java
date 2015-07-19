@@ -9,14 +9,14 @@ public class Pixels {
     private final int[] pixels;
     @SuppressWarnings("FieldCanBeLocal")
     private final float DEFAULT_ZOOM_RATE = 1.05f;
-    private final CanvasJFrame canvasJFrame;
+    private final IterativeCanvas iterativeCanvas;
     private float scale;
     private float xOffset;
     private float yOffset;
 
-    Pixels(int[] p, CanvasJFrame canvasJFrame) {
+    Pixels(int[] p, IterativeCanvas iterativeCanvas) {
         this.pixels = p;
-        this.canvasJFrame = canvasJFrame;
+        this.iterativeCanvas = iterativeCanvas;
         resetOffsetScale();
     }
 
@@ -26,17 +26,17 @@ public class Pixels {
     }
 
     public void add(Vector2D l, int color) {
-        int ix = Math.round((l.x + -xOffset) * scale + canvasJFrame.cx);
-        int iy = Math.round((l.y - yOffset) * scale + canvasJFrame.cy);
-        if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
-            pixels[ix + iy * canvasJFrame.WIDTH] = color;
+        int ix = Math.round((l.x + -xOffset) * scale + iterativeCanvas.cx);
+        int iy = Math.round((l.y - yOffset) * scale + iterativeCanvas.cy);
+        if (inside(ix, iy, 0, 0, iterativeCanvas.WIDTH - 1, iterativeCanvas.HEIGHT - 1))
+            pixels[ix + iy * iterativeCanvas.WIDTH] = color;
     }
 
     public void add(float x, float y, int color) {
-        int ix = Math.round((x + -xOffset) * scale + canvasJFrame.cx);
-        int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
-        if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
-            pixels[ix + iy * canvasJFrame.WIDTH] = color;
+        int ix = Math.round((x + -xOffset) * scale + iterativeCanvas.cx);
+        int iy = Math.round((y - yOffset) * scale + iterativeCanvas.cy);
+        if (inside(ix, iy, 0, 0, iterativeCanvas.WIDTH - 1, iterativeCanvas.HEIGHT - 1))
+            pixels[ix + iy * iterativeCanvas.WIDTH] = color;
     }
 
     public void clear(int c) {
@@ -72,23 +72,23 @@ public class Pixels {
     }
 
     public void convertOnScreenScaled(Vector2D v, int x, int y) {
-        v.x = x / scale - canvasJFrame.cx;
-        v.y = y / scale - canvasJFrame.cy;
+        v.x = x / scale - iterativeCanvas.cx;
+        v.y = y / scale - iterativeCanvas.cy;
     }
 
     public void convertRelativeScaled(Vector2D v, int x, int y) {
-        v.x = (x - canvasJFrame.cx) / scale + xOffset;
-        v.y = (y - canvasJFrame.cy) / scale + yOffset;
+        v.x = (x - iterativeCanvas.cx) / scale + xOffset;
+        v.y = (y - iterativeCanvas.cy) / scale + yOffset;
     }
 
     public void convertOnScreenAbsolute(Vector2D v, int x, int y) {
-        v.x = x - canvasJFrame.cx;
-        v.y = y - canvasJFrame.cy;
+        v.x = x - iterativeCanvas.cx;
+        v.y = y - iterativeCanvas.cy;
     }
 
     public void convertRelativeAbsolute(Vector2D v, int x, int y) {
-        v.x = x / canvasJFrame.SCALE - canvasJFrame.cx + xOffset;
-        v.y = y / canvasJFrame.SCALE - canvasJFrame.cy + yOffset;
+        v.x = x / iterativeCanvas.SCALE - iterativeCanvas.cx + xOffset;
+        v.y = y / iterativeCanvas.SCALE - iterativeCanvas.cy + yOffset;
     }
 
 

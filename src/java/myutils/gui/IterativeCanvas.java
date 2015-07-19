@@ -1,13 +1,12 @@
 package myutils.gui;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 @SuppressWarnings({"CanBeFinal", "UnusedDeclaration"})
-public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
+public abstract class IterativeCanvas extends Canvas implements Runnable {
     protected static final double DEFAULT_NS_PER_TICK = 1e9D / 60D;
     protected static final double DEFAULT_NS_PER_RENDER = 1e9D / 30D;
     protected static final Color DEFAULT_BACKGROUND_COLOR = Color.black;
@@ -20,7 +19,6 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
     protected BufferStrategy bufferStrategy;
     protected KeyHandler keyHandler;
     @SuppressWarnings("FieldCanBeLocal")
-    protected JFrame frame;
     protected double nsPerTick;
     protected double nsPerRender;
     protected MouseHandler mouseHandler;
@@ -28,19 +26,16 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
     private long tickCount = 0;
     private int ticks = 0;
     private int renders = 0;
-    private String TITLE;
     private double deltaTick = 0;
     private double deltaRender = 0;
     private BufferedImage image;
 
-    public CanvasJFrame(int width, int height, int scale, String title, double nsPerTick, double nsPerRender) {
-        super();
+    public IterativeCanvas(int width, int height, int scale, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
         HEIGHT = height / scale;
         cx = WIDTH / 2f;
         cy = HEIGHT / 2f;
         SCALE = scale;
-        TITLE = title;
         this.nsPerTick = nsPerTick;
         this.nsPerRender = nsPerRender;
         this.nsPerTick = DEFAULT_NS_PER_TICK;
@@ -48,14 +43,6 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
-        frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         screen = new Pixels(((DataBufferInt) image.getRaster().getDataBuffer()).getData(), this);
         createBufferStrategy(3);
@@ -65,8 +52,12 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
         mouseHandler = new MouseHandler(this);
     }
 
-    public CanvasJFrame(double widthRate, double heightRate, int scale, final String APP_NAME) {
-        this((int) Math.round(screenSize.getWidth() * widthRate), (int) Math.round(screenSize.getHeight() * heightRate), scale, APP_NAME, DEFAULT_NS_PER_TICK, DEFAULT_NS_PER_RENDER);
+    public IterativeCanvas(double widthRate, double heightRate, int scale) {
+        this((int) Math.round(screenSize.getWidth() * widthRate), (int) Math.round(screenSize.getHeight() * heightRate), scale, DEFAULT_NS_PER_TICK, DEFAULT_NS_PER_RENDER);
+    }
+
+    //for subclass convention
+    protected IterativeCanvas() {
     }
 
     @Override
@@ -189,7 +180,7 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
     public synchronized void start() {
         System.out.println("CanvasShell start");
         running = true;
-        new Thread(this, TITLE + "-Thread").start();
+        new Thread(this, getClass().getSimpleName() + "-Thread").start();
     }
 
     void stop() {

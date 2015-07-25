@@ -1,5 +1,7 @@
 package myutils.gui;
 
+import myutils.debug.Debug;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -125,7 +127,7 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
     }
 
     protected void debugInfo() {
-        System.out.println(ticks + " TPS, " + renders + "FPS");
+        logd(ticks + " TPS, " + renders + "FPS");
         myDebugInfo();
         ticks = renders = 0;
     }
@@ -187,14 +189,17 @@ public abstract class CanvasJFrame extends IterativeCanvas implements Runnable {
     protected abstract void myMouseHandling();
 
     public synchronized void start() {
-        System.out.println("CanvasShell start");
+        logd("CanvasShell start");
         running = true;
         new Thread(this, TITLE + "-Thread").start();
     }
 
-    void stop() {
-        System.out.println("CanvasShell stop");
+    public void stop() {
+        logd("CanvasShell stop");
         running = false;
     }
 
+    private void logd(Object o) {
+        Debug.logd(getClass().getSimpleName(), o);
+    }
 }

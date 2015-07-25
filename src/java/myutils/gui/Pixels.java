@@ -14,7 +14,7 @@ public class Pixels {
     private float xOffset;
     private float yOffset;
 
-    Pixels(int[] p, IterativeCanvas iterativeCanvas) {
+    public Pixels(int[] p, IterativeCanvas iterativeCanvas) {
         this.pixels = p;
         this.iterativeCanvas = iterativeCanvas;
         resetOffsetScale();

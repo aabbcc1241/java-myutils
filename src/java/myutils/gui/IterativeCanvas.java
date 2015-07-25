@@ -1,5 +1,7 @@
 package myutils.gui;
 
+import myutils.debug.Debug;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -11,7 +13,7 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
     protected static final double DEFAULT_NS_PER_RENDER = 1e9D / 30D;
     protected static final Color DEFAULT_BACKGROUND_COLOR = Color.black;
     protected static Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
-    public int WIDTH, HEIGHT, SCALE;
+    public int WIDTH, HEIGHT, SCALE = 1;
     public float cx, cy;
     public Pixels screen;
     protected int x, y, xPos, yPos;
@@ -19,8 +21,8 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
     protected BufferStrategy bufferStrategy;
     protected KeyHandler keyHandler;
     @SuppressWarnings("FieldCanBeLocal")
-    protected double nsPerTick;
-    protected double nsPerRender;
+    protected double nsPerTick = DEFAULT_NS_PER_TICK;
+    protected double nsPerRender = DEFAULT_NS_PER_RENDER;
     protected MouseHandler mouseHandler;
     private boolean running = false;
     private long tickCount = 0;
@@ -28,7 +30,7 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
     private int renders = 0;
     private double deltaTick = 0;
     private double deltaRender = 0;
-    private BufferedImage image;
+    protected BufferedImage image;
 
     public IterativeCanvas(int width, int height, int scale, double nsPerTick, double nsPerRender) {
         WIDTH = width / scale;
@@ -38,8 +40,6 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
         SCALE = scale;
         this.nsPerTick = nsPerTick;
         this.nsPerRender = nsPerRender;
-        this.nsPerTick = DEFAULT_NS_PER_TICK;
-        this.nsPerRender = DEFAULT_NS_PER_RENDER;
         setMinimumSize(new Dimension(WIDTH * SCALE / 2, HEIGHT * SCALE / 2));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE * 2, HEIGHT * SCALE * 2));
@@ -67,7 +67,7 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
         long current;
         long debugTimer = System.currentTimeMillis();
         boolean shouldRender = false;
-        while (running) {
+        while (running && !Thread.currentThread().isInterrupted()) {
             current = System.nanoTime();
             deltaTick += (current - last) / nsPerTick;
             deltaRender += (current - last) / nsPerRender;
@@ -89,7 +89,6 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
                 debugTimer += 1000;
             }
         }
-        System.exit(0);
     }
 
     protected void clearScreen() {
@@ -116,7 +115,7 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
     }
 
     protected void debugInfo() {
-        System.out.println(ticks + " TPS, " + renders + "FPS");
+        logd(ticks + " TPS, " + renders + "FPS");
         myDebugInfo();
         ticks = renders = 0;
     }
@@ -177,15 +176,26 @@ public abstract class IterativeCanvas extends Canvas implements Runnable {
 
     protected abstract void myMouseHandling();
 
+    protected Thread thread;
+
     public synchronized void start() {
-        System.out.println("CanvasShell start");
+        logd("CanvasShell start");
         running = true;
-        new Thread(this, getClass().getSimpleName() + "-Thread").start();
+        if (thread != null)
+            thread.interrupt();
+        thread = new Thread(this, getClass().getSimpleName() + "-Thread");
+        thread.start();
     }
 
-    void stop() {
-        System.out.println("CanvasShell stop");
+    public void stop() {
+        logd("CanvasShell stop");
         running = false;
+        if (thread != null)
+            thread.interrupt();
+    }
+
+    private void logd(Object o) {
+        Debug.logd(getClass().getSimpleName(), o);
     }
 
 }

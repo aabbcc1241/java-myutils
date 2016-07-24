@@ -7,8 +7,8 @@ import org.lwjgl.glfw.GLFW._
 import org.lwjgl.opengl.GL11._
 
 /**
- * Created by beenotung on 4/8/15.
- */
+  * Created by beenotung on 4/8/15.
+  */
 
 
 abstract class AbstractSimpleOpenGLApplication(

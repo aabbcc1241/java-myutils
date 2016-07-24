@@ -2,14 +2,14 @@ package myutils.exception;
 
 @SuppressWarnings("UnusedDeclaration")
 public class BlankOrNullException extends Exception {
-    private final String message;
+  private final String message;
 
-    public BlankOrNullException(String msg) {
-        message = msg;
-    }
+  public BlankOrNullException(String msg) {
+    message = msg;
+  }
 
-    @Override
-    public String toString() {
-        return message;
-    }
+  @Override
+  public String toString() {
+    return message;
+  }
 }

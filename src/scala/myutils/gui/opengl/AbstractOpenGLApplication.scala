@@ -10,20 +10,20 @@ import org.lwjgl.opengl.GLContext
 import org.lwjgl.system.MemoryUtil
 
 /**
- * Created by beenotung on 1/2/15.
- */
+  * Created by beenotung on 1/2/15.
+  */
 
 /**
- *
- * @param window_width
- * @param window_height
- * @param window_title
- * @param nsPerTick
- * @param nsPerRender
- * @param backgroundColors
- * Array[Float]=r,g,b,a
- * range 0..1
- */
+  *
+  * @param window_width
+  * @param window_height
+  * @param window_title
+  * @param nsPerTick
+  * @param nsPerRender
+  * @param backgroundColors
+  * Array[Float]=r,g,b,a
+  * range 0..1
+  */
 abstract class AbstractOpenGLApplication(protected var window_width: Int,
                                          protected var window_height: Int,
                                          protected var window_title: String,

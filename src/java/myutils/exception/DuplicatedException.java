@@ -2,18 +2,18 @@ package myutils.exception;
 
 @SuppressWarnings({"WeakerAccess", "UnusedDeclaration"})
 public class DuplicatedException extends Exception {
-    private final String message;
+  private final String message;
 
-    public DuplicatedException() {
-        message = "The record is Duplicated !";
-    }
+  public DuplicatedException() {
+    message = "The record is Duplicated !";
+  }
 
-    public DuplicatedException(String msg) {
-        message = msg;
-    }
+  public DuplicatedException(String msg) {
+    message = msg;
+  }
 
-    @Override
-    public String toString() {
-        return message;
-    }
+  @Override
+  public String toString() {
+    return message;
+  }
 }

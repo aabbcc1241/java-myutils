@@ -1,8 +1,8 @@
 package myutils.lang
 
 /**
- * Created by beenotung on 4/14/15.
- */
+  * Created by beenotung on 4/14/15.
+  */
 object Worker {
   def forkAndStart(op: => Unit): Thread = {
     val thread = fork(op)

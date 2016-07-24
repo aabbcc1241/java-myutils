@@ -1,8 +1,8 @@
 package myutils.lang
 
 /**
- * Created by beenotung on 4/9/15.
- */
+  * Created by beenotung on 4/9/15.
+  */
 object Timer {
   def setTimeInterval(callback: => Unit, shouldDo: => Boolean, time: Long) {
     Worker.forkAndStart({

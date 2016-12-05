@@ -31,6 +31,9 @@ public class KeyHandler implements KeyListener {
   public final Key c = new Key();
   public final Key x = new Key();
   public final Key m = new Key();
+  public final Key n = new Key();
+  public final Key j = new Key();
+  public final Key k = new Key();
   public final Key g = new Key();
   public final Key openBracket = new Key();
   public final Key closeBracket = new Key();
@@ -131,6 +134,15 @@ public class KeyHandler implements KeyListener {
         break;
       case KeyEvent.VK_M:
         m.toggle(isPressed);
+        break;
+      case KeyEvent.VK_N:
+        n.toggle(isPressed);
+        break;
+      case KeyEvent.VK_J:
+        j.toggle(isPressed);
+        break;
+      case KeyEvent.VK_K:
+        k.toggle(isPressed);
         break;
       case KeyEvent.VK_G:
         g.toggle(isPressed);

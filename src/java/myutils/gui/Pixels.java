@@ -33,6 +33,10 @@ public class Pixels {
       pixels[ix + iy * canvasJFrame.WIDTH] = color;
   }
 
+  public void add(float x, float y, Color color) {
+    add(x, y, color.getRGB());
+  }
+
   public void add(float x, float y, int color) {
     int ix = Math.round((x + -xOffset) * scale + canvasJFrame.cx);
     int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
@@ -60,6 +64,10 @@ public class Pixels {
       return pixels[ix + iy * canvasJFrame.WIDTH];
     else
       throw new InvalidParameterException();
+  }
+
+  public void clear() {
+    clear(canvasJFrame.getBackground());
   }
 
   public void clear(int c) {

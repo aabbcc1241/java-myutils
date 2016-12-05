@@ -106,15 +106,5 @@ public class CanvasTest {
     protected void myDebugInfo() {
 
     }
-
-    @Override
-    protected void myKeyHandling() {
-
-    }
-
-    @Override
-    protected void myMouseHandling() {
-
-    }
   }
 }

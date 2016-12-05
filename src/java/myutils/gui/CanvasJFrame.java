@@ -112,8 +112,8 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
 
   protected void tick() {
     tickCount++;
-    defaultKeyHandling();
-    defaultMouseHandling();
+    keyHandling();
+    mouseHandling();
     myTick();
   }
 
@@ -124,7 +124,6 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
   }
 
   protected void debugInfo() {
-    System.out.println(ticks + " TPS, " + renders + "FPS");
     myDebugInfo();
     ticks = renders = 0;
   }
@@ -133,9 +132,11 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
 
   protected abstract void myRender();
 
-  protected abstract void myDebugInfo();
+  protected void myDebugInfo() {
+    System.out.println(ticks + " TPS, " + renders + "FPS");
+  }
 
-  private void defaultKeyHandling() {
+  protected void keyHandling() {
     if (keyHandler.esc.pressed) {
       stop();
     }
@@ -161,7 +162,6 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
       screen.resetOffsetScale();
       resetNsPerTickRender();
     }
-    myKeyHandling();
   }
 
   void resetNsPerTickRender() {
@@ -169,7 +169,7 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     nsPerRender = DEFAULT_NS_PER_RENDER;
   }
 
-  private void defaultMouseHandling() {
+  protected void mouseHandling() {
     if (mouseHandler.right.clicked) {
       screen.setOffset(mouseHandler.right.locationRelativeScaled);
       mouseHandler.right.clicked = false;
@@ -178,12 +178,7 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
       screen.zoom(mouseHandler.amountScrolled);
       mouseHandler.amountScrolled = 0;
     }
-    myMouseHandling();
   }
-
-  protected abstract void myKeyHandling();
-
-  protected abstract void myMouseHandling();
 
   public synchronized void start() {
     System.out.println("CanvasShell start");
@@ -191,7 +186,7 @@ public abstract class CanvasJFrame extends Canvas implements Runnable {
     new Thread(this, TITLE + "-Thread").start();
   }
 
-  void stop() {
+  public void stop() {
     System.out.println("CanvasShell stop");
     running = false;
   }

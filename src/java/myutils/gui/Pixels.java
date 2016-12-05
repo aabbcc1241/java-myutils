@@ -3,6 +3,7 @@ package myutils.gui;
 import myutils.maths.Vector2D;
 
 import java.awt.*;
+import java.security.InvalidParameterException;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Pixels {
@@ -37,6 +38,28 @@ public class Pixels {
     int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
     if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
       pixels[ix + iy * canvasJFrame.WIDTH] = color;
+  }
+
+  public int get(float x, float y) {
+    int ix = Math.round((x + -xOffset) * scale + canvasJFrame.cx);
+    int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
+    if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
+      return pixels[ix + iy * canvasJFrame.WIDTH];
+    else
+      throw new InvalidParameterException();
+  }
+
+  public int cycle_get(float x, float y) {
+    while (x < 0) x += canvasJFrame.WIDTH;
+    while (y < 0) y += canvasJFrame.HEIGHT;
+    x %= canvasJFrame.WIDTH;
+    y %= canvasJFrame.HEIGHT;
+    int ix = Math.round((x + -xOffset) * scale + canvasJFrame.cx);
+    int iy = Math.round((y - yOffset) * scale + canvasJFrame.cy);
+    if (inside(ix, iy, 0, 0, canvasJFrame.WIDTH - 1, canvasJFrame.HEIGHT - 1))
+      return pixels[ix + iy * canvasJFrame.WIDTH];
+    else
+      throw new InvalidParameterException();
   }
 
   public void clear(int c) {

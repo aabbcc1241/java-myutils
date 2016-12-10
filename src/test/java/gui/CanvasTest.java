@@ -20,7 +20,8 @@ public class CanvasTest {
   }
 
   CanvasTest() throws IOException {
-    photo = ImageIO.read(new File("res/Mona_Lisa.jpg"));
+    System.out.println(System.getProperty("user.dir"));
+    photo = ImageIO.read(new File("src/test/resources/Mona_Lisa.jpg"));
     MainFrame mainFrame = new MainFrame(photo.getWidth(), photo.getHeight());
     mainFrame.start();
   }
